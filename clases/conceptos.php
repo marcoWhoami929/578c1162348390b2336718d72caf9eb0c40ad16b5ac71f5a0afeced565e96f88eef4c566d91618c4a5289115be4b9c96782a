@@ -35,7 +35,7 @@ class conceptos extends ConexionParametrosVenta
                 $sWhere .= " and CAST($tables.CCANALCOMERCIAL AS NVARCHAR(100)) = '" . str_replace('-', ' ', $search['CCANALCOMERCIAL']) . "'";
             }
         }
-        $sWhere .= "ORDER BY CIDPARAM DESC";
+        $sWhere .= "ORDER BY CIDPARAM ASC";
 
         $sql = "SELECT $campos FROM  $tables where $sWhere OFFSET $offset ROWS FETCH NEXT $per_page ROWS ONLY";
 

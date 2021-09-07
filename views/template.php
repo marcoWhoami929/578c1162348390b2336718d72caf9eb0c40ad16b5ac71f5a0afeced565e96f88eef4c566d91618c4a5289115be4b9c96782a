@@ -29,6 +29,16 @@ session_start();
     <link rel="stylesheet" type="text/css" href="views/css/style.css">
     <!-- Select.css -->
     <link rel="stylesheet" type="text/css" href="views/css/select.css">
+    <!-- tagsinput.css -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css" rel="stylesheet" type="text/css" crossorigin="anonymous" />
+    <!-- go diagram -->
+    <?php
+    if ($_GET["ruta"] == "dashboard2") {
+        echo " <link rel='stylesheet' type='text/css' href='views/assets/css/style.css'>";
+    } else {
+    }
+
+    ?>
     <!--- Datatable css-->
     <!---<link rel="stylesheet" type="text/css" href="views/css/datatable/datatable.css">-->
 
@@ -56,8 +66,30 @@ session_start();
     <script src="views/js/select.js"></script>
     <!-- shortcut.js -->
     <script src="views/js/shortcut.js"></script>
-    <!-- ventana centrada.js -->
-    <script src="views/js/ventanaCentrada.js"></script>
+    <!-- forms actions.js -->
+    <script src="views/js/formsActions.js"></script>
+    <!-- highcharts -->
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/data.js"></script>
+    <script src="https://code.highcharts.com/modules/drilldown.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <!-- tags input -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.js"></script>
+
+
+
+    <!-- go diagram-->
+    <?php
+    if ($_GET["ruta"] == "dashboard2") {
+        echo "<script src='views/assets/js/goSamples.js'></script>";
+        echo "<script src='views/assets/js/go.js'></script>";
+    } else {
+    }
+
+    ?>
+
     <!-- Datatable js-->
     <!--<script src="views/js/datatable/datatable.js"></script>-->
 
@@ -150,6 +182,15 @@ session_start();
     ?>
     <!-- JS PERSONALIZADO -->
     <script src="views/js/template.js"></script>
+    <?php
+    if ($_GET["ruta"] == "dashboard") {
+        echo "<script src='views/js/chart.js'></script>";
+        echo "<script src='views/js/indicadoresDashboard.js'></script>";
+    } else {
+    }
+
+    ?>
+
 
 </body>
 

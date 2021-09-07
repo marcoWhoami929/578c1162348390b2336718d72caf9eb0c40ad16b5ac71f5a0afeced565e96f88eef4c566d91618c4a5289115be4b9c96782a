@@ -6,18 +6,21 @@ if ($action == 'ventasProductoMonto') {
     $database = new detalleVentas();
     //Recibir variables enviadas
     $query = strip_tags($_REQUEST['query']);
+    $vista = strip_tags($_REQUEST['vista']);
     $año = strip_tags($_REQUEST['anio']);
+    $estatus = strip_tags($_REQUEST['estatus']);
     $canal = strip_tags($_REQUEST['canal']);
     $agente = strip_tags($_REQUEST['agente']);
-    $cliente = strip_tags($_REQUEST['cliente']);
+    $producto = strip_tags($_REQUEST['producto']);
     $per_page = intval($_REQUEST['per_page']);
-    $tables = "dbo.admMovimientos";
+
+    $tables = "dbo.admDocumentos";
     $campos = "*";
     //Variables de paginación
     $page = (isset($_REQUEST['page']) && !empty($_REQUEST['page'])) ? $_REQUEST['page'] : 1;
     $adjacents  = 4; //espacio entre páginas después del número de adyacentes
     $offset = ($page - 1) * $per_page;
-    $search = array("query" => $query, "año" => $año, "canal" => $canal, "agente" => $agente, "cliente" => $cliente, "per_page" => $per_page, "offset" => $offset);
+    $search = array("query" => $query, "producto" => $producto, "año" => $año, "estatus" => $estatus, "canal" => $canal, "agente" => $agente, "per_page" => $per_page, "offset" => $offset);
     //consulta principal para recuperar los datos
     $datos = $database->getVentasProductoMonto($tables, $campos, $search);
 
@@ -114,19 +117,19 @@ if ($action == 'ventasProductoMonto') {
                     <tr>
                         <th>Total General</th>
                         <th></th>
-                        <th style="font-weight:bold">$<?= number_format($mes1, 2) ?></th>
-                        <th style="font-weight:bold">$<?= number_format($mes2, 2) ?></th>
-                        <th style="font-weight:bold">$<?= number_format($mes3, 2) ?></th>
-                        <th style="font-weight:bold">$<?= number_format($mes4, 2) ?></th>
-                        <th style="font-weight:bold">$<?= number_format($mes5, 2) ?></th>
-                        <th style="font-weight:bold">$<?= number_format($mes6, 2) ?></th>
-                        <th style="font-weight:bold">$<?= number_format($mes7, 2) ?></th>
-                        <th style="font-weight:bold">$<?= number_format($mes8, 2) ?></th>
-                        <th style="font-weight:bold">$<?= number_format($mes9, 2) ?></th>
-                        <th style="font-weight:bold">$<?= number_format($mes10, 2) ?></th>
-                        <th style="font-weight:bold">$<?= number_format($mes11, 2) ?></th>
-                        <th style="font-weight:bold">$<?= number_format($mes12, 2) ?></th>
-                        <th style="font-weight:bold">$<?= number_format($mesTotales, 2) ?></th>
+                        <th style="font-weight:bold;text-align:right">$<?= number_format($mes1, 2) ?></th>
+                        <th style="font-weight:bold;text-align:right">$<?= number_format($mes2, 2) ?></th>
+                        <th style="font-weight:bold;text-align:right">$<?= number_format($mes3, 2) ?></th>
+                        <th style="font-weight:bold;text-align:right">$<?= number_format($mes4, 2) ?></th>
+                        <th style="font-weight:bold;text-align:right">$<?= number_format($mes5, 2) ?></th>
+                        <th style="font-weight:bold;text-align:right">$<?= number_format($mes6, 2) ?></th>
+                        <th style="font-weight:bold;text-align:right">$<?= number_format($mes7, 2) ?></th>
+                        <th style="font-weight:bold;text-align:right">$<?= number_format($mes8, 2) ?></th>
+                        <th style="font-weight:bold;text-align:right">$<?= number_format($mes9, 2) ?></th>
+                        <th style="font-weight:bold;text-align:right">$<?= number_format($mes10, 2) ?></th>
+                        <th style="font-weight:bold;text-align:right">$<?= number_format($mes11, 2) ?></th>
+                        <th style="font-weight:bold;text-align:right">$<?= number_format($mes12, 2) ?></th>
+                        <th style="font-weight:bold;text-align:right">$<?= number_format($mesTotales, 2) ?></th>
                     </tr>
                 </tfoot>
 
@@ -142,7 +145,7 @@ if ($action == 'ventasProductoMonto') {
 
             include '../clases/pagination.php'; //include pagination class
             $pagination = new Pagination($page, $total_pages, $adjacents);
-            echo $pagination->paginateVentasProductoMonto();
+            echo $pagination->paginateVentasProductoMonto($vista);
 
             ?>
         </div>
@@ -156,18 +159,21 @@ if ($action == 'ventasProductoUnidades') {
     $database = new detalleVentas();
     //Recibir variables enviadas
     $query = strip_tags($_REQUEST['query']);
+    $vista = strip_tags($_REQUEST['vista']);
     $año = strip_tags($_REQUEST['anio']);
+    $estatus = strip_tags($_REQUEST['estatus']);
     $canal = strip_tags($_REQUEST['canal']);
     $agente = strip_tags($_REQUEST['agente']);
-    $cliente = strip_tags($_REQUEST['cliente']);
+    $producto = strip_tags($_REQUEST['producto']);
     $per_page = intval($_REQUEST['per_page']);
-    $tables = "dbo.admMovimientos";
+
+    $tables = "dbo.admDocumentos";
     $campos = "*";
     //Variables de paginación
     $page = (isset($_REQUEST['page']) && !empty($_REQUEST['page'])) ? $_REQUEST['page'] : 1;
     $adjacents  = 4; //espacio entre páginas después del número de adyacentes
     $offset = ($page - 1) * $per_page;
-    $search = array("query" => $query, "año" => $año, "canal" => $canal, "agente" => $agente, "cliente" => $cliente, "per_page" => $per_page, "offset" => $offset);
+    $search = array("query" => $query, "producto" => $producto, "año" => $año, "estatus" => $estatus, "canal" => $canal, "agente" => $agente, "per_page" => $per_page, "offset" => $offset);
     //consulta principal para recuperar los datos
     $datos = $database->getVentasProductoUnidades($tables, $campos, $search);
 
@@ -264,19 +270,19 @@ if ($action == 'ventasProductoUnidades') {
                     <tr>
                         <th>Total General</th>
                         <th></th>
-                        <th style="font-weight:bold">#<?= $mes1 ?></th>
-                        <th style="font-weight:bold">#<?= $mes2 ?></th>
-                        <th style="font-weight:bold">#<?= $mes3 ?></th>
-                        <th style="font-weight:bold">#<?= $mes4 ?></th>
-                        <th style="font-weight:bold">#<?= $mes5 ?></th>
-                        <th style="font-weight:bold">#<?= $mes6 ?></th>
-                        <th style="font-weight:bold">#<?= $mes7 ?></th>
-                        <th style="font-weight:bold">#<?= $mes8 ?></th>
-                        <th style="font-weight:bold">#<?= $mes9 ?></th>
-                        <th style="font-weight:bold">#<?= $mes10 ?></th>
-                        <th style="font-weight:bold">#<?= $mes11 ?></th>
-                        <th style="font-weight:bold">#<?= $mes12 ?></th>
-                        <th style="font-weight:bold">#<?= $mesTotales ?></th>
+                        <th style="font-weight:bold;text-align:right">#<?= $mes1 ?></th>
+                        <th style="font-weight:bold;text-align:right">#<?= $mes2 ?></th>
+                        <th style="font-weight:bold;text-align:right">#<?= $mes3 ?></th>
+                        <th style="font-weight:bold;text-align:right">#<?= $mes4 ?></th>
+                        <th style="font-weight:bold;text-align:right">#<?= $mes5 ?></th>
+                        <th style="font-weight:bold;text-align:right">#<?= $mes6 ?></th>
+                        <th style="font-weight:bold;text-align:right">#<?= $mes7 ?></th>
+                        <th style="font-weight:bold;text-align:right">#<?= $mes8 ?></th>
+                        <th style="font-weight:bold;text-align:right">#<?= $mes9 ?></th>
+                        <th style="font-weight:bold;text-align:right">#<?= $mes10 ?></th>
+                        <th style="font-weight:bold;text-align:right">#<?= $mes11 ?></th>
+                        <th style="font-weight:bold;text-align:right">#<?= $mes12 ?></th>
+                        <th style="font-weight:bold;text-align:right">#<?= $mesTotales ?></th>
                     </tr>
                 </tfoot>
 
@@ -292,7 +298,7 @@ if ($action == 'ventasProductoUnidades') {
 
             include '../clases/pagination.php'; //include pagination class
             $pagination = new Pagination($page, $total_pages, $adjacents);
-            echo $pagination->paginateVentasProductoUnidades();
+            echo $pagination->paginateVentasProductoUnidades($vista);
 
             ?>
         </div>

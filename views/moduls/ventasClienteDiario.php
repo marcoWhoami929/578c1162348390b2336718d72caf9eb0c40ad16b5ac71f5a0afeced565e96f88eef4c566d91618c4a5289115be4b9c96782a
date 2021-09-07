@@ -42,7 +42,7 @@
                                                 <div class="col-sm-12">
                                                     <div class="card">
                                                         <div class="card-header">
-                                                            <h5></h5>
+                                                            <h3>Ventas Por Cliente Diario</h3>
                                                             <div class="card-header-right">
                                                                 <ul class="list-unstyled card-option">
                                                                     <li>
@@ -67,25 +67,24 @@
                                                             <div class="table-wrapper">
                                                                 <div class="table-title">
                                                                     <div class="row">
-                                                                        <div class="col-lg-4 col-md-4 col-sm-4">
-                                                                            <h2>Ventas Por Cliente</h2>
-
-                                                                        </div>
-
-                                                                        <div class="col-lg-2 col-md-2 col-sm-2 boxSales" onclick="reedirigir('cliente')">
+                                                                        <div class="col-lg-2 col-md-2 col-sm-2 boxSales" onclick="reedirigir('clienteDiario')" title="Ventas Por Cliente">
                                                                             <i class="fa fa-user fa-3x" aria-hidden="true"></i>
                                                                         </div>
-
-
-                                                                        <div class="col-lg-2 col-md-2 col-sm-2 boxSales" onclick="reedirigir('canal')">
+                                                                        <div class="col-lg-2 col-md-2 col-sm-2 boxSales" onclick="reedirigir('canalDiario')" title="Ventas Por Canal">
                                                                             <i class="fa fa-bookmark fa-3x" aria-hidden="true"></i>
                                                                         </div>
 
-                                                                        <div class="col-lg-2 col-md-2 col-sm-2 boxSales" onclick="reedirigir('agente')">
+                                                                        <div class="col-lg-2 col-md-2 col-sm-2 boxSales" onclick="reedirigir('agenteDiario')" title="Ventas Por Agente">
                                                                             <i class="fa fa-handshake-o fa-3x" aria-hidden="true"></i>
                                                                         </div>
-                                                                        <div class="col-lg-2 col-md-2 col-sm-2 boxSales" onclick="reedirigir('producto')">
-                                                                            <i class="fa fa-archive fa-3x" aria-hidden="true"></i>
+                                                                        <div class="col-lg-2 col-md-2 col-sm-2 boxSales" onclick="reedirigir('productoDiario')" title="Ventas Por Producto">
+                                                                            <i class="fa fa-cube fa-3x" aria-hidden="true"></i>
+                                                                        </div>
+                                                                        <div class="col-lg-2 col-md-2 col-sm-2 boxSales" onclick="reedirigir('productoLitreadoDiario')" title="Ventas Por Producto Litreado">
+                                                                            <i class="fa fa-eyedropper fa-3x" aria-hidden="true"></i>
+                                                                        </div>
+                                                                        <div class="col-lg-2 col-md-2 col-sm-2 boxSales" onclick="reedirigir('marcaDiario')" title="Ventas Por Marca">
+                                                                            <i class="fa fa-sitemap fa-3x" aria-hidden="true"></i>
                                                                         </div>
 
                                                                     </div>
@@ -100,12 +99,17 @@
                                                                     <div class="row">
 
                                                                         <div class="col-lg-12 col-md-12 col-sm-12">
+                                                                            <div style="width: 70%; margin: auto;">
+
+                                                                                <input id="arregloClientes" type="text" value="" data-role="tagsinput" />
+
+                                                                            </div>
 
                                                                             <div class="filter-group">
                                                                                 <span class="filter-icon"><i class="fa fa-filter"></i></span>
                                                                                 <label>Año</label>
 
-                                                                                <select class="form-control" id="anio" onchange="cargarVentasCliente(1,'');">
+                                                                                <select class="form-control" id="anio" onchange="cargarVentasClienteDiario(1,'');">
 
                                                                                     <option value="2013">2013</option>
                                                                                     <option value="2014">2014</option>
@@ -120,17 +124,97 @@
                                                                                 </select>
                                                                             </div>
                                                                             <div class="filter-group">
+                                                                                <span class="filter-icon"><i class="fa fa-filter"></i></span>
+                                                                                <label>Semana</label>
+
+                                                                                <select class="form-control" id="semana" onchange="cargarVentasClienteDiario(1,'');">
+
+                                                                                    <option value="">Actual</option>
+                                                                                    <option value="1">1</option>
+                                                                                    <option value="2">2</option>
+                                                                                    <option value="3">3</option>
+                                                                                    <option value="4">4</option>
+                                                                                    <option value="5">5</option>
+                                                                                    <option value="6">6</option>
+                                                                                    <option value="7">7</option>
+                                                                                    <option value="8">8</option>
+                                                                                    <option value="9">9</option>
+                                                                                    <option value="10">10</option>
+                                                                                    <option value="11">11</option>
+                                                                                    <option value="12">12</option>
+                                                                                    <option value="13">13</option>
+                                                                                    <option value="14">14</option>
+                                                                                    <option value="15">15</option>
+                                                                                    <option value="16">16</option>
+                                                                                    <option value="17">17</option>
+                                                                                    <option value="18">18</option>
+                                                                                    <option value="19">19</option>
+                                                                                    <option value="20">20</option>
+                                                                                    <option value="21">21</option>
+                                                                                    <option value="22">22</option>
+                                                                                    <option value="23">23</option>
+                                                                                    <option value="24">24</option>
+                                                                                    <option value="25">25</option>
+                                                                                    <option value="26">26</option>
+                                                                                    <option value="27">27</option>
+                                                                                    <option value="28">28</option>
+                                                                                    <option value="29">29</option>
+                                                                                    <option value="30">30</option>
+                                                                                    <option value="31">31</option>
+                                                                                    <option value="32">32</option>
+                                                                                    <option value="33">33</option>
+                                                                                    <option value="34">34</option>
+                                                                                    <option value="35">35</option>
+                                                                                    <option value="36">36</option>
+                                                                                    <option value="37">37</option>
+                                                                                    <option value="38">38</option>
+                                                                                    <option value="39">39</option>
+                                                                                    <option value="40">40</option>
+                                                                                    <option value="41">41</option>
+                                                                                    <option value="42">42</option>
+                                                                                    <option value="43">43</option>
+                                                                                    <option value="44">44</option>
+                                                                                    <option value="45">45</option>
+                                                                                    <option value="46">46</option>
+                                                                                    <option value="47">47</option>
+                                                                                    <option value="48">48</option>
+                                                                                    <option value="49">49</option>
+                                                                                    <option value="50">50</option>
+                                                                                    <option value="51">51</option>
+                                                                                    <option value="52">52</option>
+
+
+
+                                                                                </select>
+                                                                            </div>
+                                                                            <div class="filter-group">
                                                                                 <label>Estatus</label>
                                                                                 <span class="filter-icon"><i class="fa fa-filter"></i></span>
-                                                                                <select class="form-control" id="estatus" onchange="cargarVentasCliente(1,'');">
+                                                                                <select class="form-control" id="estatus" onchange="cargarVentasClienteDiario(1,'');">
                                                                                     <option value="0">0</option>
                                                                                     <option value="1">1</option>
                                                                                 </select>
                                                                             </div>
                                                                             <div class="filter-group">
+                                                                                <label>Agente</label>
+                                                                                <span class="filter-icon"><i class="fa fa-filter"></i></span>
+                                                                                <select class="form-control selectorAgentes" id="agente" onchange="cargarVentasClienteDiario(1,'');">
+                                                                                    <option value="">Todos</option>
+                                                                                    <?php
+
+                                                                                    $agente = new ModelAmdon();
+                                                                                    $agentes = $agente->mdlObtenerListaAgentes();
+
+                                                                                    foreach ($agentes as $key => $value) {
+                                                                                        echo "<option value='" . $value["CNOMBREAGENTE"] . "'>" . $value['CNOMBREAGENTE'] . "</option>";
+                                                                                    }
+                                                                                    ?>
+                                                                                </select>
+                                                                            </div>
+                                                                            <div class="filter-group">
                                                                                 <label>Canal</label>
                                                                                 <span class="filter-icon"><i class="fa fa-filter"></i></span>
-                                                                                <select class="form-control" id="canal" onchange="cargarVentasCliente(1,'');">
+                                                                                <select class="form-control" id="canal" onchange="cargarVentasClienteDiario(1,'');">
                                                                                     <option value=""></option>
                                                                                     <option value="SIN ASIGNAR">SIN ASIGNAR</option>
                                                                                     <option value="FLOTILLAS">FLOTILLAS</option>
@@ -144,23 +228,23 @@
 
 
                                                                             </div>
-                                                                            <div class="filter-group">
-                                                                                <button type="button" id="limpiarClientes" class="btn btn-primary" onclick="cargarVentasCliente(1,'');"><i class="fa fa-trash"></i>Limpiar</button>
 
-                                                                            </div>
                                                                             <div class="filter-group">
                                                                                 <span>Mostrar</span>
-                                                                                <select class="form-control" id="per_page" onchange="cargarVentasCliente(1,'');">
+                                                                                <select class="form-control" id="per_page" onchange="cargarVentasClienteDiario(1,'');">
 
-                                                                                    <option selected="">15</option>
+                                                                                    <option>15</option>
                                                                                     <option>20</option>
                                                                                     <option>50</option>
                                                                                     <option>100</option>
-                                                                                    <option>500</option>
+                                                                                    <option selected="">500</option>
                                                                                     <option>1000</option>
                                                                                     <option>1500</option>
                                                                                     <option>2000</option>
                                                                                 </select>
+                                                                            </div>
+                                                                            <div class="filter-group">
+                                                                                <a onclick="generarReporteDiario('ventasClienteDiario')"><i class="fa fa-file-excel-o fa-3x" aria-hidden="true"></i></a>
                                                                             </div>
 
 
@@ -215,6 +299,8 @@
                         <div class="col-lg-12 col-md-12 col-sm-12"></div>
                         <div class="row">
                             <div class="col-lg-9 col-md-9 col-sm-9">
+                                <input type="hidden" class="form-control" id="clasificacionVenta">
+                                <input type="hidden" class="form-control" id="clasificacionVenta2">
                                 <input type="text" class="form-control" id="nombreClienteSearch" placeholder="Buscar cliente" onkeyup="loadClients(1)">
                             </div>
 
@@ -233,10 +319,32 @@
 </div>
 
 <script type="text/javascript">
+    /*ACCESOS DIRECTOS CLIENTES*/
     shortcut.add("Ctrl+B", function() {
         document.getElementById("searchClient").click();
     });
-    shortcut.add("Ctrl+Z", function() {
-        document.getElementById("limpiarClientes").click();
+
+    /**ELIMINAR ELEMENTOS ARREGLO CLIENTES */
+    $("#arregloClientes").val(JSON.parse(localStorage.getItem("arrayClientes")));
+    $(document).on("click", ".label-info span[data-role=remove]", function() {
+
+        var to_remove = $(this).closest(".label-info").clone().children().remove().end().text().trim()
+        var valuesString = $("#arregloClientes").val();
+        var values = valuesString.split(',');
+        $(this).closest(".label-info").remove()
+        var i = $(this).closest(".label-info").clone().children().remove().end().text();
+
+        var arrayClientes = localStorage.getItem("arrayClientes");
+        removeItemFromArregloBusqueda(arrayClientes, i)
+
+        $(this).closest(".label-info").remove();
+        $("#arregloClientes").val(values);
+        $("#arregloClientes").data('tagsinput').itemsArray = values;
+
+
+    })
+
+    $('input').on('beforeItemRemove', function(e) {
+        e.cancel = true; //set cancel to false..
     });
 </script>

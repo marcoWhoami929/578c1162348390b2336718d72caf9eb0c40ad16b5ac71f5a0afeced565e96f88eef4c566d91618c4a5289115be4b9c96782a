@@ -6,17 +6,20 @@ if ($action == 'ventasProductoMonto') {
     $database = new detalleVentasAnual();
     //Recibir variables enviadas
     $query = strip_tags($_REQUEST['query']);
+    $vista = strip_tags($_REQUEST['vista']);
+    $estatus = strip_tags($_REQUEST['estatus']);
     $canal = strip_tags($_REQUEST['canal']);
     $agente = strip_tags($_REQUEST['agente']);
-    $cliente = strip_tags($_REQUEST['cliente']);
+    $producto = strip_tags($_REQUEST['producto']);
     $per_page = intval($_REQUEST['per_page']);
-    $tables = "dbo.admMovimientos";
+
+    $tables = "dbo.admDocumentos";
     $campos = "*";
     //Variables de paginación
     $page = (isset($_REQUEST['page']) && !empty($_REQUEST['page'])) ? $_REQUEST['page'] : 1;
     $adjacents  = 4; //espacio entre páginas después del número de adyacentes
     $offset = ($page - 1) * $per_page;
-    $search = array("query" => $query, "canal" => $canal, "agente" => $agente, "cliente" => $cliente, "per_page" => $per_page, "offset" => $offset);
+    $search = array("query" => $query, "producto" => $producto, "estatus" => $estatus, "canal" => $canal, "agente" => $agente, "per_page" => $per_page, "offset" => $offset);
     //consulta principal para recuperar los datos
     $datos = $database->getVentasProductoMonto($tables, $campos, $search);
 
@@ -90,7 +93,7 @@ if ($action == 'ventasProductoMonto') {
                             <td style="font-weight:bold;text-align:right">$<?= number_format($row['2019'], 2) ?></td>
                             <td style="font-weight:bold;text-align:right">$<?= number_format($row['2020'], 2) ?></td>
                             <td style="font-weight:bold;text-align:right">$<?= number_format($row['2021'], 2) ?></td>
-                            <th style="font-weight:bold">$<?= number_format($row['Totales'], 2) ?></th>
+                            <th style="font-weight:bold;text-align:right">$<?= number_format($row['Totales'], 2) ?></th>
                         </tr>
                     <?php
                         $finales++;
@@ -103,16 +106,16 @@ if ($action == 'ventasProductoMonto') {
                     <tr>
                         <th>Total General</th>
                         <th></th>
-                        <th style="font-weight:bold">$<?= $año1 ?></th>
-                        <th style="font-weight:bold">$<?= $año2 ?></th>
-                        <th style="font-weight:bold">$<?= $año3 ?></th>
-                        <th style="font-weight:bold">$<?= $año4 ?></th>
-                        <th style="font-weight:bold">$<?= $año5 ?></th>
-                        <th style="font-weight:bold">$<?= $año6 ?></th>
-                        <th style="font-weight:bold">$<?= $año7 ?></th>
-                        <th style="font-weight:bold">$<?= $año8 ?></th>
-                        <th style="font-weight:bold">$<?= $año9 ?></th>
-                        <th style="font-weight:bold">$<?= $añoTotales ?></th>
+                        <th style="font-weight:bold;text-align:right">$<?= $año1 ?></th>
+                        <th style="font-weight:bold;text-align:right">$<?= $año2 ?></th>
+                        <th style="font-weight:bold;text-align:right">$<?= $año3 ?></th>
+                        <th style="font-weight:bold;text-align:right">$<?= $año4 ?></th>
+                        <th style="font-weight:bold;text-align:right">$<?= $año5 ?></th>
+                        <th style="font-weight:bold;text-align:right">$<?= $año6 ?></th>
+                        <th style="font-weight:bold;text-align:right">$<?= $año7 ?></th>
+                        <th style="font-weight:bold;text-align:right">$<?= $año8 ?></th>
+                        <th style="font-weight:bold;text-align:right">$<?= $año9 ?></th>
+                        <th style="font-weight:bold;text-align:right">$<?= $añoTotales ?></th>
                     </tr>
                 </tfoot>
 
@@ -128,7 +131,7 @@ if ($action == 'ventasProductoMonto') {
 
             include '../clases/pagination.php'; //include pagination class
             $pagination = new Pagination($page, $total_pages, $adjacents);
-            echo $pagination->paginateVentasProductoMontoAnual();
+            echo $pagination->paginateVentasProductoMonto($vista);
 
             ?>
         </div>
@@ -142,17 +145,20 @@ if ($action == 'ventasProductoUnidades') {
     $database = new detalleVentasAnual();
     //Recibir variables enviadas
     $query = strip_tags($_REQUEST['query']);
+    $vista = strip_tags($_REQUEST['vista']);
+    $estatus = strip_tags($_REQUEST['estatus']);
     $canal = strip_tags($_REQUEST['canal']);
     $agente = strip_tags($_REQUEST['agente']);
-    $cliente = strip_tags($_REQUEST['cliente']);
+    $producto = strip_tags($_REQUEST['producto']);
     $per_page = intval($_REQUEST['per_page']);
-    $tables = "dbo.admMovimientos";
+
+    $tables = "dbo.admDocumentos";
     $campos = "*";
     //Variables de paginación
     $page = (isset($_REQUEST['page']) && !empty($_REQUEST['page'])) ? $_REQUEST['page'] : 1;
     $adjacents  = 4; //espacio entre páginas después del número de adyacentes
     $offset = ($page - 1) * $per_page;
-    $search = array("query" => $query, "canal" => $canal, "agente" => $agente, "cliente" => $cliente, "per_page" => $per_page, "offset" => $offset);
+    $search = array("query" => $query, "producto" => $producto, "estatus" => $estatus, "canal" => $canal, "agente" => $agente, "per_page" => $per_page, "offset" => $offset);
     //consulta principal para recuperar los datos
     $datos = $database->getVentasProductoUnidades($tables, $campos, $search);
 
@@ -226,7 +232,7 @@ if ($action == 'ventasProductoUnidades') {
                             <td style="font-weight:bold;text-align:right"><?= number_format($row['2019'], 2) ?></td>
                             <td style="font-weight:bold;text-align:right"><?= number_format($row['2020'], 2) ?></td>
                             <td style="font-weight:bold;text-align:right"><?= number_format($row['2021'], 2) ?></td>
-                            <th style="font-weight:bold">#<?= $row['Totales'] ?></th>
+                            <th style="font-weight:bold;text-align:right">#<?= $row['Totales'] ?></th>
                         </tr>
                     <?php
                         $finales++;
@@ -239,16 +245,16 @@ if ($action == 'ventasProductoUnidades') {
                     <tr>
                         <th>Total General</th>
                         <th></th>
-                        <th style="font-weight:bold">#<?= $año1 ?></th>
-                        <th style="font-weight:bold">#<?= $año2 ?></th>
-                        <th style="font-weight:bold">#<?= $año3 ?></th>
-                        <th style="font-weight:bold">#<?= $año4 ?></th>
-                        <th style="font-weight:bold">#<?= $año5 ?></th>
-                        <th style="font-weight:bold">#<?= $año6 ?></th>
-                        <th style="font-weight:bold">#<?= $año7 ?></th>
-                        <th style="font-weight:bold">#<?= $año8 ?></th>
-                        <th style="font-weight:bold">#<?= $año9 ?></th>
-                        <th style="font-weight:bold">#<?= $añoTotales ?></th>
+                        <th style="font-weight:bold;text-align:right">#<?= $año1 ?></th>
+                        <th style="font-weight:bold;text-align:right">#<?= $año2 ?></th>
+                        <th style="font-weight:bold;text-align:right">#<?= $año3 ?></th>
+                        <th style="font-weight:bold;text-align:right">#<?= $año4 ?></th>
+                        <th style="font-weight:bold;text-align:right">#<?= $año5 ?></th>
+                        <th style="font-weight:bold;text-align:right">#<?= $año6 ?></th>
+                        <th style="font-weight:bold;text-align:right">#<?= $año7 ?></th>
+                        <th style="font-weight:bold;text-align:right">#<?= $año8 ?></th>
+                        <th style="font-weight:bold;text-align:right">#<?= $año9 ?></th>
+                        <th style="font-weight:bold;text-align:right">#<?= $añoTotales ?></th>
                     </tr>
                 </tfoot>
 
@@ -264,7 +270,7 @@ if ($action == 'ventasProductoUnidades') {
 
             include '../clases/pagination.php'; //include pagination class
             $pagination = new Pagination($page, $total_pages, $adjacents);
-            echo $pagination->paginateVentasProductoUnidadesAnual();
+            echo $pagination->paginateVentasProductoUnidades($vista);
 
             ?>
         </div>

@@ -39,7 +39,7 @@ class ControllerAdmon
                     $respuesta = ModelAmdon::mdlRegistroBitacora($tabla, $datos);
 
                     echo '<script>
-                             window.location = "ultimosCostos";
+                             window.location = "dashboard2";
                              /*window.location = "dashboard";*/
  
                          </script>';
@@ -75,6 +75,34 @@ class ControllerAdmon
     {
 
         $respuesta = ModelAmdon::mdlObtenerDetalleCompra($empresa, $idDocumento);
+
+        return $respuesta;
+    }
+    static public function ctrRegistroConcepto($empresa, $datos)
+    {
+
+        $respuesta = ModelAmdon::mdlRegistroConcepto($empresa, $datos);
+
+        return $respuesta;
+    }
+    static public function ctrDetallesConcepto($empresa, $id)
+    {
+
+        $respuesta = ModelAmdon::mdlDetallesConcepto($empresa, $id);
+
+        return $respuesta;
+    }
+    static public function ctrActualizarConcepto($empresa, $datos)
+    {
+
+        $respuesta = ModelAmdon::mdlActualizarConcepto($empresa, $datos);
+
+        return $respuesta;
+    }
+    static public function ctrEliminarConcepto($empresa, $id)
+    {
+
+        $respuesta = ModelAmdon::mdlEliminarConcepto($empresa, $id);
 
         return $respuesta;
     }

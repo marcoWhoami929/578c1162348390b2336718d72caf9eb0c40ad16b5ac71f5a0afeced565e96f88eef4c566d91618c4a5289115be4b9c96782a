@@ -4,18 +4,20 @@ if ($action == 'ventasCanal') {
     include('../clases/detalleVentas.php');
     $database = new detalleVentas();
     //Recibir variables enviadas
-
+    $query = strip_tags($_REQUEST['query']);
+    $vista = strip_tags($_REQUEST['vista']);
     $año = strip_tags($_REQUEST['anio']);
     $estatus = strip_tags($_REQUEST['estatus']);
     $agente = strip_tags($_REQUEST['agente']);
     $per_page = intval($_REQUEST['per_page']);
+
     $tables = "dbo.admDocumentos";
     $campos = "*";
     //Variables de paginación
     $page = (isset($_REQUEST['page']) && !empty($_REQUEST['page'])) ? $_REQUEST['page'] : 1;
     $adjacents  = 4; //espacio entre páginas después del número de adyacentes
     $offset = ($page - 1) * $per_page;
-    $search = array("año" => $año, "estatus" => $estatus, "agente" => $agente, "per_page" => $per_page, "offset" => $offset);
+    $search = array("query" => $query, "año" => $año, "estatus" => $estatus, "agente" => $agente, "per_page" => $per_page, "offset" => $offset);
     //consulta principal para recuperar los datos
     $datos = $database->getVentasCanal($tables, $campos, $search);
 
@@ -87,8 +89,8 @@ if ($action == 'ventasCanal') {
                         $mesTotales += $row['Totales'];
                     ?>
                         <tr>
-                            <th><?= $row['CanalComercial']; ?></th>
-                            <td><?= $row['CentroTrabajo']; ?></td>
+                            <th><?= $row['canalComercial']; ?></th>
+                            <td><?= $row['centroTrabajo']; ?></td>
                             <td style="font-weight:bold;text-align:right">$<?= number_format($row['1'], 2) ?></td>
                             <td style="font-weight:bold;text-align:right">$<?= number_format($row['2'], 2) ?></td>
                             <td style="font-weight:bold;text-align:right">$<?= number_format($row['3'], 2) ?></td>
@@ -101,7 +103,7 @@ if ($action == 'ventasCanal') {
                             <td style="font-weight:bold;text-align:right">$<?= number_format($row['10'], 2) ?></td>
                             <td style="font-weight:bold;text-align:right">$<?= number_format($row['11'], 2) ?></td>
                             <td style="font-weight:bold;text-align:right">$<?= number_format($row['12'], 2) ?></td>
-                            <th style="font-weight:bold">$<?= number_format($row['Totales'], 2) ?></th>
+                            <th style="font-weight:bold;text-align:right">$<?= number_format($row['Totales'], 2) ?></th>
                         </tr>
                     <?php
                         $finales++;
@@ -112,19 +114,19 @@ if ($action == 'ventasCanal') {
                     <tr>
                         <th>Total General</th>
                         <th></th>
-                        <th style="font-weight:bold">$<?= number_format($mes1, 2) ?></th>
-                        <th style="font-weight:bold">$<?= number_format($mes2, 2) ?></th>
-                        <th style="font-weight:bold">$<?= number_format($mes3, 2) ?></th>
-                        <th style="font-weight:bold">$<?= number_format($mes4, 2) ?></th>
-                        <th style="font-weight:bold">$<?= number_format($mes5, 2) ?></th>
-                        <th style="font-weight:bold">$<?= number_format($mes6, 2) ?></th>
-                        <th style="font-weight:bold">$<?= number_format($mes7, 2) ?></th>
-                        <th style="font-weight:bold">$<?= number_format($mes8, 2) ?></th>
-                        <th style="font-weight:bold">$<?= number_format($mes9, 2) ?></th>
-                        <th style="font-weight:bold">$<?= number_format($mes10, 2) ?></th>
-                        <th style="font-weight:bold">$<?= number_format($mes11, 2) ?></th>
-                        <th style="font-weight:bold">$<?= number_format($mes12, 2) ?></th>
-                        <th style="font-weight:bold">$<?= number_format($mesTotales, 2) ?></th>
+                        <th style="font-weight:bold;text-align:right">$<?= number_format($mes1, 2) ?></th>
+                        <th style="font-weight:bold;text-align:right">$<?= number_format($mes2, 2) ?></th>
+                        <th style="font-weight:bold;text-align:right">$<?= number_format($mes3, 2) ?></th>
+                        <th style="font-weight:bold;text-align:right">$<?= number_format($mes4, 2) ?></th>
+                        <th style="font-weight:bold;text-align:right">$<?= number_format($mes5, 2) ?></th>
+                        <th style="font-weight:bold;text-align:right">$<?= number_format($mes6, 2) ?></th>
+                        <th style="font-weight:bold;text-align:right">$<?= number_format($mes7, 2) ?></th>
+                        <th style="font-weight:bold;text-align:right">$<?= number_format($mes8, 2) ?></th>
+                        <th style="font-weight:bold;text-align:right">$<?= number_format($mes9, 2) ?></th>
+                        <th style="font-weight:bold;text-align:right">$<?= number_format($mes10, 2) ?></th>
+                        <th style="font-weight:bold;text-align:right">$<?= number_format($mes11, 2) ?></th>
+                        <th style="font-weight:bold;text-align:right">$<?= number_format($mes12, 2) ?></th>
+                        <th style="font-weight:bold;text-align:right">$<?= number_format($mesTotales, 2) ?></th>
                     </tr>
                 </tfoot>
 
@@ -139,7 +141,7 @@ if ($action == 'ventasCanal') {
 
             include '../clases/pagination.php'; //include pagination class
             $pagination = new Pagination($page, $total_pages, $adjacents);
-            echo $pagination->paginateVentasCanal();
+            echo $pagination->paginateVentasCanal($vista);
 
             ?>
         </div>

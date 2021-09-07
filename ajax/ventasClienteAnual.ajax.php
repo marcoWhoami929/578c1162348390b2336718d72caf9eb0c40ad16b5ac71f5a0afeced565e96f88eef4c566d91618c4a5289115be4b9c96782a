@@ -6,16 +6,19 @@ if ($action == 'ventasCliente') {
     $database = new detalleVentasAnual();
     //Recibir variables enviadas
     $query = strip_tags($_REQUEST['query']);
+    $vista = strip_tags($_REQUEST['vista']);
     $estatus = strip_tags($_REQUEST['estatus']);
     $canal = strip_tags($_REQUEST['canal']);
+    $agente = strip_tags($_REQUEST['agente']);
     $per_page = intval($_REQUEST['per_page']);
+
     $tables = "dbo.admDocumentos";
     $campos = "*";
     //Variables de paginación
     $page = (isset($_REQUEST['page']) && !empty($_REQUEST['page'])) ? $_REQUEST['page'] : 1;
     $adjacents  = 4; //espacio entre páginas después del número de adyacentes
     $offset = ($page - 1) * $per_page;
-    $search = array("query" => $query, "estatus" => $estatus, "canal" => $canal, "per_page" => $per_page, "offset" => $offset);
+    $search = array("query" => $query, "estatus" => $estatus, "canal" => $canal, "agente" => $agente, "per_page" => $per_page, "offset" => $offset);
     //consulta principal para recuperar los datos
     $datos = $database->getVentasCliente($tables, $campos, $search);
 
@@ -99,16 +102,16 @@ if ($action == 'ventasCliente') {
                 <tfoot>
                     <tr>
                         <th>Total General</th>
-                        <th style="font-weight:bold">$<?= number_format($año1, 2) ?></th>
-                        <th style="font-weight:bold">$<?= number_format($año2, 2) ?></th>
-                        <th style="font-weight:bold">$<?= number_format($año3, 2) ?></th>
-                        <th style="font-weight:bold">$<?= number_format($año4, 2) ?></th>
-                        <th style="font-weight:bold">$<?= number_format($año5, 2) ?></th>
-                        <th style="font-weight:bold">$<?= number_format($año6, 2) ?></th>
-                        <th style="font-weight:bold">$<?= number_format($año7, 2) ?></th>
-                        <th style="font-weight:bold">$<?= number_format($año8, 2) ?></th>
-                        <th style="font-weight:bold">$<?= number_format($año9, 2) ?></th>
-                        <th style="font-weight:bold">$<?= number_format($añoTotales, 2) ?></th>
+                        <th style="font-weight:bold;text-align:right">$<?= number_format($año1, 2) ?></th>
+                        <th style="font-weight:bold;text-align:right">$<?= number_format($año2, 2) ?></th>
+                        <th style="font-weight:bold;text-align:right">$<?= number_format($año3, 2) ?></th>
+                        <th style="font-weight:bold;text-align:right">$<?= number_format($año4, 2) ?></th>
+                        <th style="font-weight:bold;text-align:right">$<?= number_format($año5, 2) ?></th>
+                        <th style="font-weight:bold;text-align:right">$<?= number_format($año6, 2) ?></th>
+                        <th style="font-weight:bold;text-align:right">$<?= number_format($año7, 2) ?></th>
+                        <th style="font-weight:bold;text-align:right">$<?= number_format($año8, 2) ?></th>
+                        <th style="font-weight:bold;text-align:right">$<?= number_format($año9, 2) ?></th>
+                        <th style="font-weight:bold;text-align:right">$<?= number_format($añoTotales, 2) ?></th>
                     </tr>
                 </tfoot>
 
@@ -124,7 +127,7 @@ if ($action == 'ventasCliente') {
 
             include '../clases/pagination.php'; //include pagination class
             $pagination = new Pagination($page, $total_pages, $adjacents);
-            echo $pagination->paginateVentasClienteAnual();
+            echo $pagination->paginateVentasCliente($vista);
 
             ?>
         </div>

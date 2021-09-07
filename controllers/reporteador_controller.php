@@ -207,9 +207,9 @@ class ControllerReports
             }
 
             $codigoProducto = "=\"" . $value["CCODIGOPRODUCTO"] . "\"";
-            $style='mso-number-format:"@";';
+            $style = 'mso-number-format:"@";';
             echo utf8_decode("<tr>
-										<td style='".$style."'>" . $value["CCODIGOPRODUCTO"] . "</td>
+										<td style='" . $style . "'>" . $value["CCODIGOPRODUCTO"] . "</td>
 				 						<td style='color:black;'>" . $value["CNOMBREPRODUCTO"] . "</td>
                                         <td style='color:black;'>" . substr($fecha1, 0, 10) . "</td>
 										<td style='color:black;'>" . number_format($mes1, 2) . "</td>
@@ -238,6 +238,144 @@ class ControllerReports
 				
 										</tr>");
         }
+
+
+        echo "</table>";
+    }
+    public function ctrDescargarReporteVentasDiario($tables, $campos, $search)
+    {
+        $database = new detalleVentasDiario();
+        $arreglo = array();
+        $arregloCampos = array();
+        $arregloHeaders = array();
+
+
+        switch ($search["vista"]) {
+            case 'ventasClienteDiario':
+                $datos = $database->getVentasCliente($tables, $campos, $search);
+                $vista = "C L I E N T E S";
+                array_push($arregloHeaders, "CLIENTE");
+                array_push($arregloCampos, "NombreCliente");
+
+                break;
+            case 'ventasCanalDiario':
+                $datos = $database->getVentasCanal($tables, $campos, $search);
+                $vista = "C A N A L";
+                array_push($arregloHeaders, "CANAL");
+                array_push($arregloHeaders, "CENTRO TRABAJO");
+                array_push($arregloCampos, "canalComercial");
+                array_push($arregloCampos, "centroTrabajo");
+
+
+                break;
+        }
+
+
+        for ($i = 2; $i < 8; $i++) {
+            $dia = date('Y-m-d', strtotime('01/01 +' . ($search["semana"] - 1) . ' weeks first day +' . $i . ' day'));
+            array_push($arregloHeaders, $dia);
+        }
+        array_push($arregloHeaders, "TOTAL GENERAL");
+        for ($i = 2; $i < 8; $i++) {
+
+            $dia = date('d', strtotime('01/01 +' . ($search["semana"] - 1) . ' weeks first day +' . $i . ' day'));
+            array_push($arreglo, $dia);
+            array_push($arregloCampos, $dia);
+        }
+
+        /*=============================================
+			CREAMOS EL ARCHIVO DE EXCEL
+			=============================================*/
+
+        $nombre = "Reporte Ventas Diario " . $vista . "" . '.xls';
+
+        header('Expires: 0');
+        header('Cache-control: private');
+        header('Content-type: application/vnd.ms-excel'); // Archivo de Excel
+        header("Cache-Control: cache, must-revalidate");
+        header('Content-Description: File Transfer');
+        header('Last-Modified: ' . date('D, d M Y H:i:s'));
+        header("Pragma: public");
+        header('Content-Disposition:; filename="' . $nombre . '"');
+        header("Content-Transfer-Encoding: binary");
+
+
+
+
+        echo utf8_decode("<table>");
+        echo "<tr>
+					<th colspan='" . count($arregloHeaders) . "' style='font-weight:bold; background:#17202A; color:white;'>SAN FRANCISCO DEKKERLAB</th>
+					</tr>
+
+					<tr>
+					<th colspan='" . count($arregloHeaders) . "' style='font-weight:bold; background:#17202A; color:white;'>R E P O R T E &nbsp; D E &nbsp; V E N T A S &nbsp; $vista &nbsp  D I A R I O &nbsp;</th>
+					</tr>
+
+					<tr>
+					<th colspan='" . count($arregloHeaders) . "' style='font-weight:bold; background:#17202A; color:white;'></th>
+					</tr>";
+        echo utf8_decode("<tr>");
+        for ($i = 0; $i < count($arregloHeaders); $i++) {
+            echo utf8_decode("<td style='font-weight:bold; background:#000000; color:white;'></td>");
+        }
+        echo utf8_decode("</tr>");
+        echo utf8_decode("<tr>");
+
+        foreach ($arregloHeaders as $key => $value) {
+
+            echo utf8_decode("<td style='font-weight:bold; background:#000000; color:white;'>" . $value . "</td>");
+        }
+        echo utf8_decode("</tr>");
+        $finales = 0;
+        $numDia1 = 0;
+        $numDia2 = 0;
+        $numDia3 = 0;
+        $numDia4 = 0;
+        $numDia5 = 0;
+        $numDia6 = 0;
+        $mesTotales = 0;
+        foreach ($datos as $key => $value) {
+            switch ($search["vista"]) {
+                case 'ventasClienteDiario':
+
+                    $campos = "<td>" . $value[$arregloCampos[0]] . "</td>";
+                    $campos2 = "<td>Total General</td>";
+                    break;
+                case 'ventasCanalDiario':
+                    $campos = "<td>" . $value[$arregloCampos[0]] . "</td><td>" . $value[$arregloCampos[1]] . "</td>";
+                    $campos2 = "<td style='font-weight:bold;text-align:right'>Total General</td><td style='font-weight:bold;text-align:right'></td>";
+                    break;
+            }
+
+            $numDia1 +=  $value[(int)$arreglo[0]];
+            $numDia2 +=  $value[(int)$arreglo[1]];
+            $numDia3 +=  $value[(int)$arreglo[2]];
+            $numDia4 +=  $value[(int)$arreglo[3]];
+            $numDia5 +=  $value[(int)$arreglo[4]];
+            $numDia6 +=  $value[(int)$arreglo[5]];
+            $mesTotales += $value['Totales'];
+            echo utf8_decode("<tr>      
+                                        
+										$campos
+                                        <td style='text-align:right'>$" . number_format($value[(int)$arreglo[0]], 2) . "</td>
+                                        <td style='text-align:right'>$" . number_format($value[(int)$arreglo[1]], 2) . "</td>
+                                        <td style='text-align:right'>$" . number_format($value[(int)$arreglo[2]], 2) . "</td>
+                                        <td style='text-align:right'>$" . number_format($value[(int)$arreglo[3]], 2) . "</td>
+                                        <td style='text-align:right'>$" . number_format($value[(int)$arreglo[4]], 2) . "</td>
+                                        <td style='text-align:right'>$" . number_format($value[(int)$arreglo[5]], 2) . "</td>
+                                        <td>$" . number_format($value['Totales'], 2) . "</td>
+										</tr>");
+        }
+        echo utf8_decode("<tr>
+										$campos2
+                                        <td style='font-weight:bold;text-align:right'>$" . number_format($numDia1, 2) . "</td>
+                                        <td style='font-weight:bold;text-align:right'>$" . number_format($numDia2, 2) . "</td>
+                                        <td style='font-weight:bold;text-align:right'>$" . number_format($numDia3, 2) . "</td>
+                                        <td style='font-weight:bold;text-align:right'>$" . number_format($numDia4, 2) . "</td>
+                                        <td style='font-weight:bold;text-align:right'>$" . number_format($numDia5, 2) . "</td>
+                                        <td style='font-weight:bold;text-align:right'>$" . number_format($numDia6, 2) . "</td>
+                                        <td style='font-weight:bold;text-align:right'>$" . number_format($mesTotales, 2) . "</td>
+										</tr>");
 
 
         echo "</table>";

@@ -71,25 +71,26 @@
 
                                                                     </div>
                                                                 </div>
-
-                                                                <div class="row text-center" id="loader" style="position: absolute;top: 140px;left: 50%">
+                                                                <div class="row text-center" id="loader" style="position: absolute;top: 80px;left: 40%;color:#00BCD4;font-size:22px">
 
                                                                 </div>
-
-
                                                                 <div class="table-filter">
                                                                     <div class="row">
 
-                                                                        <div class="col-sm-12">
-                                                                            <button type="button" class="btn btn-primary"><i class="fa fa-search" onclick="cargarConceptosFlex(1);"></i></button>
+                                                                        <div class="col-lg-12 col-md-12 col-sm-12">
+
+
                                                                             <div class="filter-group">
+                                                                                <button type="button" class="btn btn-primary" onclick="cargarConceptosFlex(1);"><i class="fa fa-search"></i></button>
+
                                                                                 <label>Nombre</label>
                                                                                 <input type="text" class="form-control" id="name">
+
                                                                             </div>
                                                                             <div class="filter-group">
                                                                                 <label>Centro De Trabajo</label>
-
-                                                                                <select class="form-control" id="centroTrabajo" onchange="cargarConceptosFlex(1);">
+                                                                                <span class="filter-icon"><i class="fa fa-filter"></i></span>
+                                                                                <select class="form-control selectorCentroTrabajo" id="centroTrabajo" onchange="cargarConceptosFlex(1);">
                                                                                     <option value="">Todos</option>
                                                                                     <?php
                                                                                     $tabla = "dbo.CONCEPTOSFLEX";
@@ -101,10 +102,12 @@
 
                                                                                     ?>
                                                                                 </select>
+
                                                                             </div>
                                                                             <div class="filter-group">
                                                                                 <label>Canal Comercial</label>
-                                                                                <select class="form-control" id="canalComercial" onchange="cargarConceptosFlex(1);">
+                                                                                <span class="filter-icon"><i class="fa fa-filter"></i></span>
+                                                                                <select class="form-control selectorCanalComercial" id="canalComercial" onchange="cargarConceptosFlex(1);">
                                                                                     <option value="">Todos</option>
                                                                                     <?php
                                                                                     $tabla = "dbo.CONCEPTOSFLEX";
@@ -122,29 +125,29 @@
                                                                                     ?>
                                                                                 </select>
                                                                             </div>
-                                                                            <span class="filter-icon"><i class="fa fa-filter"></i></span>
-                                                                        </div>
-
-                                                                        <div class="col-sm-3 text-right">
-                                                                            <div class="show-entries">
-                                                                                <span>Mostrar</span>
+                                                                            <div class="filter-group">
+                                                                                <label>Mostrar</label>
                                                                                 <select class="form-control" id="per_page" onchange="cargarConceptosFlex(1);">
-                                                                                    <option>5</option>
-                                                                                    <option>10</option>
+
                                                                                     <option selected="">15</option>
                                                                                     <option>20</option>
+                                                                                    <option>50</option>
+                                                                                    <option>100</option>
+                                                                                    <option>500</option>
+                                                                                    <option>1000</option>
+                                                                                    <option>1500</option>
+                                                                                    <option>2000</option>
                                                                                 </select>
-
                                                                             </div>
+                                                                            <div class="filter-group">
+                                                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#registroConcepto"><i class="fa fa-plus"></i> Nuevo</button>
+                                                                            </div>
+
                                                                         </div>
-
-
                                                                     </div>
                                                                 </div>
-                                                                <div class="datos_ajax">
-
-                                                                </div>
-
+                                                            </div>
+                                                            <div class="datos_ajax">
 
                                                             </div>
 
@@ -162,6 +165,82 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+<!-- Modal Edicion-->
+<div class="modal fade" id="edicionConcepto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header backgroundModal">
+                <h5 class="modal-title">Edición Concepto</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="formActualizarConcepto" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <input type="hidden" class="form-control" id="idConcepto" placeholder="">
+                        <label for="nombreAgente">Nombre Agente</label>
+                        <input type="text" class="form-control" id="nombreAgente" placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <label for="nombreCentroTrabajo">Centro de Trabajo</label>
+                        <input type="text" class="form-control" id="nombreCentroTrabajo" placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <label for="nombreCanalComercial">Canal Comercial</label>
+                        <input type="text" class="form-control" id="nombreCanalComercial" placeholder="">
+                        <input type="hidden" class="form-control" id="empresa" value="FLEX">
+                        <div class="msg"></div>
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-primary">Actualizar</button>
+                    </div>
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- Modal Registro-->
+<div class="modal fade" id="registroConcepto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header backgroundModal">
+                <h5 class="modal-title">Nuevo Concepto</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="formRegistroConcepto" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="nombreAgente">Nombre Agente</label>
+                        <input type="text" class="form-control" id="nombreAgenteRegistro" placeholder="" style="text-transform:uppercase;" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="nombreCentroTrabajo">Centro de Trabajo</label>
+                        <input type="text" class="form-control" id="nombreCentroTrabajoRegistro" placeholder="" style="text-transform:uppercase;">
+                    </div>
+                    <div class="form-group">
+                        <label for="nombreCanalComercial">Canal Comercial</label>
+                        <input type="text" class="form-control" id="nombreCanalComercialRegistro" placeholder="" style="text-transform:uppercase;">
+                        <input type="hidden" class="form-control" id="empresaRegistro" value="FLEX">
+                        <div class="msg"></div>
+                    </div>
+                    <div class="form-group">
+
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-primary">Registrar</button>
+                    </div>
+                </form>
+
+            </div>
+
         </div>
     </div>
 </div>
