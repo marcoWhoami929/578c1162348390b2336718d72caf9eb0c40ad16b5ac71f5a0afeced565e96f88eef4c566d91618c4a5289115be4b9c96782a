@@ -1,7 +1,7 @@
 <?php
 
 include("../models/db_connect_pinturas.php");
-class busquedaDatos extends conexionPinturas
+class busquedaDatos extends ConexionPinturas
 {
     public $mysqli;
     public $counter;

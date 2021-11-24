@@ -6,6 +6,9 @@ if ($action == 'detalleVentasCliente') {
     $database = new detalleVentas();
     //Recibir variables enviadas
     $centroTrabajo = strip_tags($_REQUEST['centroTrabajo']);
+    $agente = strip_tags($_REQUEST['agente']);
+    $canal = strip_tags($_REQUEST['canal']);
+    $cliente = strip_tags($_REQUEST['cliente']);
     $vista = strip_tags($_REQUEST['vista']);
     $año = strip_tags($_REQUEST['anio']);
     $dia = strip_tags($_REQUEST['dia']);
@@ -16,7 +19,7 @@ if ($action == 'detalleVentasCliente') {
     $page = (isset($_REQUEST['page']) && !empty($_REQUEST['page'])) ? $_REQUEST['page'] : 1;
     $adjacents  = 4; //espacio entre páginas después del número de adyacentes
     $offset = ($page - 1) * $per_page;
-    $search = array("centroTrabajo" => $centroTrabajo, "año" => $año, "dia" => $dia, "per_page" => $per_page, "offset" => $offset);
+    $search = array("centroTrabajo" => $centroTrabajo, "agente" => $agente, "canal" => $canal, "cliente" => $cliente, "año" => $año, "dia" => $dia, "per_page" => $per_page, "offset" => $offset);
     //consulta principal para recuperar los datos
     $datos = $database->getVentasDetalleCliente($tables, $campos, $search);
 
@@ -41,43 +44,36 @@ if ($action == 'detalleVentasCliente') {
                         <th>CONCEPTO</th>
                         <th>SERIE</th>
                         <th>FOLIO</th>
-                        <th>AGENTE</th>
-                        <th>IMPORTE</th>
-                        <th>DESC</th>
+                        <th>VENTA</th>
                         <th>IVA</th>
                         <th>TOTAL</th>
-                        <th>DESGLOSE</th>
+
 
                     </tr>
                 </thead>
                 <tbody>
                     <?php
                     $finales = 0;
-                    $importe = 0;
-                    $desc = 0;
                     $iva = 0;
                     $total = 0;
                     $desglose = 0;
                     $totales = 0;
                     foreach ($datos as $key => $row) {
-                        $importe += $row['Importe'];
-                        $desc += $row['Descuento'];
+
                         $iva += $row['IVA'];
                         $total += $row['Total'];
                         $desglose += $row['Desglose'];
 
                     ?>
                         <tr>
-                            <th><a onclick="detalleProductosVenta(<?= $row['CIDDOCUMENTO']; ?>)"><?= $row['CRAZONSOCIAL']; ?></a></th>
+                            <th><a onclick="detalleProductosVenta(<?= $row['CIDDOCUMENTO']; ?>,'<?= $row['Empresa']; ?>')"><?= $row['CRAZONSOCIAL']; ?></a></th>
                             <td><?= $row['CNOMBRECONCEPTO']; ?></td>
                             <td><?= $row['CSERIEDOCUMENTO']; ?></td>
                             <td><?= (int)$row['CFOLIO'] ?></td>
-                            <td><?= $row['Agente']; ?></td>
-                            <td style="font-weight:bold;text-align:right">$<?= number_format($row['Importe'], 2) ?></td>
-                            <td style="font-weight:bold;text-align:right">$<?= number_format($row['Descuento'], 2) ?></td>
+                            <td style="font-weight:bold;text-align:right">$<?= number_format($row['Desglose'], 2) ?></td>
                             <td style="font-weight:bold;text-align:right">$<?= number_format($row['IVA'], 2) ?></td>
                             <td style="font-weight:bold;text-align:right">$<?= number_format($row['Total'], 2) ?></td>
-                            <td style="font-weight:bold;text-align:right">$<?= number_format($row['Desglose'], 2) ?></td>
+
                         </tr>
                     <?php
                         $finales++;
@@ -92,12 +88,10 @@ if ($action == 'detalleVentasCliente') {
                         <th style="font-weight:bold;text-align:right"></th>
                         <th style="font-weight:bold;text-align:right"></th>
                         <th style="font-weight:bold;text-align:right"></th>
-                        <th style="font-weight:bold;text-align:right"></th>
-                        <th style="font-weight:bold;text-align:right">$<?= number_format($importe, 2) ?></th>
-                        <th style="font-weight:bold;text-align:right">$<?= number_format($desc, 2) ?></th>
+                        <th style="font-weight:bold;text-align:right">$<?= number_format($desglose, 2) ?></th>
                         <th style="font-weight:bold;text-align:right">$<?= number_format($iva, 2) ?></th>
                         <th style="font-weight:bold;text-align:right">$<?= number_format($total, 2) ?></th>
-                        <th style="font-weight:bold;text-align:right">$<?= number_format($desglose, 2) ?></th>
+
 
                     </tr>
                 </tfoot>
@@ -128,6 +122,7 @@ if ($action == 'detalleVentasProductos') {
     //Recibir variables enviadas
     $vista = strip_tags($_REQUEST['vista']);
     $idDocumento = strip_tags($_REQUEST['idDocumento']);
+    $empresa = strip_tags($_REQUEST['empresa']);
     $per_page = intval($_REQUEST['per_page']);
     $tables = "dbo.admDocumentos";
     $campos = "*";
@@ -135,7 +130,7 @@ if ($action == 'detalleVentasProductos') {
     $page = (isset($_REQUEST['page']) && !empty($_REQUEST['page'])) ? $_REQUEST['page'] : 1;
     $adjacents  = 4; //espacio entre páginas después del número de adyacentes
     $offset = ($page - 1) * $per_page;
-    $search = array("idDocumento" => $idDocumento, "per_page" => $per_page, "offset" => $offset);
+    $search = array("idDocumento" => $idDocumento, "empresa" => $empresa, "per_page" => $per_page, "offset" => $offset);
     //consulta principal para recuperar los datos
     $datos = $database->getVentasDetalleProducto($tables, $campos, $search);
 
@@ -156,16 +151,16 @@ if ($action == 'detalleVentasProductos') {
             <table class="table table-responsive table-striped table-hover " id="tableVentasProducto">
                 <thead>
                     <tr>
-                        <th>NUMERO</th>
+                        <th>#</th>
+                        <th>CODIGO</th>
                         <th>PRODUCTO</th>
                         <th>UNIDAD MEDIDA</th>
                         <th>UNIDADES</th>
                         <th>PRECIO</th>
-                        <th>NETO</th>
-                        <th>DESC</th>
+                        <th>VENTA</th>
                         <th>IVA</th>
                         <th>TOTAL</th>
-                        <th>DESGLOSE</th>
+
 
                     </tr>
                 </thead>
@@ -173,16 +168,12 @@ if ($action == 'detalleVentasProductos') {
                     <?php
                     $finales = 0;
                     $precio = 0;
-                    $neto = 0;
-                    $desc = 0;
                     $iva = 0;
                     $total = 0;
                     $desglose = 0;
                     $totales = 0;
                     foreach ($datos as $key => $row) {
                         $precio += $row['CPRECIO'];
-                        $neto += $row['CNETO'];
-                        $desc += $row['CDESCUENTO1'];
                         $iva += $row['CIMPUESTO1'];
                         $total += $row['CTOTAL'];
                         $desglose += $row['Desglose'];
@@ -190,15 +181,15 @@ if ($action == 'detalleVentasProductos') {
                     ?>
                         <tr>
                             <th><?= number_format($row['CNUMEROMOVIMIENTO'], 0); ?></th>
+                            <td><?= $row['CCODIGOPRODUCTO']; ?></td>
                             <td><?= $row['CNOMBREPRODUCTO']; ?></td>
                             <td><?= $row['Unidad']; ?></td>
-                            <td><?= $row['CUNIDADES']; ?></td>
+                            <td><?= number_format($row['CUNIDADESCAPTURADAS'], 2); ?></td>
                             <td style="font-weight:bold;text-align:right">$<?= number_format($row['CPRECIO'], 2) ?></td>
-                            <td style="font-weight:bold;text-align:right">$<?= number_format($row['CNETO'], 2) ?></td>
-                            <td style="font-weight:bold;text-align:right">$<?= number_format($row['CDESCUENTO1'], 2) ?></td>
+                            <td style="font-weight:bold;text-align:right">$<?= number_format($row['Desglose'], 2) ?></td>
                             <td style="font-weight:bold;text-align:right">$<?= number_format($row['CIMPUESTO1'], 2) ?></td>
                             <td style="font-weight:bold;text-align:right">$<?= number_format($row['CTOTAL'], 2) ?></td>
-                            <td style="font-weight:bold;text-align:right">$<?= number_format($row['Desglose'], 2) ?></td>
+
                         </tr>
                     <?php
                         $finales++;
@@ -213,12 +204,12 @@ if ($action == 'detalleVentasProductos') {
                         <th style="font-weight:bold;text-align:right"></th>
                         <th style="font-weight:bold;text-align:right"></th>
                         <th style="font-weight:bold;text-align:right"></th>
+                        <th style="font-weight:bold;text-align:right"></th>
                         <th style="font-weight:bold;text-align:right">$<?= number_format($precio, 2) ?></th>
-                        <th style="font-weight:bold;text-align:right">$<?= number_format($neto, 2) ?></th>
-                        <th style="font-weight:bold;text-align:right">$<?= number_format($desc, 2) ?></th>
+                        <th style="font-weight:bold;text-align:right">$<?= number_format($desglose, 2) ?></th>
                         <th style="font-weight:bold;text-align:right">$<?= number_format($iva, 2) ?></th>
                         <th style="font-weight:bold;text-align:right">$<?= number_format($total, 2) ?></th>
-                        <th style="font-weight:bold;text-align:right">$<?= number_format($desglose, 2) ?></th>
+
 
                     </tr>
                 </tfoot>

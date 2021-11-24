@@ -1,13 +1,33 @@
 $(function () {
+  $(".modal").on("shown.bs.modal", function () {
+    $(this).find("input:first").focus();
+  });
   //**obtener semana actual */
   currentdate = new Date();
   var oneJan = new Date(currentdate.getFullYear(), 0, 1);
   var numberOfDays = Math.floor((currentdate - oneJan) / (24 * 60 * 60 * 1000));
-  resultWeek = Math.ceil((currentdate.getDay() + 1 + numberOfDays) / 7);
 
+  resultWeek = moment().format("W");
+
+  mesCurrent = currentdate.getMonth() + 1;
   url = window.location.pathname;
   ruta = url.split("/");
+
   switch (ruta[2]) {
+    case "login":
+      $('input[type="checkbox"]').on("change", function () {
+        $('input[name="' + this.name + '"]')
+          .not(this)
+          .prop("checked", false);
+      });
+      break;
+    case "":
+      $('input[type="checkbox"]').on("change", function () {
+        $('input[name="' + this.name + '"]')
+          .not(this)
+          .prop("checked", false);
+      });
+      break;
     case "conceptosPinturas":
       cargarConceptosPinturas(1);
       $(".selectorCentroTrabajo").select2();
@@ -25,24 +45,25 @@ $(function () {
     case "ventasClienteDiario":
       cargarVentasClienteDiario(1, "");
       loadClients(1);
-      $(".selectorAgentes").select2();
+      agregarEvento("Visualizo Ventas Por Cliente Diario", 4);
       $("#semana").val(resultWeek);
 
       break;
     case "detalleVentas":
       cargarDetalleVentasCliente(1, "");
+      agregarEvento("Visualizo Detalle De Ventas", 4);
       break;
     case "ventasCanalDiario":
       cargarVentasCanalDiario(1);
       loadClients(1);
-      $(".selectorAgentes").select2();
+      agregarEvento("Visualizo Ventas Por Canal Diario", 4);
       $("#semana").val(resultWeek);
 
       break;
     case "ventasAgenteDiario":
       cargarVentasAgenteDiario(1);
       loadClients(1);
-      $(".selectorAgentes").select2();
+      agregarEvento("Visualizo Ventas Por Agente Diario", 4);
       $("#semana").val(resultWeek);
 
       break;
@@ -51,7 +72,7 @@ $(function () {
       cargarVentasProductoUnidadesDiario(1, "", "");
       loadClients(1);
       loadProductosVenta(1);
-      $(".selectorAgentes").select2();
+      agregarEvento("Visualizo Ventas Por Producto Diario", 4);
       $("#semana").val(resultWeek);
 
       break;
@@ -60,100 +81,179 @@ $(function () {
       cargarVentasLitreadoUnidadesDiario(1, "", "");
       loadClients(1);
       loadProductosVenta(1);
-      $(".selectorAgentes").select2();
+      agregarEvento("Visualizo Ventas Por Litreado Diario", 4);
       $("#semana").val(resultWeek);
 
       break;
     case "ventasMarcaDiario":
       cargarVentasMarcaDiario(1, "");
       loadClients(1);
-      $(".selectorAgentes").select2();
+      agregarEvento("Visualizo Ventas Por Marca Diario", 4);
       $("#semana").val(resultWeek);
 
       break;
     case "ventasClienteMensual":
       cargarVentasCliente(1, "");
       loadClients(1);
-      $(".selectorAgentes").select2();
-
+      agregarEvento("Visualizo Ventas Por Cliente Mensual", 4);
       break;
     case "ventasCanalMensual":
       cargarVentasCanal(1);
       loadClients(1);
-      $(".selectorAgentes").select2();
-
+      agregarEvento("Visualizo Ventas Por Canal Mensual", 4);
       break;
     case "ventasAgenteMensual":
       cargarVentasAgente(1);
       loadClients(1);
-      $(".selectorAgentes").select2();
-
+      agregarEvento("Visualizo Ventas Por Agente Mensual", 4);
       break;
     case "ventasProductoMensual":
       cargarVentasProductoMonto(1, "", "");
       cargarVentasProductoUnidades(1, "", "");
       loadProductosVenta(1);
       loadClients(1);
-      $(".selectorAgentes").select2();
-
+      agregarEvento("Visualizo Ventas Por Producto Mensual", 4);
       break;
     case "ventasLitreadoMensual":
       cargarVentasLitreadoMonto(1, "", "");
       cargarVentasLitreadoUnidades(1, "", "");
       loadProductosVenta(1);
       loadClients(1);
-      $(".selectorAgentes").select2();
-
+      agregarEvento("Visualizo Ventas Por Litreado Mensual", 4);
       break;
     case "ventasMarcaMensual":
       cargarVentasMarcaMensual(1, "");
       loadClients(1);
-      $(".selectorAgentes").select2();
-
+      agregarEvento("Visualizo Ventas Por Marca Mensual", 4);
       break;
     case "ventasClienteAnual":
       cargarVentasClienteAnual(1, "");
       loadClients(1);
-      $(".selectorAgentes").select2();
-
+      agregarEvento("Visualizo Ventas Por Cliente Anual", 4);
       break;
     case "ventasCanalAnual":
       cargarVentasCanalAnual(1);
       loadClients(1);
-      $(".selectorAgentes").select2();
-
+      agregarEvento("Visualizo Ventas Por Canal Anual", 4);
       break;
     case "ventasAgenteAnual":
       cargarVentasAgenteAnual(1);
       loadClients(1);
-      $(".selectorAgentes").select2();
-
+      agregarEvento("Visualizo Ventas Por Agente Anual", 4);
       break;
     case "ventasProductoAnual":
       cargarVentasProductoMontoAnual(1, "", "");
       cargarVentasProductoUnidadesAnual(1, "", "");
       loadProductosVenta(1);
       loadClients(1);
-      $(".selectorAgentes").select2();
+      agregarEvento("Visualizo Ventas Por Producto Anual", 4);
       break;
     case "ventasLitreadoAnual":
       cargarVentasLitreadoMontoAnual(1, "", "");
       cargarVentasLitreadoUnidadesAnual(1, "", "");
       loadClients(1);
       loadProductosVenta(1);
-      $(".selectorAgentes").select2();
+      agregarEvento("Visualizo Ventas Por Litreado Anual", 4);
       break;
     case "ventasMarcaAnual":
       cargarVentasMarcaAnual(1, "");
       loadClients(1);
-      $(".selectorAgentes").select2();
-
+      agregarEvento("Visualizo Ventas Por Marca Anual", 4);
       break;
     case "dashboard":
-      cargarVentasYearToDay(1);
+      var arregloAcciones = JSON.parse(localStorage.accionesTablero);
+
+      if (arregloAcciones["ventasDay"] == 1) {
+        grafico1VentasDiarias();
+        grafico2VentasDiarias();
+      }
+      if (arregloAcciones["ventasYearToDay"] == 1) {
+        cargarVentasYearToDay(1);
+        graficoVentasYearToDay();
+      }
+      if (arregloAcciones["ventasYearToWeek"] == 1) {
+        cargarVentasYearToWeek(1);
+        graficoVentasYearToWeek();
+      }
+      if (arregloAcciones["ventasYearToMonth"] == 1) {
+        cargarVentasYearToMonth(1);
+        graficoVentasYearToMonth();
+      }
+
+      agregarEvento("Visualizo El Tablero Principal", 4);
 
       break;
+    case "detalleDocumentos":
+      $("#mesDetalle").val(mesCurrent);
+      cargarDetalleDocumentos(1);
+      cargarVentasCliente(1, "");
+      loadClients(1);
+      agregarEvento("Visualizo Detalle Documentos", 4);
+      break;
+    case "usuarios":
+      cargarUsuarios();
+      agregarEvento("Visualizo La Lista de Usuarios Actual", 4);
+      break;
+    case "miPerfil":
+      let userId = $("#userId").val();
+      miPerfil(userId);
+      break;
+    case "bitacora":
+      cargarBitacora(1);
+      break;
   }
+  $(".selectorAgentes").select2();
+  var agenteVenta = JSON.parse(localStorage.getItem("arrayAgentes"));
+  $(".selectorAgentes").val(agenteVenta).trigger("change");
+  $(".selectorAgentes").on("select2:select", function (e) {
+    var agente = e.params.data.id;
+    agregarDatosBusqueda(agente, "arrayAgentes");
+  });
+  //detectamos se opcion se quito funciona con select multiple
+  $(".selectorAgentes").on("select2:unselect", function (e) {
+    var agente = e.params.data.id;
+    var arreglo = localStorage.getItem("arrayAgentes");
+    removeItemFromArregloBusqueda(arreglo, agente, "arrayAgentes");
+  });
+  $(".selectorCentro").select2();
+  var centroTrabajo = JSON.parse(localStorage.getItem("arrayCentro"));
+  $(".selectorCentro").val(centroTrabajo).trigger("change");
+  $(".selectorCentro").on("select2:select", function (e) {
+    var centro = e.params.data.id;
+    agregarDatosBusqueda(centro, "arrayCentro");
+  });
+  //detectamos se opcion se quito funciona con select multiple
+  $(".selectorCentro").on("select2:unselect", function (e) {
+    var centro = e.params.data.id;
+    var arreglo = localStorage.getItem("arrayCentro");
+    removeItemFromArregloBusqueda(arreglo, centro, "arrayCentro");
+  });
+  $(".selectorCanal").select2();
+  var canalComercial = JSON.parse(localStorage.getItem("arrayCanal"));
+  $(".selectorCanal").val(canalComercial).trigger("change");
+  $(".selectorCanal").on("select2:select", function (e) {
+    var canal = e.params.data.id;
+    agregarDatosBusqueda(canal, "arrayCanal");
+  });
+  //detectamos se opcion se quito funciona con select multiple
+  $(".selectorCanal").on("select2:unselect", function (e) {
+    var canal = e.params.data.id;
+    var arreglo = localStorage.getItem("arrayCanal");
+    removeItemFromArregloBusqueda(arreglo, canal, "arrayCanal");
+  });
+  $(".selectorMarca").select2();
+  var marcas = JSON.parse(localStorage.getItem("arrayMarca"));
+  $(".selectorMarca").val(marcas).trigger("change");
+  $(".selectorMarca").on("select2:select", function (e) {
+    var marca = e.params.data.id;
+    agregarDatosBusqueda(marca, "arrayMarca");
+  });
+  //detectamos se opcion se quito funciona con select multiple
+  $(".selectorMarca").on("select2:unselect", function (e) {
+    var marca = e.params.data.id;
+    var arreglo = localStorage.getItem("arrayMarca");
+    removeItemFromArregloBusqueda(arreglo, marca, "arrayMarca");
+  });
 });
 
 function cargarConceptosPinturas(page) {
@@ -331,18 +431,60 @@ function cargarVentasClienteDiario(page, cliente) {
   $("#clasificacionVenta").val("cargarVentasClienteDiario");
   var vista = "cargarVentasClienteDiario";
   var arreglo = JSON.parse(localStorage.getItem("arrayClientes"));
-
-  if (arreglo == "[]") {
+  var arregloAgente = JSON.parse(localStorage.getItem("arrayAgentes"));
+  var arregloCentro = JSON.parse(localStorage.getItem("arrayCentro"));
+  var arregloCanal = JSON.parse(localStorage.getItem("arrayCanal"));
+  if (arreglo === null) {
+    localStorage.setItem("arrayClientes", "[]");
     var query = "";
   } else {
-    var query = arreglo.toString();
+    if (arreglo == "[]") {
+      var query = "";
+    } else {
+      var query = JSON.stringify(arreglo);
+    }
   }
+
+  /****AGENTE-CENTRO DE TRABAJO-CANAL COMERCIAL */
+  if (arregloAgente === null) {
+    localStorage.setItem("arrayAgentes", "[]");
+    var agente = "";
+  } else {
+    if (arregloAgente == "[]") {
+      var agente = "";
+    } else {
+      var agente = arregloAgente.toString();
+    }
+  }
+
+  if (arregloCentro === null) {
+    localStorage.setItem("arrayCentro", "[]");
+    var centro = "";
+  } else {
+    if (arregloCentro == "[]") {
+      var centro = "";
+    } else {
+      var centro = arregloCentro.toString();
+    }
+  }
+
+  if (arregloCanal === null) {
+    localStorage.setItem("arrayClientes", "[]");
+    var canal = "";
+  } else {
+    if (arregloCanal == "[]") {
+      var canal = "";
+    } else {
+      var canal = arregloCanal.toString();
+    }
+  }
+  /****AGENTE-CENTRO DE TRABAJO-CANAL COMERCIAL */
   var estatus = $("#estatus").val();
   var anio = $("#anio").val();
   var semana = $("#semana").val();
-  var agente = $("#agente").val();
-  var canal = $("#canal").val();
   var per_page = $("#per_page").val();
+  var campo = $("#campoOrden").val();
+  var orden = $("#orden").val();
   var parametros = {
     action: "ventasCliente",
     page: page,
@@ -351,9 +493,12 @@ function cargarVentasClienteDiario(page, cliente) {
     semana: semana,
     canal: canal,
     agente: agente,
+    centro: centro,
     estatus: estatus,
     vista: vista,
     per_page: per_page,
+    campo: campo,
+    orden: orden,
   };
   $("#loader").fadeIn("slow");
   $("#loader").html("Cargando Porfavor Espere ........");
@@ -373,27 +518,74 @@ function cargarVentasClienteDiario(page, cliente) {
 function cargarVentasCanalDiario(page) {
   var vista = "cargarVentasCanalDiario";
   var arreglo = JSON.parse(localStorage.getItem("arrayClientes"));
+  var arregloAgente = JSON.parse(localStorage.getItem("arrayAgentes"));
+  var arregloCentro = JSON.parse(localStorage.getItem("arrayCentro"));
+  var arregloCanal = JSON.parse(localStorage.getItem("arrayCanal"));
 
-  if (arreglo == "[]") {
+  if (arreglo === null) {
+    localStorage.setItem("arrayClientes", "[]");
     var query = "";
   } else {
-    var query = arreglo.toString();
+    if (arreglo == "[]") {
+      var query = "";
+    } else {
+      var query = JSON.stringify(arreglo);
+    }
   }
+  /****AGENTE-CENTRO DE TRABAJO-CANAL COMERCIAL */
+  if (arregloAgente === null) {
+    localStorage.setItem("arrayAgentes", "[]");
+    var agente = "";
+  } else {
+    if (arregloAgente == "[]") {
+      var agente = "";
+    } else {
+      var agente = arregloAgente.toString();
+    }
+  }
+
+  if (arregloCentro === null) {
+    localStorage.setItem("arrayCentro", "[]");
+    var centro = "";
+  } else {
+    if (arregloCentro == "[]") {
+      var centro = "";
+    } else {
+      var centro = arregloCentro.toString();
+    }
+  }
+
+  if (arregloCanal === null) {
+    localStorage.setItem("arrayClientes", "[]");
+    var canal = "";
+  } else {
+    if (arregloCanal == "[]") {
+      var canal = "";
+    } else {
+      var canal = arregloCanal.toString();
+    }
+  }
+  /****AGENTE-CENTRO DE TRABAJO-CANAL COMERCIAL */
   var estatus = $("#estatus").val();
   var anio = $("#anio").val();
   var semana = $("#semana").val();
-  var agente = $("#agente").val();
   var per_page = $("#per_page").val();
+  var campo = $("#campoOrden").val();
+  var orden = $("#orden").val();
   var parametros = {
     action: "ventasCanal",
     page: page,
     query: query,
     anio: anio,
     semana: semana,
+    canal: canal,
     agente: agente,
+    centro: centro,
     estatus: estatus,
     vista: vista,
     per_page: per_page,
+    campo: campo,
+    orden: orden,
   };
   $("#loader").fadeIn("slow");
   $("#loader").html("Cargando Porfavor Espere ........");
@@ -413,18 +605,60 @@ function cargarVentasCanalDiario(page) {
 function cargarVentasAgenteDiario(page) {
   var vista = "cargarVentasAgenteDiario";
   var arreglo = JSON.parse(localStorage.getItem("arrayClientes"));
+  var arregloAgente = JSON.parse(localStorage.getItem("arrayAgentes"));
+  var arregloCentro = JSON.parse(localStorage.getItem("arrayCentro"));
+  var arregloCanal = JSON.parse(localStorage.getItem("arrayCanal"));
 
-  if (arreglo == "[]") {
+  if (arreglo === null) {
+    localStorage.setItem("arrayClientes", "[]");
     var query = "";
   } else {
-    var query = arreglo.toString();
+    if (arreglo == "[]") {
+      var query = "";
+    } else {
+      var query = JSON.stringify(arreglo);
+    }
   }
+  /****AGENTE-CENTRO DE TRABAJO-CANAL COMERCIAL */
+  if (arregloAgente === null) {
+    localStorage.setItem("arrayAgentes", "[]");
+    var agente = "";
+  } else {
+    if (arregloAgente == "[]") {
+      var agente = "";
+    } else {
+      var agente = arregloAgente.toString();
+    }
+  }
+
+  if (arregloCentro === null) {
+    localStorage.setItem("arrayCentro", "[]");
+    var centro = "";
+  } else {
+    if (arregloCentro == "[]") {
+      var centro = "";
+    } else {
+      var centro = arregloCentro.toString();
+    }
+  }
+
+  if (arregloCanal === null) {
+    localStorage.setItem("arrayClientes", "[]");
+    var canal = "";
+  } else {
+    if (arregloCanal == "[]") {
+      var canal = "";
+    } else {
+      var canal = arregloCanal.toString();
+    }
+  }
+  /****AGENTE-CENTRO DE TRABAJO-CANAL COMERCIAL */
   var estatus = $("#estatus").val();
   var anio = $("#anio").val();
   var semana = $("#semana").val();
-  var agente = $("#agente").val();
-  var canal = $("#canal").val();
   var per_page = $("#per_page").val();
+  var campo = $("#campoOrden").val();
+  var orden = $("#orden").val();
   var parametros = {
     action: "ventasAgente",
     page: page,
@@ -433,9 +667,12 @@ function cargarVentasAgenteDiario(page) {
     semana: semana,
     canal: canal,
     agente: agente,
+    centro: centro,
     estatus: estatus,
     vista: vista,
     per_page: per_page,
+    campo: campo,
+    orden: orden,
   };
   $("#loader").fadeIn("slow");
   $("#loader").html("Cargando Porfavor Espere ........");
@@ -457,23 +694,70 @@ function cargarVentasProductoMontoDiario(page, nombreCliente, codigoProducto) {
   var vista = "cargarVentasProductoMontoDiario";
   var arregloClientes = JSON.parse(localStorage.getItem("arrayClientes"));
   var arregloProductos = JSON.parse(localStorage.getItem("arrayProductos"));
-
-  if (arregloProductos == "[]") {
+  var arregloAgente = JSON.parse(localStorage.getItem("arrayAgentes"));
+  var arregloCentro = JSON.parse(localStorage.getItem("arrayCentro"));
+  var arregloCanal = JSON.parse(localStorage.getItem("arrayCanal"));
+  if (arregloProductos === null) {
+    localStorage.setItem("arrayProductos", "[]");
     var producto = "";
   } else {
-    var producto = arregloProductos.toString();
+    if (arregloProductos == "[]") {
+      var producto = "";
+    } else {
+      var producto = arregloProductos.toString();
+    }
   }
-  if (arregloClientes == "[]") {
+
+  if (arregloClientes === null) {
+    localStorage.setItem("arrayClientes", "[]");
     var query = "";
   } else {
-    var query = arregloClientes.toString();
+    if (arregloClientes == "[]") {
+      var query = "";
+    } else {
+      var query = JSON.stringify(arregloClientes);
+    }
   }
+  /****AGENTE-CENTRO DE TRABAJO-CANAL COMERCIAL */
+  if (arregloAgente === null) {
+    localStorage.setItem("arrayAgentes", "[]");
+    var agente = "";
+  } else {
+    if (arregloAgente == "[]") {
+      var agente = "";
+    } else {
+      var agente = arregloAgente.toString();
+    }
+  }
+
+  if (arregloCentro === null) {
+    localStorage.setItem("arrayCentro", "[]");
+    var centro = "";
+  } else {
+    if (arregloCentro == "[]") {
+      var centro = "";
+    } else {
+      var centro = arregloCentro.toString();
+    }
+  }
+
+  if (arregloCanal === null) {
+    localStorage.setItem("arrayClientes", "[]");
+    var canal = "";
+  } else {
+    if (arregloCanal == "[]") {
+      var canal = "";
+    } else {
+      var canal = arregloCanal.toString();
+    }
+  }
+  /****AGENTE-CENTRO DE TRABAJO-CANAL COMERCIAL */
   var estatus = $("#estatus").val();
   var anio = $("#anio").val();
   var semana = $("#semana").val();
-  var agente = $("#agente").val();
-  var canal = $("#canal").val();
   var per_page = $("#per_page").val();
+  var campo = $("#campoOrden").val();
+  var orden = $("#orden").val();
   var parametros = {
     action: "ventasProductoMonto",
     page: page,
@@ -482,10 +766,13 @@ function cargarVentasProductoMontoDiario(page, nombreCliente, codigoProducto) {
     semana: semana,
     canal: canal,
     agente: agente,
+    centro: centro,
     producto: producto,
     estatus: estatus,
     vista: vista,
     per_page: per_page,
+    campo: campo,
+    orden: orden,
   };
   $("#loader").fadeIn("slow");
   $("#loader").html("Cargando Porfavor Espere ........");
@@ -511,23 +798,70 @@ function cargarVentasProductoUnidadesDiario(
   var vista = "cargarVentasProductoUnidadesDiario";
   var arregloClientes = JSON.parse(localStorage.getItem("arrayClientes"));
   var arregloProductos = JSON.parse(localStorage.getItem("arrayProductos"));
+  var arregloAgente = JSON.parse(localStorage.getItem("arrayAgentes"));
+  var arregloCentro = JSON.parse(localStorage.getItem("arrayCentro"));
+  var arregloCanal = JSON.parse(localStorage.getItem("arrayCanal"));
 
-  if (arregloProductos == "[]") {
+  if (arregloProductos === null) {
+    localStorage.setItem("arrayProductos", "[]");
     var producto = "";
   } else {
-    var producto = arregloProductos.toString();
+    if (arregloProductos == "[]") {
+      var producto = "";
+    } else {
+      var producto = arregloProductos.toString();
+    }
   }
-  if (arregloClientes == "[]") {
+  if (arregloClientes === null) {
+    localStorage.setItem("arrayClientes", "[]");
     var query = "";
   } else {
-    var query = arregloClientes.toString();
+    if (arregloClientes == "[]") {
+      var query = "";
+    } else {
+      var query = JSON.stringify(arregloClientes);
+    }
   }
+  /****AGENTE-CENTRO DE TRABAJO-CANAL COMERCIAL */
+  if (arregloAgente === null) {
+    localStorage.setItem("arrayAgentes", "[]");
+    var agente = "";
+  } else {
+    if (arregloAgente == "[]") {
+      var agente = "";
+    } else {
+      var agente = arregloAgente.toString();
+    }
+  }
+
+  if (arregloCentro === null) {
+    localStorage.setItem("arrayCentro", "[]");
+    var centro = "";
+  } else {
+    if (arregloCentro == "[]") {
+      var centro = "";
+    } else {
+      var centro = arregloCentro.toString();
+    }
+  }
+
+  if (arregloCanal === null) {
+    localStorage.setItem("arrayClientes", "[]");
+    var canal = "";
+  } else {
+    if (arregloCanal == "[]") {
+      var canal = "";
+    } else {
+      var canal = arregloCanal.toString();
+    }
+  }
+  /****AGENTE-CENTRO DE TRABAJO-CANAL COMERCIAL */
   var estatus = $("#estatus").val();
   var anio = $("#anio").val();
   var semana = $("#semana").val();
-  var agente = $("#agente").val();
-  var canal = $("#canal").val();
   var per_page = $("#per_page").val();
+  var campo = $("#campoOrden").val();
+  var orden = $("#orden").val();
   var parametros = {
     action: "ventasProductoUnidades",
     page: page,
@@ -536,10 +870,13 @@ function cargarVentasProductoUnidadesDiario(
     semana: semana,
     canal: canal,
     agente: agente,
+    centro: centro,
     producto: producto,
     estatus: estatus,
     vista: vista,
     per_page: per_page,
+    campo: campo,
+    orden: orden,
   };
   $("#loader").fadeIn("slow");
   $("#loader").html("Cargando Porfavor Espere ........");
@@ -561,23 +898,70 @@ function cargarVentasLitreadoMontoDiario(page, nombreCliente, codigoProducto) {
   var vista = "cargarVentasLitreadoMontoDiario";
   var arregloClientes = JSON.parse(localStorage.getItem("arrayClientes"));
   var arregloProductos = JSON.parse(localStorage.getItem("arrayProductos"));
+  var arregloAgente = JSON.parse(localStorage.getItem("arrayAgentes"));
+  var arregloCentro = JSON.parse(localStorage.getItem("arrayCentro"));
+  var arregloCanal = JSON.parse(localStorage.getItem("arrayCanal"));
 
-  if (arregloProductos == "[]") {
+  if (arregloProductos === null) {
+    localStorage.setItem("arrayProductos", "[]");
     var producto = "";
   } else {
-    var producto = arregloProductos.toString();
+    if (arregloProductos == "[]") {
+      var producto = "";
+    } else {
+      var producto = arregloProductos.toString();
+    }
   }
-  if (arregloClientes == "[]") {
+  if (arregloClientes === null) {
+    localStorage.setItem("arrayClientes", "[]");
     var query = "";
   } else {
-    var query = arregloClientes.toString();
+    if (arregloClientes == "[]") {
+      var query = "";
+    } else {
+      var query = JSON.stringify(arregloClientes);
+    }
   }
+  /****AGENTE-CENTRO DE TRABAJO-CANAL COMERCIAL */
+  if (arregloAgente === null) {
+    localStorage.setItem("arrayAgentes", "[]");
+    var agente = "";
+  } else {
+    if (arregloAgente == "[]") {
+      var agente = "";
+    } else {
+      var agente = arregloAgente.toString();
+    }
+  }
+
+  if (arregloCentro === null) {
+    localStorage.setItem("arrayCentro", "[]");
+    var centro = "";
+  } else {
+    if (arregloCentro == "[]") {
+      var centro = "";
+    } else {
+      var centro = arregloCentro.toString();
+    }
+  }
+
+  if (arregloCanal === null) {
+    localStorage.setItem("arrayClientes", "[]");
+    var canal = "";
+  } else {
+    if (arregloCanal == "[]") {
+      var canal = "";
+    } else {
+      var canal = arregloCanal.toString();
+    }
+  }
+  /****AGENTE-CENTRO DE TRABAJO-CANAL COMERCIAL */
   var estatus = $("#estatus").val();
   var anio = $("#anio").val();
   var semana = $("#semana").val();
-  var agente = $("#agente").val();
-  var canal = $("#canal").val();
   var per_page = $("#per_page").val();
+  var campo = $("#campoOrden").val();
+  var orden = $("#orden").val();
   var parametros = {
     action: "ventasLitreadoMonto",
     page: page,
@@ -586,10 +970,13 @@ function cargarVentasLitreadoMontoDiario(page, nombreCliente, codigoProducto) {
     semana: semana,
     canal: canal,
     agente: agente,
+    centro: centro,
     producto: producto,
     estatus: estatus,
     vista: vista,
     per_page: per_page,
+    campo: campo,
+    orden: orden,
   };
   $("#loader").fadeIn("slow");
   $("#loader").html("Cargando Porfavor Espere ........");
@@ -615,23 +1002,69 @@ function cargarVentasLitreadoUnidadesDiario(
   var vista = "cargarVentasLitreadoUnidadesDiario";
   var arregloClientes = JSON.parse(localStorage.getItem("arrayClientes"));
   var arregloProductos = JSON.parse(localStorage.getItem("arrayProductos"));
-
-  if (arregloProductos == "[]") {
+  var arregloAgente = JSON.parse(localStorage.getItem("arrayAgentes"));
+  var arregloCentro = JSON.parse(localStorage.getItem("arrayCentro"));
+  var arregloCanal = JSON.parse(localStorage.getItem("arrayCanal"));
+  if (arregloProductos === null) {
+    localStorage.setItem("arrayProductos", "[]");
     var producto = "";
   } else {
-    var producto = arregloProductos.toString();
+    if (arregloProductos == "[]") {
+      var producto = "";
+    } else {
+      var producto = arregloProductos.toString();
+    }
   }
-  if (arregloClientes == "[]") {
+  if (arregloClientes === null) {
+    localStorage.setItem("arrayClientes", "[]");
     var query = "";
   } else {
-    var query = arregloClientes.toString();
+    if (arregloClientes == "[]") {
+      var query = "";
+    } else {
+      var query = JSON.stringify(arregloClientes);
+    }
   }
+  /****AGENTE-CENTRO DE TRABAJO-CANAL COMERCIAL */
+  if (arregloAgente === null) {
+    localStorage.setItem("arrayAgentes", "[]");
+    var agente = "";
+  } else {
+    if (arregloAgente == "[]") {
+      var agente = "";
+    } else {
+      var agente = arregloAgente.toString();
+    }
+  }
+
+  if (arregloCentro === null) {
+    localStorage.setItem("arrayCentro", "[]");
+    var centro = "";
+  } else {
+    if (arregloCentro == "[]") {
+      var centro = "";
+    } else {
+      var centro = arregloCentro.toString();
+    }
+  }
+
+  if (arregloCanal === null) {
+    localStorage.setItem("arrayClientes", "[]");
+    var canal = "";
+  } else {
+    if (arregloCanal == "[]") {
+      var canal = "";
+    } else {
+      var canal = arregloCanal.toString();
+    }
+  }
+  /****AGENTE-CENTRO DE TRABAJO-CANAL COMERCIAL */
   var estatus = $("#estatus").val();
   var anio = $("#anio").val();
   var semana = $("#semana").val();
-  var agente = $("#agente").val();
-  var canal = $("#canal").val();
   var per_page = $("#per_page").val();
+  var campo = $("#campoOrden").val();
+  var orden = $("#orden").val();
   var parametros = {
     action: "ventasLitreadoUnidades",
     page: page,
@@ -640,10 +1073,13 @@ function cargarVentasLitreadoUnidadesDiario(
     semana: semana,
     canal: canal,
     agente: agente,
+    centro: centro,
     producto: producto,
     estatus: estatus,
     vista: vista,
     per_page: per_page,
+    campo: campo,
+    orden: orden,
   };
   $("#loader").fadeIn("slow");
   $("#loader").html("Cargando Porfavor Espere ........");
@@ -664,18 +1100,71 @@ function cargarVentasMarcaDiario(page, cliente) {
   $("#clasificacionVenta").val("cargarVentasMarcaDiario");
   var vista = "cargarVentasMarcaDiario";
   var arreglo = JSON.parse(localStorage.getItem("arrayClientes"));
+  var arregloAgente = JSON.parse(localStorage.getItem("arrayAgentes"));
+  var arregloCentro = JSON.parse(localStorage.getItem("arrayCentro"));
+  var arregloCanal = JSON.parse(localStorage.getItem("arrayCanal"));
+  var arregloMarca = JSON.parse(localStorage.getItem("arrayMarca"));
 
-  if (arreglo == "[]") {
+  if (arreglo === null) {
+    localStorage.setItem("arrayClientes", "[]");
     var query = "";
   } else {
-    var query = arreglo.toString();
+    if (arreglo == "[]") {
+      var query = "";
+    } else {
+      var query = JSON.stringify(arreglo);
+    }
   }
+  /****AGENTE-CENTRO DE TRABAJO-CANAL COMERCIAL */
+  if (arregloAgente === null) {
+    localStorage.setItem("arrayAgentes", "[]");
+    var agente = "";
+  } else {
+    if (arregloAgente == "[]") {
+      var agente = "";
+    } else {
+      var agente = arregloAgente.toString();
+    }
+  }
+
+  if (arregloCentro === null) {
+    localStorage.setItem("arrayCentro", "[]");
+    var centro = "";
+  } else {
+    if (arregloCentro == "[]") {
+      var centro = "";
+    } else {
+      var centro = arregloCentro.toString();
+    }
+  }
+
+  if (arregloCanal === null) {
+    localStorage.setItem("arrayClientes", "[]");
+    var canal = "";
+  } else {
+    if (arregloCanal == "[]") {
+      var canal = "";
+    } else {
+      var canal = arregloCanal.toString();
+    }
+  }
+  if (arregloMarca === null) {
+    localStorage.setItem("arrayMarca", "[]");
+    var marca = "";
+  } else {
+    if (arregloMarca == "[]") {
+      var marca = "";
+    } else {
+      var marca = arregloMarca.toString();
+    }
+  }
+  /****AGENTE-CENTRO DE TRABAJO-CANAL COMERCIAL */
   var estatus = $("#estatus").val();
   var anio = $("#anio").val();
   var semana = $("#semana").val();
-  var agente = $("#agente").val();
-  var canal = $("#canal").val();
   var per_page = $("#per_page").val();
+  var campo = $("#campoOrden").val();
+  var orden = $("#orden").val();
   var parametros = {
     action: "ventasMarca",
     page: page,
@@ -684,9 +1173,13 @@ function cargarVentasMarcaDiario(page, cliente) {
     semana: semana,
     canal: canal,
     agente: agente,
+    centro: centro,
     estatus: estatus,
     vista: vista,
     per_page: per_page,
+    campo: campo,
+    orden: orden,
+    marca: marca,
   };
   $("#loader").fadeIn("slow");
   $("#loader").html("Cargando Porfavor Espere ........");
@@ -721,6 +1214,21 @@ function cargarDetalleVentasCliente(page, centro) {
     var centroTrabajo = $("#centroTrabajo").val();
   }
 
+  if (centroTrabajo == "") {
+    var agente = localStorage.getItem("agenteDetalle");
+  } else {
+    var agente = "";
+  }
+  if (centroTrabajo == "" && agente == "") {
+    var canal = localStorage.getItem("canalDetalle");
+  } else {
+    var canal = "";
+  }
+  if (centroTrabajo == "" && agente == "" && canal == "") {
+    var cliente = localStorage.getItem("clienteDetalle");
+  } else {
+    var cliente = "";
+  }
   var anio = $("#anio").val();
   var dia = $("#fecha").val();
   if (dia == "") {
@@ -740,6 +1248,9 @@ function cargarDetalleVentasCliente(page, centro) {
     action: "detalleVentasCliente",
     page: page,
     centroTrabajo: centroTrabajo,
+    agente: agente,
+    canal: canal,
+    cliente: cliente,
     anio: anio,
     dia: dia,
     vista: vista,
@@ -761,7 +1272,7 @@ function cargarDetalleVentasCliente(page, centro) {
     },
   });
 }
-function cargarDetalleVentasProducto(page, idDocumento) {
+function cargarDetalleVentasProducto(page, idDocumento, empresa) {
   var vista = "cargarDetalleVentasProducto";
 
   var per_page = $("#per_page").val();
@@ -769,6 +1280,7 @@ function cargarDetalleVentasProducto(page, idDocumento) {
     action: "detalleVentasProductos",
     page: page,
     idDocumento: idDocumento,
+    empresa: empresa,
     vista: vista,
     per_page: per_page,
   };
@@ -793,17 +1305,59 @@ function cargarVentasCliente(page, cliente) {
   $("#clasificacionVenta").val("cargarVentasCliente");
   var vista = "cargarVentasCliente";
   var arreglo = JSON.parse(localStorage.getItem("arrayClientes"));
+  var arregloAgente = JSON.parse(localStorage.getItem("arrayAgentes"));
+  var arregloCentro = JSON.parse(localStorage.getItem("arrayCentro"));
+  var arregloCanal = JSON.parse(localStorage.getItem("arrayCanal"));
 
-  if (arreglo == "[]") {
+  if (arreglo === null) {
+    localStorage.setItem("arrayClientes", "[]");
     var query = "";
   } else {
-    var query = arreglo.toString();
+    if (arreglo == "[]") {
+      var query = "";
+    } else {
+      var query = JSON.stringify(arreglo);
+    }
   }
+  /****AGENTE-CENTRO DE TRABAJO-CANAL COMERCIAL */
+  if (arregloAgente === null) {
+    localStorage.setItem("arrayAgentes", "[]");
+    var agente = "";
+  } else {
+    if (arregloAgente == "[]") {
+      var agente = "";
+    } else {
+      var agente = arregloAgente.toString();
+    }
+  }
+
+  if (arregloCentro === null) {
+    localStorage.setItem("arrayCentro", "[]");
+    var centro = "";
+  } else {
+    if (arregloCentro == "[]") {
+      var centro = "";
+    } else {
+      var centro = arregloCentro.toString();
+    }
+  }
+
+  if (arregloCanal === null) {
+    localStorage.setItem("arrayClientes", "[]");
+    var canal = "";
+  } else {
+    if (arregloCanal == "[]") {
+      var canal = "";
+    } else {
+      var canal = arregloCanal.toString();
+    }
+  }
+  /****AGENTE-CENTRO DE TRABAJO-CANAL COMERCIAL */
   var estatus = $("#estatus").val();
   var anio = $("#anio").val();
-  var agente = $("#agente").val();
-  var canal = $("#canal").val();
   var per_page = $("#per_page").val();
+  var campo = $("#campoOrden").val();
+  var orden = $("#orden").val();
   var parametros = {
     action: "ventasCliente",
     page: page,
@@ -811,9 +1365,12 @@ function cargarVentasCliente(page, cliente) {
     anio: anio,
     canal: canal,
     agente: agente,
+    centro: centro,
     estatus: estatus,
     vista: vista,
     per_page: per_page,
+    campo: campo,
+    orden: orden,
   };
   $("#loader").fadeIn("slow");
   $("#loader").html("Cargando Porfavor Espere ........");
@@ -833,25 +1390,72 @@ function cargarVentasCliente(page, cliente) {
 function cargarVentasCanal(page) {
   var vista = "cargarVentasCanal";
   var arreglo = JSON.parse(localStorage.getItem("arrayClientes"));
+  var arregloAgente = JSON.parse(localStorage.getItem("arrayAgentes"));
+  var arregloCentro = JSON.parse(localStorage.getItem("arrayCentro"));
+  var arregloCanal = JSON.parse(localStorage.getItem("arrayCanal"));
 
-  if (arreglo == "[]") {
+  if (arreglo === null) {
+    localStorage.setItem("arrayClientes", "[]");
     var query = "";
   } else {
-    var query = arreglo.toString();
+    if (arreglo == "[]") {
+      var query = "";
+    } else {
+      var query = JSON.stringify(arreglo);
+    }
   }
+  /****AGENTE-CENTRO DE TRABAJO-CANAL COMERCIAL */
+  if (arregloAgente === null) {
+    localStorage.setItem("arrayAgentes", "[]");
+    var agente = "";
+  } else {
+    if (arregloAgente == "[]") {
+      var agente = "";
+    } else {
+      var agente = arregloAgente.toString();
+    }
+  }
+
+  if (arregloCentro === null) {
+    localStorage.setItem("arrayCentro", "[]");
+    var centro = "";
+  } else {
+    if (arregloCentro == "[]") {
+      var centro = "";
+    } else {
+      var centro = arregloCentro.toString();
+    }
+  }
+
+  if (arregloCanal === null) {
+    localStorage.setItem("arrayClientes", "[]");
+    var canal = "";
+  } else {
+    if (arregloCanal == "[]") {
+      var canal = "";
+    } else {
+      var canal = arregloCanal.toString();
+    }
+  }
+  /****AGENTE-CENTRO DE TRABAJO-CANAL COMERCIAL */
   var estatus = $("#estatus").val();
   var anio = $("#anio").val();
-  var agente = $("#agente").val();
   var per_page = $("#per_page").val();
+  var campo = $("#campoOrden").val();
+  var orden = $("#orden").val();
   var parametros = {
     action: "ventasCanal",
     page: page,
     query: query,
     anio: anio,
+    canal: canal,
     agente: agente,
+    centro: centro,
     estatus: estatus,
     vista: vista,
     per_page: per_page,
+    campo: campo,
+    orden: orden,
   };
   $("#loader").fadeIn("slow");
   $("#loader").html("Cargando Porfavor Espere ........");
@@ -871,17 +1475,59 @@ function cargarVentasCanal(page) {
 function cargarVentasAgente(page) {
   var vista = "cargarVentasAgente";
   var arreglo = JSON.parse(localStorage.getItem("arrayClientes"));
+  var arregloAgente = JSON.parse(localStorage.getItem("arrayAgentes"));
+  var arregloCentro = JSON.parse(localStorage.getItem("arrayCentro"));
+  var arregloCanal = JSON.parse(localStorage.getItem("arrayCanal"));
 
-  if (arreglo == "[]") {
+  if (arreglo === null) {
+    localStorage.setItem("arrayClientes", "[]");
     var query = "";
   } else {
-    var query = arreglo.toString();
+    if (arreglo == "[]") {
+      var query = "";
+    } else {
+      var query = JSON.stringify(arreglo);
+    }
   }
+  /****AGENTE-CENTRO DE TRABAJO-CANAL COMERCIAL */
+  if (arregloAgente === null) {
+    localStorage.setItem("arrayAgentes", "[]");
+    var agente = "";
+  } else {
+    if (arregloAgente == "[]") {
+      var agente = "";
+    } else {
+      var agente = arregloAgente.toString();
+    }
+  }
+
+  if (arregloCentro === null) {
+    localStorage.setItem("arrayCentro", "[]");
+    var centro = "";
+  } else {
+    if (arregloCentro == "[]") {
+      var centro = "";
+    } else {
+      var centro = arregloCentro.toString();
+    }
+  }
+
+  if (arregloCanal === null) {
+    localStorage.setItem("arrayClientes", "[]");
+    var canal = "";
+  } else {
+    if (arregloCanal == "[]") {
+      var canal = "";
+    } else {
+      var canal = arregloCanal.toString();
+    }
+  }
+  /****AGENTE-CENTRO DE TRABAJO-CANAL COMERCIAL */
   var estatus = $("#estatus").val();
   var anio = $("#anio").val();
-  var agente = $("#agente").val();
-  var canal = $("#canal").val();
   var per_page = $("#per_page").val();
+  var campo = $("#campoOrden").val();
+  var orden = $("#orden").val();
   var parametros = {
     action: "ventasAgente",
     page: page,
@@ -889,9 +1535,12 @@ function cargarVentasAgente(page) {
     anio: anio,
     canal: canal,
     agente: agente,
+    centro: centro,
     estatus: estatus,
     vista: vista,
     per_page: per_page,
+    campo: campo,
+    orden: orden,
   };
   $("#loader").fadeIn("slow");
   $("#loader").html("Cargando Porfavor Espere ........");
@@ -913,22 +1562,69 @@ function cargarVentasProductoMonto(page, nombreCliente, codigoProducto) {
   var vista = "cargarVentasProductoMonto";
   var arregloClientes = JSON.parse(localStorage.getItem("arrayClientes"));
   var arregloProductos = JSON.parse(localStorage.getItem("arrayProductos"));
+  var arregloAgente = JSON.parse(localStorage.getItem("arrayAgentes"));
+  var arregloCentro = JSON.parse(localStorage.getItem("arrayCentro"));
+  var arregloCanal = JSON.parse(localStorage.getItem("arrayCanal"));
 
-  if (arregloProductos == "[]") {
+  if (arregloProductos === null) {
+    localStorage.setItem("arrayProductos", "[]");
     var producto = "";
   } else {
-    var producto = arregloProductos.toString();
+    if (arregloProductos == "[]") {
+      var producto = "";
+    } else {
+      var producto = arregloProductos.toString();
+    }
   }
-  if (arregloClientes == "[]") {
+  if (arregloClientes === null) {
+    localStorage.setItem("arrayClientes", "[]");
     var query = "";
   } else {
-    var query = arregloClientes.toString();
+    if (arregloClientes == "[]") {
+      var query = "";
+    } else {
+      var query = JSON.stringify(arregloClientes);
+    }
   }
+  /****AGENTE-CENTRO DE TRABAJO-CANAL COMERCIAL */
+  if (arregloAgente === null) {
+    localStorage.setItem("arrayAgentes", "[]");
+    var agente = "";
+  } else {
+    if (arregloAgente == "[]") {
+      var agente = "";
+    } else {
+      var agente = arregloAgente.toString();
+    }
+  }
+
+  if (arregloCentro === null) {
+    localStorage.setItem("arrayCentro", "[]");
+    var centro = "";
+  } else {
+    if (arregloCentro == "[]") {
+      var centro = "";
+    } else {
+      var centro = arregloCentro.toString();
+    }
+  }
+
+  if (arregloCanal === null) {
+    localStorage.setItem("arrayClientes", "[]");
+    var canal = "";
+  } else {
+    if (arregloCanal == "[]") {
+      var canal = "";
+    } else {
+      var canal = arregloCanal.toString();
+    }
+  }
+  /****AGENTE-CENTRO DE TRABAJO-CANAL COMERCIAL */
   var estatus = $("#estatus").val();
   var anio = $("#anio").val();
-  var agente = $("#agente").val();
-  var canal = $("#canal").val();
   var per_page = $("#per_page").val();
+  var campo = $("#campoOrden").val();
+  var orden = $("#orden").val();
   var parametros = {
     action: "ventasProductoMonto",
     page: page,
@@ -936,10 +1632,13 @@ function cargarVentasProductoMonto(page, nombreCliente, codigoProducto) {
     anio: anio,
     canal: canal,
     agente: agente,
+    centro: centro,
     producto: producto,
     estatus: estatus,
     vista: vista,
     per_page: per_page,
+    campo: campo,
+    orden: orden,
   };
   $("#loader").fadeIn("slow");
   $("#loader").html("Cargando Porfavor Espere ........");
@@ -961,22 +1660,69 @@ function cargarVentasProductoUnidades(page, nombreCliente, codigoProducto) {
   var vista = "cargarVentasProductoUnidades";
   var arregloClientes = JSON.parse(localStorage.getItem("arrayClientes"));
   var arregloProductos = JSON.parse(localStorage.getItem("arrayProductos"));
+  var arregloAgente = JSON.parse(localStorage.getItem("arrayAgentes"));
+  var arregloCentro = JSON.parse(localStorage.getItem("arrayCentro"));
+  var arregloCanal = JSON.parse(localStorage.getItem("arrayCanal"));
 
-  if (arregloProductos == "[]") {
+  if (arregloProductos === null) {
+    localStorage.setItem("arrayProductos", "[]");
     var producto = "";
   } else {
-    var producto = arregloProductos.toString();
+    if (arregloProductos == "[]") {
+      var producto = "";
+    } else {
+      var producto = arregloProductos.toString();
+    }
   }
-  if (arregloClientes == "[]") {
+  if (arregloClientes === null) {
+    localStorage.setItem("arrayClientes", "[]");
     var query = "";
   } else {
-    var query = arregloClientes.toString();
+    if (arregloClientes == "[]") {
+      var query = "";
+    } else {
+      var query = JSON.stringify(arregloClientes);
+    }
   }
+  /****AGENTE-CENTRO DE TRABAJO-CANAL COMERCIAL */
+  if (arregloAgente === null) {
+    localStorage.setItem("arrayAgentes", "[]");
+    var agente = "";
+  } else {
+    if (arregloAgente == "[]") {
+      var agente = "";
+    } else {
+      var agente = arregloAgente.toString();
+    }
+  }
+
+  if (arregloCentro === null) {
+    localStorage.setItem("arrayCentro", "[]");
+    var centro = "";
+  } else {
+    if (arregloCentro == "[]") {
+      var centro = "";
+    } else {
+      var centro = arregloCentro.toString();
+    }
+  }
+
+  if (arregloCanal === null) {
+    localStorage.setItem("arrayClientes", "[]");
+    var canal = "";
+  } else {
+    if (arregloCanal == "[]") {
+      var canal = "";
+    } else {
+      var canal = arregloCanal.toString();
+    }
+  }
+  /****AGENTE-CENTRO DE TRABAJO-CANAL COMERCIAL */
   var estatus = $("#estatus").val();
   var anio = $("#anio").val();
-  var agente = $("#agente").val();
-  var canal = $("#canal").val();
   var per_page = $("#per_page").val();
+  var campo = $("#campoOrden").val();
+  var orden = $("#orden").val();
   var parametros = {
     action: "ventasProductoUnidades",
     page: page,
@@ -984,10 +1730,13 @@ function cargarVentasProductoUnidades(page, nombreCliente, codigoProducto) {
     anio: anio,
     canal: canal,
     agente: agente,
+    centro: centro,
     producto: producto,
     estatus: estatus,
     vista: vista,
     per_page: per_page,
+    campo: campo,
+    orden: orden,
   };
   $("#loader").fadeIn("slow");
   $("#loader").html("Cargando Porfavor Espere ........");
@@ -1009,22 +1758,69 @@ function cargarVentasLitreadoMonto(page, nombreCliente, codigoProducto) {
   var vista = "cargarVentasLitreadoMonto";
   var arregloClientes = JSON.parse(localStorage.getItem("arrayClientes"));
   var arregloProductos = JSON.parse(localStorage.getItem("arrayProductos"));
+  var arregloAgente = JSON.parse(localStorage.getItem("arrayAgentes"));
+  var arregloCentro = JSON.parse(localStorage.getItem("arrayCentro"));
+  var arregloCanal = JSON.parse(localStorage.getItem("arrayCanal"));
 
-  if (arregloProductos == "[]") {
+  if (arregloProductos === null) {
+    localStorage.setItem("arrayProductos", "[]");
     var producto = "";
   } else {
-    var producto = arregloProductos.toString();
+    if (arregloProductos == "[]") {
+      var producto = "";
+    } else {
+      var producto = arregloProductos.toString();
+    }
   }
-  if (arregloClientes == "[]") {
+  if (arregloClientes === null) {
+    localStorage.setItem("arrayClientes", "[]");
     var query = "";
   } else {
-    var query = arregloClientes.toString();
+    if (arregloClientes == "[]") {
+      var query = "";
+    } else {
+      var query = JSON.stringify(arregloClientes);
+    }
   }
+  /****AGENTE-CENTRO DE TRABAJO-CANAL COMERCIAL */
+  if (arregloAgente === null) {
+    localStorage.setItem("arrayAgentes", "[]");
+    var agente = "";
+  } else {
+    if (arregloAgente == "[]") {
+      var agente = "";
+    } else {
+      var agente = arregloAgente.toString();
+    }
+  }
+
+  if (arregloCentro === null) {
+    localStorage.setItem("arrayCentro", "[]");
+    var centro = "";
+  } else {
+    if (arregloCentro == "[]") {
+      var centro = "";
+    } else {
+      var centro = arregloCentro.toString();
+    }
+  }
+
+  if (arregloCanal === null) {
+    localStorage.setItem("arrayClientes", "[]");
+    var canal = "";
+  } else {
+    if (arregloCanal == "[]") {
+      var canal = "";
+    } else {
+      var canal = arregloCanal.toString();
+    }
+  }
+  /****AGENTE-CENTRO DE TRABAJO-CANAL COMERCIAL */
   var estatus = $("#estatus").val();
   var anio = $("#anio").val();
-  var agente = $("#agente").val();
-  var canal = $("#canal").val();
   var per_page = $("#per_page").val();
+  var campo = $("#campoOrden").val();
+  var orden = $("#orden").val();
   var parametros = {
     action: "ventasLitreadoMonto",
     page: page,
@@ -1032,10 +1828,13 @@ function cargarVentasLitreadoMonto(page, nombreCliente, codigoProducto) {
     anio: anio,
     canal: canal,
     agente: agente,
+    centro: centro,
     producto: producto,
     estatus: estatus,
     vista: vista,
     per_page: per_page,
+    campo: campo,
+    orden: orden,
   };
   $("#loader").fadeIn("slow");
   $("#loader").html("Cargando Porfavor Espere ........");
@@ -1057,22 +1856,69 @@ function cargarVentasLitreadoUnidades(page, nombreCliente, codigoProducto) {
   var vista = "cargarVentasLitreadoUnidades";
   var arregloClientes = JSON.parse(localStorage.getItem("arrayClientes"));
   var arregloProductos = JSON.parse(localStorage.getItem("arrayProductos"));
+  var arregloAgente = JSON.parse(localStorage.getItem("arrayAgentes"));
+  var arregloCentro = JSON.parse(localStorage.getItem("arrayCentro"));
+  var arregloCanal = JSON.parse(localStorage.getItem("arrayCanal"));
 
-  if (arregloProductos == "[]") {
+  if (arregloProductos === null) {
+    localStorage.setItem("arrayProductos", "[]");
     var producto = "";
   } else {
-    var producto = arregloProductos.toString();
+    if (arregloProductos == "[]") {
+      var producto = "";
+    } else {
+      var producto = arregloProductos.toString();
+    }
   }
-  if (arregloClientes == "[]") {
+  if (arregloClientes === null) {
+    localStorage.setItem("arrayClientes", "[]");
     var query = "";
   } else {
-    var query = arregloClientes.toString();
+    if (arregloClientes == "[]") {
+      var query = "";
+    } else {
+      var query = JSON.stringify(arregloClientes);
+    }
   }
+  /****AGENTE-CENTRO DE TRABAJO-CANAL COMERCIAL */
+  if (arregloAgente === null) {
+    localStorage.setItem("arrayAgentes", "[]");
+    var agente = "";
+  } else {
+    if (arregloAgente == "[]") {
+      var agente = "";
+    } else {
+      var agente = arregloAgente.toString();
+    }
+  }
+
+  if (arregloCentro === null) {
+    localStorage.setItem("arrayCentro", "[]");
+    var centro = "";
+  } else {
+    if (arregloCentro == "[]") {
+      var centro = "";
+    } else {
+      var centro = arregloCentro.toString();
+    }
+  }
+
+  if (arregloCanal === null) {
+    localStorage.setItem("arrayClientes", "[]");
+    var canal = "";
+  } else {
+    if (arregloCanal == "[]") {
+      var canal = "";
+    } else {
+      var canal = arregloCanal.toString();
+    }
+  }
+  /****AGENTE-CENTRO DE TRABAJO-CANAL COMERCIAL */
   var estatus = $("#estatus").val();
   var anio = $("#anio").val();
-  var agente = $("#agente").val();
-  var canal = $("#canal").val();
   var per_page = $("#per_page").val();
+  var campo = $("#campoOrden").val();
+  var orden = $("#orden").val();
   var parametros = {
     action: "ventasLitreadoUnidades",
     page: page,
@@ -1080,10 +1926,13 @@ function cargarVentasLitreadoUnidades(page, nombreCliente, codigoProducto) {
     anio: anio,
     canal: canal,
     agente: agente,
+    centro: centro,
     producto: producto,
     estatus: estatus,
     vista: vista,
     per_page: per_page,
+    campo: campo,
+    orden: orden,
   };
   $("#loader").fadeIn("slow");
   $("#loader").html("Cargando Porfavor Espere ........");
@@ -1104,17 +1953,70 @@ function cargarVentasMarcaMensual(page, cliente) {
   $("#clasificacionVenta").val("cargarVentasMarcaMensual");
   var vista = "cargarVentasMarcaMensual";
   var arreglo = JSON.parse(localStorage.getItem("arrayClientes"));
+  var arregloAgente = JSON.parse(localStorage.getItem("arrayAgentes"));
+  var arregloCentro = JSON.parse(localStorage.getItem("arrayCentro"));
+  var arregloCanal = JSON.parse(localStorage.getItem("arrayCanal"));
+  var arregloMarca = JSON.parse(localStorage.getItem("arrayMarca"));
 
-  if (arreglo == "[]") {
+  if (arreglo === null) {
+    localStorage.setItem("arrayClientes", "[]");
     var query = "";
   } else {
-    var query = arreglo.toString();
+    if (arreglo == "[]") {
+      var query = "";
+    } else {
+      var query = JSON.stringify(arreglo);
+    }
   }
+  /****AGENTE-CENTRO DE TRABAJO-CANAL COMERCIAL */
+  if (arregloAgente === null) {
+    localStorage.setItem("arrayAgentes", "[]");
+    var agente = "";
+  } else {
+    if (arregloAgente == "[]") {
+      var agente = "";
+    } else {
+      var agente = arregloAgente.toString();
+    }
+  }
+
+  if (arregloCentro === null) {
+    localStorage.setItem("arrayCentro", "[]");
+    var centro = "";
+  } else {
+    if (arregloCentro == "[]") {
+      var centro = "";
+    } else {
+      var centro = arregloCentro.toString();
+    }
+  }
+
+  if (arregloCanal === null) {
+    localStorage.setItem("arrayClientes", "[]");
+    var canal = "";
+  } else {
+    if (arregloCanal == "[]") {
+      var canal = "";
+    } else {
+      var canal = arregloCanal.toString();
+    }
+  }
+  if (arregloMarca === null) {
+    localStorage.setItem("arrayMarca", "[]");
+    var marca = "";
+  } else {
+    if (arregloMarca == "[]") {
+      var marca = "";
+    } else {
+      var marca = arregloMarca.toString();
+    }
+  }
+  /****AGENTE-CENTRO DE TRABAJO-CANAL COMERCIAL */
   var estatus = $("#estatus").val();
   var anio = $("#anio").val();
-  var agente = $("#agente").val();
-  var canal = $("#canal").val();
   var per_page = $("#per_page").val();
+  var campo = $("#campoOrden").val();
+  var orden = $("#orden").val();
   var parametros = {
     action: "ventasMarca",
     page: page,
@@ -1122,9 +2024,13 @@ function cargarVentasMarcaMensual(page, cliente) {
     anio: anio,
     canal: canal,
     agente: agente,
+    centro: centro,
     estatus: estatus,
     vista: vista,
     per_page: per_page,
+    campo: campo,
+    orden: orden,
+    marca: marca,
   };
   $("#loader").fadeIn("slow");
   $("#loader").html("Cargando Porfavor Espere ........");
@@ -1146,25 +2052,70 @@ function cargarVentasClienteAnual(page, cliente) {
   $("#clasificacionVenta").val("cargarVentasClienteAnual");
   var vista = "cargarVentasClienteAnual";
   var arreglo = JSON.parse(localStorage.getItem("arrayClientes"));
+  var arregloAgente = JSON.parse(localStorage.getItem("arrayAgentes"));
+  var arregloCentro = JSON.parse(localStorage.getItem("arrayCentro"));
+  var arregloCanal = JSON.parse(localStorage.getItem("arrayCanal"));
 
-  if (arreglo == "[]") {
+  if (arreglo === null) {
+    localStorage.setItem("arrayClientes", "[]");
     var query = "";
   } else {
-    var query = arreglo.toString();
+    if (arreglo == "[]") {
+      var query = "";
+    } else {
+      var query = JSON.stringify(arreglo);
+    }
   }
+  /****AGENTE-CENTRO DE TRABAJO-CANAL COMERCIAL */
+  if (arregloAgente === null) {
+    localStorage.setItem("arrayAgentes", "[]");
+    var agente = "";
+  } else {
+    if (arregloAgente == "[]") {
+      var agente = "";
+    } else {
+      var agente = arregloAgente.toString();
+    }
+  }
+
+  if (arregloCentro === null) {
+    localStorage.setItem("arrayCentro", "[]");
+    var centro = "";
+  } else {
+    if (arregloCentro == "[]") {
+      var centro = "";
+    } else {
+      var centro = arregloCentro.toString();
+    }
+  }
+
+  if (arregloCanal === null) {
+    localStorage.setItem("arrayClientes", "[]");
+    var canal = "";
+  } else {
+    if (arregloCanal == "[]") {
+      var canal = "";
+    } else {
+      var canal = arregloCanal.toString();
+    }
+  }
+  /****AGENTE-CENTRO DE TRABAJO-CANAL COMERCIAL */
   var estatus = $("#estatus").val();
-  var agente = $("#agente").val();
-  var canal = $("#canal").val();
   var per_page = $("#per_page").val();
+  var campo = $("#campoOrden").val();
+  var orden = $("#orden").val();
   var parametros = {
     action: "ventasCliente",
     page: page,
     query: query,
     canal: canal,
     agente: agente,
+    centro: centro,
     estatus: estatus,
     vista: vista,
     per_page: per_page,
+    campo: campo,
+    orden: orden,
   };
   $("#loader").fadeIn("slow");
   $("#loader").html("Cargando Porfavor Espere ........");
@@ -1184,23 +2135,70 @@ function cargarVentasClienteAnual(page, cliente) {
 function cargarVentasCanalAnual(page) {
   var vista = "cargarVentasCanalAnual";
   var arreglo = JSON.parse(localStorage.getItem("arrayClientes"));
+  var arregloAgente = JSON.parse(localStorage.getItem("arrayAgentes"));
+  var arregloCentro = JSON.parse(localStorage.getItem("arrayCentro"));
+  var arregloCanal = JSON.parse(localStorage.getItem("arrayCanal"));
 
-  if (arreglo == "[]") {
+  if (arreglo === null) {
+    localStorage.setItem("arrayClientes", "[]");
     var query = "";
   } else {
-    var query = arreglo.toString();
+    if (arreglo == "[]") {
+      var query = "";
+    } else {
+      var query = JSON.stringify(arreglo);
+    }
   }
+  /****AGENTE-CENTRO DE TRABAJO-CANAL COMERCIAL */
+  if (arregloAgente === null) {
+    localStorage.setItem("arrayAgentes", "[]");
+    var agente = "";
+  } else {
+    if (arregloAgente == "[]") {
+      var agente = "";
+    } else {
+      var agente = arregloAgente.toString();
+    }
+  }
+
+  if (arregloCentro === null) {
+    localStorage.setItem("arrayCentro", "[]");
+    var centro = "";
+  } else {
+    if (arregloCentro == "[]") {
+      var centro = "";
+    } else {
+      var centro = arregloCentro.toString();
+    }
+  }
+
+  if (arregloCanal === null) {
+    localStorage.setItem("arrayClientes", "[]");
+    var canal = "";
+  } else {
+    if (arregloCanal == "[]") {
+      var canal = "";
+    } else {
+      var canal = arregloCanal.toString();
+    }
+  }
+  /****AGENTE-CENTRO DE TRABAJO-CANAL COMERCIAL */
   var estatus = $("#estatus").val();
-  var agente = $("#agente").val();
   var per_page = $("#per_page").val();
+  var campo = $("#campoOrden").val();
+  var orden = $("#orden").val();
   var parametros = {
     action: "ventasCanal",
     page: page,
     query: query,
+    canal: canal,
     agente: agente,
+    centro: centro,
     estatus: estatus,
     vista: vista,
     per_page: per_page,
+    campo: campo,
+    orden: orden,
   };
   $("#loader").fadeIn("slow");
   $("#loader").html("Cargando Porfavor Espere ........");
@@ -1220,25 +2218,70 @@ function cargarVentasCanalAnual(page) {
 function cargarVentasAgenteAnual(page) {
   var vista = "cargarVentasAgenteAnual";
   var arreglo = JSON.parse(localStorage.getItem("arrayClientes"));
+  var arregloAgente = JSON.parse(localStorage.getItem("arrayAgentes"));
+  var arregloCentro = JSON.parse(localStorage.getItem("arrayCentro"));
+  var arregloCanal = JSON.parse(localStorage.getItem("arrayCanal"));
 
-  if (arreglo == "[]") {
+  if (arreglo === null) {
+    localStorage.setItem("arrayClientes", "[]");
     var query = "";
   } else {
-    var query = arreglo.toString();
+    if (arreglo == "[]") {
+      var query = "";
+    } else {
+      var query = JSON.stringify(arreglo);
+    }
   }
+  /****AGENTE-CENTRO DE TRABAJO-CANAL COMERCIAL */
+  if (arregloAgente === null) {
+    localStorage.setItem("arrayAgentes", "[]");
+    var agente = "";
+  } else {
+    if (arregloAgente == "[]") {
+      var agente = "";
+    } else {
+      var agente = arregloAgente.toString();
+    }
+  }
+
+  if (arregloCentro === null) {
+    localStorage.setItem("arrayCentro", "[]");
+    var centro = "";
+  } else {
+    if (arregloCentro == "[]") {
+      var centro = "";
+    } else {
+      var centro = arregloCentro.toString();
+    }
+  }
+
+  if (arregloCanal === null) {
+    localStorage.setItem("arrayClientes", "[]");
+    var canal = "";
+  } else {
+    if (arregloCanal == "[]") {
+      var canal = "";
+    } else {
+      var canal = arregloCanal.toString();
+    }
+  }
+  /****AGENTE-CENTRO DE TRABAJO-CANAL COMERCIAL */
   var estatus = $("#estatus").val();
-  var agente = $("#agente").val();
-  var canal = $("#canal").val();
   var per_page = $("#per_page").val();
+  var campo = $("#campoOrden").val();
+  var orden = $("#orden").val();
   var parametros = {
     action: "ventasAgente",
     page: page,
     query: query,
     canal: canal,
     agente: agente,
+    centro: centro,
     estatus: estatus,
     vista: vista,
     per_page: per_page,
+    campo: campo,
+    orden: orden,
   };
   $("#loader").fadeIn("slow");
   $("#loader").html("Cargando Porfavor Espere ........");
@@ -1260,31 +2303,81 @@ function cargarVentasProductoMontoAnual(page, nombreCliente, codigoProducto) {
   var vista = "cargarVentasProductoMontoAnual";
   var arregloClientes = JSON.parse(localStorage.getItem("arrayClientes"));
   var arregloProductos = JSON.parse(localStorage.getItem("arrayProductos"));
+  var arregloAgente = JSON.parse(localStorage.getItem("arrayAgentes"));
+  var arregloCentro = JSON.parse(localStorage.getItem("arrayCentro"));
+  var arregloCanal = JSON.parse(localStorage.getItem("arrayCanal"));
 
-  if (arregloProductos == "[]") {
+  if (arregloProductos === null) {
+    localStorage.setItem("arrayProductos", "[]");
     var producto = "";
   } else {
-    var producto = arregloProductos.toString();
+    if (arregloProductos == "[]") {
+      var producto = "";
+    } else {
+      var producto = arregloProductos.toString();
+    }
   }
-  if (arregloClientes == "[]") {
+  if (arregloClientes === null) {
+    localStorage.setItem("arrayClientes", "[]");
     var query = "";
   } else {
-    var query = arregloClientes.toString();
+    if (arregloClientes == "[]") {
+      var query = "";
+    } else {
+      var query = JSON.stringify(arregloClientes);
+    }
   }
+  /****AGENTE-CENTRO DE TRABAJO-CANAL COMERCIAL */
+  if (arregloAgente === null) {
+    localStorage.setItem("arrayAgentes", "[]");
+    var agente = "";
+  } else {
+    if (arregloAgente == "[]") {
+      var agente = "";
+    } else {
+      var agente = arregloAgente.toString();
+    }
+  }
+
+  if (arregloCentro === null) {
+    localStorage.setItem("arrayCentro", "[]");
+    var centro = "";
+  } else {
+    if (arregloCentro == "[]") {
+      var centro = "";
+    } else {
+      var centro = arregloCentro.toString();
+    }
+  }
+
+  if (arregloCanal === null) {
+    localStorage.setItem("arrayClientes", "[]");
+    var canal = "";
+  } else {
+    if (arregloCanal == "[]") {
+      var canal = "";
+    } else {
+      var canal = arregloCanal.toString();
+    }
+  }
+  /****AGENTE-CENTRO DE TRABAJO-CANAL COMERCIAL */
   var estatus = $("#estatus").val();
-  var agente = $("#agente").val();
-  var canal = $("#canal").val();
   var per_page = $("#per_page").val();
+  var campo = $("#campoOrden").val();
+  var orden = $("#orden").val();
   var parametros = {
     action: "ventasProductoMonto",
     page: page,
     query: query,
     canal: canal,
     agente: agente,
+    centro: centro,
     producto: producto,
     estatus: estatus,
     vista: vista,
     per_page: per_page,
+    campo: campo,
+    orden: orden,
   };
   $("#loader").fadeIn("slow");
   $("#loader").html("Cargando Porfavor Espere ........");
@@ -1310,31 +2403,81 @@ function cargarVentasProductoUnidadesAnual(
   var vista = "cargarVentasProductoUnidadesAnual";
   var arregloClientes = JSON.parse(localStorage.getItem("arrayClientes"));
   var arregloProductos = JSON.parse(localStorage.getItem("arrayProductos"));
+  var arregloAgente = JSON.parse(localStorage.getItem("arrayAgentes"));
+  var arregloCentro = JSON.parse(localStorage.getItem("arrayCentro"));
+  var arregloCanal = JSON.parse(localStorage.getItem("arrayCanal"));
 
-  if (arregloProductos == "[]") {
+  if (arregloProductos === null) {
+    localStorage.setItem("arrayProductos", "[]");
     var producto = "";
   } else {
-    var producto = arregloProductos.toString();
+    if (arregloProductos == "[]") {
+      var producto = "";
+    } else {
+      var producto = arregloProductos.toString();
+    }
   }
-  if (arregloClientes == "[]") {
+  if (arregloClientes === null) {
+    localStorage.setItem("arrayClientes", "[]");
     var query = "";
   } else {
-    var query = arregloClientes.toString();
+    if (arregloClientes == "[]") {
+      var query = "";
+    } else {
+      var query = JSON.stringify(arregloClientes);
+    }
   }
+  /****AGENTE-CENTRO DE TRABAJO-CANAL COMERCIAL */
+  if (arregloAgente === null) {
+    localStorage.setItem("arrayAgentes", "[]");
+    var agente = "";
+  } else {
+    if (arregloAgente == "[]") {
+      var agente = "";
+    } else {
+      var agente = arregloAgente.toString();
+    }
+  }
+
+  if (arregloCentro === null) {
+    localStorage.setItem("arrayCentro", "[]");
+    var centro = "";
+  } else {
+    if (arregloCentro == "[]") {
+      var centro = "";
+    } else {
+      var centro = arregloCentro.toString();
+    }
+  }
+
+  if (arregloCanal === null) {
+    localStorage.setItem("arrayClientes", "[]");
+    var canal = "";
+  } else {
+    if (arregloCanal == "[]") {
+      var canal = "";
+    } else {
+      var canal = arregloCanal.toString();
+    }
+  }
+  /****AGENTE-CENTRO DE TRABAJO-CANAL COMERCIAL */
   var estatus = $("#estatus").val();
-  var agente = $("#agente").val();
-  var canal = $("#canal").val();
   var per_page = $("#per_page").val();
+  var campo = $("#campoOrden").val();
+  var orden = $("#orden").val();
   var parametros = {
     action: "ventasProductoUnidades",
     page: page,
     query: query,
     canal: canal,
     agente: agente,
+    centro: centro,
     producto: producto,
     estatus: estatus,
     vista: vista,
     per_page: per_page,
+    campo: campo,
+    orden: orden,
   };
   $("#loader").fadeIn("slow");
   $("#loader").html("Cargando Porfavor Espere ........");
@@ -1356,31 +2499,81 @@ function cargarVentasLitreadoMontoAnual(page, nombreCliente, codigoProducto) {
   var vista = "cargarVentasLitreadoMontoAnual";
   var arregloClientes = JSON.parse(localStorage.getItem("arrayClientes"));
   var arregloProductos = JSON.parse(localStorage.getItem("arrayProductos"));
+  var arregloAgente = JSON.parse(localStorage.getItem("arrayAgentes"));
+  var arregloCentro = JSON.parse(localStorage.getItem("arrayCentro"));
+  var arregloCanal = JSON.parse(localStorage.getItem("arrayCanal"));
 
-  if (arregloProductos == "[]") {
+  if (arregloProductos === null) {
+    localStorage.setItem("arrayProductos", "[]");
     var producto = "";
   } else {
-    var producto = arregloProductos.toString();
+    if (arregloProductos == "[]") {
+      var producto = "";
+    } else {
+      var producto = arregloProductos.toString();
+    }
   }
-  if (arregloClientes == "[]") {
+  if (arregloClientes === null) {
+    localStorage.setItem("arrayClientes", "[]");
     var query = "";
   } else {
-    var query = arregloClientes.toString();
+    if (arregloClientes == "[]") {
+      var query = "";
+    } else {
+      var query = JSON.stringify(arregloClientes);
+    }
   }
+  /****AGENTE-CENTRO DE TRABAJO-CANAL COMERCIAL */
+  if (arregloAgente === null) {
+    localStorage.setItem("arrayAgentes", "[]");
+    var agente = "";
+  } else {
+    if (arregloAgente == "[]") {
+      var agente = "";
+    } else {
+      var agente = arregloAgente.toString();
+    }
+  }
+
+  if (arregloCentro === null) {
+    localStorage.setItem("arrayCentro", "[]");
+    var centro = "";
+  } else {
+    if (arregloCentro == "[]") {
+      var centro = "";
+    } else {
+      var centro = arregloCentro.toString();
+    }
+  }
+
+  if (arregloCanal === null) {
+    localStorage.setItem("arrayClientes", "[]");
+    var canal = "";
+  } else {
+    if (arregloCanal == "[]") {
+      var canal = "";
+    } else {
+      var canal = arregloCanal.toString();
+    }
+  }
+  /****AGENTE-CENTRO DE TRABAJO-CANAL COMERCIAL */
   var estatus = $("#estatus").val();
-  var agente = $("#agente").val();
-  var canal = $("#canal").val();
   var per_page = $("#per_page").val();
+  var campo = $("#campoOrden").val();
+  var orden = $("#orden").val();
   var parametros = {
     action: "ventasLitreadoMonto",
     page: page,
     query: query,
     canal: canal,
     agente: agente,
+    centro: centro,
     producto: producto,
     estatus: estatus,
     vista: vista,
     per_page: per_page,
+    campo: campo,
+    orden: orden,
   };
   $("#loader").fadeIn("slow");
   $("#loader").html("Cargando Porfavor Espere ........");
@@ -1406,31 +2599,81 @@ function cargarVentasLitreadoUnidadesAnual(
   var vista = "cargarVentasLitreadoUnidadesAnual";
   var arregloClientes = JSON.parse(localStorage.getItem("arrayClientes"));
   var arregloProductos = JSON.parse(localStorage.getItem("arrayProductos"));
+  var arregloAgente = JSON.parse(localStorage.getItem("arrayAgentes"));
+  var arregloCentro = JSON.parse(localStorage.getItem("arrayCentro"));
+  var arregloCanal = JSON.parse(localStorage.getItem("arrayCanal"));
 
-  if (arregloProductos == "[]") {
+  if (arregloProductos === null) {
+    localStorage.setItem("arrayProductos", "[]");
     var producto = "";
   } else {
-    var producto = arregloProductos.toString();
+    if (arregloProductos == "[]") {
+      var producto = "";
+    } else {
+      var producto = arregloProductos.toString();
+    }
   }
-  if (arregloClientes == "[]") {
+  if (arregloClientes === null) {
+    localStorage.setItem("arrayClientes", "[]");
     var query = "";
   } else {
-    var query = arregloClientes.toString();
+    if (arregloClientes == "[]") {
+      var query = "";
+    } else {
+      var query = JSON.stringify(arregloClientes);
+    }
   }
+  /****AGENTE-CENTRO DE TRABAJO-CANAL COMERCIAL */
+  if (arregloAgente === null) {
+    localStorage.setItem("arrayAgentes", "[]");
+    var agente = "";
+  } else {
+    if (arregloAgente == "[]") {
+      var agente = "";
+    } else {
+      var agente = arregloAgente.toString();
+    }
+  }
+
+  if (arregloCentro === null) {
+    localStorage.setItem("arrayCentro", "[]");
+    var centro = "";
+  } else {
+    if (arregloCentro == "[]") {
+      var centro = "";
+    } else {
+      var centro = arregloCentro.toString();
+    }
+  }
+
+  if (arregloCanal === null) {
+    localStorage.setItem("arrayClientes", "[]");
+    var canal = "";
+  } else {
+    if (arregloCanal == "[]") {
+      var canal = "";
+    } else {
+      var canal = arregloCanal.toString();
+    }
+  }
+  /****AGENTE-CENTRO DE TRABAJO-CANAL COMERCIAL */
   var estatus = $("#estatus").val();
-  var agente = $("#agente").val();
-  var canal = $("#canal").val();
   var per_page = $("#per_page").val();
+  var campo = $("#campoOrden").val();
+  var orden = $("#orden").val();
   var parametros = {
     action: "ventasLitreadoUnidades",
     page: page,
     query: query,
     canal: canal,
     agente: agente,
+    centro: centro,
     producto: producto,
     estatus: estatus,
     vista: vista,
     per_page: per_page,
+    campo: campo,
+    orden: orden,
   };
   $("#loader").fadeIn("slow");
   $("#loader").html("Cargando Porfavor Espere ........");
@@ -1451,25 +2694,83 @@ function cargarVentasMarcaAnual(page, cliente) {
   $("#clasificacionVenta").val("cargarVentasMarcaAnual");
   var vista = "cargarVentasMarcaAnual";
   var arreglo = JSON.parse(localStorage.getItem("arrayClientes"));
+  var arregloAgente = JSON.parse(localStorage.getItem("arrayAgentes"));
+  var arregloCentro = JSON.parse(localStorage.getItem("arrayCentro"));
+  var arregloCanal = JSON.parse(localStorage.getItem("arrayCanal"));
+  var arregloMarca = JSON.parse(localStorage.getItem("arrayMarca"));
 
-  if (arreglo == "[]") {
+  if (arreglo === null) {
+    localStorage.setItem("arrayClientes", "[]");
     var query = "";
   } else {
-    var query = arreglo.toString();
+    if (arreglo == "[]") {
+      var query = "";
+    } else {
+      var query = JSON.stringify(arreglo);
+    }
   }
+  /****AGENTE-CENTRO DE TRABAJO-CANAL COMERCIAL */
+  if (arregloAgente === null) {
+    localStorage.setItem("arrayAgentes", "[]");
+    var agente = "";
+  } else {
+    if (arregloAgente == "[]") {
+      var agente = "";
+    } else {
+      var agente = arregloAgente.toString();
+    }
+  }
+
+  if (arregloCentro === null) {
+    localStorage.setItem("arrayCentro", "[]");
+    var centro = "";
+  } else {
+    if (arregloCentro == "[]") {
+      var centro = "";
+    } else {
+      var centro = arregloCentro.toString();
+    }
+  }
+
+  if (arregloCanal === null) {
+    localStorage.setItem("arrayClientes", "[]");
+    var canal = "";
+  } else {
+    if (arregloCanal == "[]") {
+      var canal = "";
+    } else {
+      var canal = arregloCanal.toString();
+    }
+  }
+
+  if (arregloMarca === null) {
+    localStorage.setItem("arrayMarca", "[]");
+    var marca = "";
+  } else {
+    if (arregloMarca == "[]") {
+      var marca = "";
+    } else {
+      var marca = arregloMarca.toString();
+    }
+  }
+  /****AGENTE-CENTRO DE TRABAJO-CANAL COMERCIAL */
   var estatus = $("#estatus").val();
-  var agente = $("#agente").val();
-  var canal = $("#canal").val();
   var per_page = $("#per_page").val();
+  var campo = $("#campoOrden").val();
+  var orden = $("#orden").val();
   var parametros = {
     action: "ventasMarca",
     page: page,
     query: query,
     canal: canal,
     agente: agente,
+    centro: centro,
     estatus: estatus,
     vista: vista,
     per_page: per_page,
+    campo: campo,
+    orden: orden,
+    marca: marca,
   };
   $("#loader").fadeIn("slow");
   $("#loader").html("Cargando Porfavor Espere ........");
@@ -1546,6 +2847,98 @@ function loadProductosVenta(page) {
     },
   });
 }
+/*************DETALLE DOCUMENTOS VENTAS*/
+function cargarDetalleDocumentos(page) {
+  $("#clasificacionVenta").val("cargarDetalleDocumentos");
+  var vista = "cargarDetalleDocumentos";
+  var arreglo = JSON.parse(localStorage.getItem("arrayClientes"));
+  var arregloAgente = JSON.parse(localStorage.getItem("arrayAgentes"));
+  var arregloCentro = JSON.parse(localStorage.getItem("arrayCentro"));
+  var arregloCanal = JSON.parse(localStorage.getItem("arrayCanal"));
+
+  if (arreglo === null) {
+    localStorage.setItem("arrayClientes", "[]");
+    var query = "";
+  } else {
+    if (arreglo == "[]") {
+      var query = "";
+    } else {
+      var query = JSON.stringify(arreglo);
+    }
+  }
+
+  if (arregloAgente === null) {
+    localStorage.setItem("arrayAgentes", "[]");
+    var agente = "";
+  } else {
+    if (arregloAgente == "[]") {
+      var agente = "";
+    } else {
+      var agente = arregloAgente.toString();
+    }
+  }
+
+  if (arregloCentro === null) {
+    localStorage.setItem("arrayCentro", "[]");
+    var centro = "";
+  } else {
+    if (arregloCentro == "[]") {
+      var centro = "";
+    } else {
+      var centro = arregloCentro.toString();
+    }
+  }
+
+  if (arregloCanal === null) {
+    localStorage.setItem("arrayClientes", "[]");
+    var canal = "";
+  } else {
+    if (arregloCanal == "[]") {
+      var canal = "";
+    } else {
+      var canal = arregloCanal.toString();
+    }
+  }
+
+  var estatus = $("#estatus").val();
+  var año = $("#anio").val();
+
+  var per_page = $("#per_page").val();
+  var campo = $("#campoOrden").val();
+  var orden = $("#orden").val();
+  var mes = $("#mesDetalle").val();
+  var abonado = $("#abonado").val();
+  var parametros = {
+    action: "documentosDetalle",
+    page: page,
+    query: query,
+    año: año,
+    canal: canal,
+    centro: centro,
+    agente: agente,
+    estatus: estatus,
+    vista: vista,
+    per_page: per_page,
+    campo: campo,
+    orden: orden,
+    mes: mes,
+    abonado: abonado,
+  };
+  $("#loader").fadeIn("slow");
+  $("#loader").html("Cargando Porfavor Espere ........");
+
+  $.ajax({
+    url: "ajax/documentosDetalle.ajax.php",
+    data: parametros,
+    beforeSend: function (objeto) {
+      $("#loader").html("Cargando Porfavor Espere ........");
+    },
+    success: function (data) {
+      $(".ventasDocumentosDetalle").html(data).fadeIn("slow");
+      $("#loader").html("");
+    },
+  });
+}
 /****BUSCADOR DE CLIENTE */
 function reedirigir(accion) {
   switch (accion) {
@@ -1613,58 +3006,100 @@ function redireccionAcion(accion) {
     case "SAN MANUEL":
       window.location.href = "detalleVentas";
       localStorage.setItem("centroDetalle", "1 SAN MANUEL");
-
+      localStorage.setItem("agenteDetalle", "");
+      localStorage.setItem("canalDetalle", "");
+      localStorage.setItem("clienteDetalle", "");
       break;
     case "REFORMA":
       window.location.href = "detalleVentas";
       localStorage.setItem("centroDetalle", "3 REFORMA");
-
+      localStorage.setItem("agenteDetalle", "");
+      localStorage.setItem("canalDetalle", "");
+      localStorage.setItem("clienteDetalle", "");
       break;
     case "CAPU":
       window.location.href = "detalleVentas";
       localStorage.setItem("centroDetalle", "7 CAPU");
-
+      localStorage.setItem("agenteDetalle", "");
+      localStorage.setItem("canalDetalle", "");
+      localStorage.setItem("clienteDetalle", "");
       break;
     case "SANTIAGO":
       window.location.href = "detalleVentas";
       localStorage.setItem("centroDetalle", "6 SANTIAGO");
-
+      localStorage.setItem("agenteDetalle", "");
+      localStorage.setItem("canalDetalle", "");
+      localStorage.setItem("clienteDetalle", "");
       break;
     case "LAS TORRES":
       window.location.href = "detalleVentas";
       localStorage.setItem("centroDetalle", "9 TORRES");
-
+      localStorage.setItem("agenteDetalle", "");
+      localStorage.setItem("canalDetalle", "");
+      localStorage.setItem("clienteDetalle", "");
       break;
     case "FLOTILLAS":
       window.location.href = "detalleVentas";
       localStorage.setItem("centroDetalle", "CUENTAS CORPORATIVAS");
-
+      localStorage.setItem("agenteDetalle", "");
+      localStorage.setItem("canalDetalle", "");
+      localStorage.setItem("clienteDetalle", "");
       break;
     case "MAYOREO":
       window.location.href = "detalleVentas";
       localStorage.setItem("centroDetalle", "CEDIS");
+      localStorage.setItem("agenteDetalle", "");
+      localStorage.setItem("canalDetalle", "");
+      localStorage.setItem("clienteDetalle", "");
+      break;
+    case "RUTAS":
+      window.location.href = "detalleVentas";
+      localStorage.setItem("centroDetalle", "RUTA 5");
+      localStorage.setItem("agenteDetalle", "");
+      localStorage.setItem("canalDetalle", "");
+      localStorage.setItem("clienteDetalle", "");
 
       break;
   }
 }
-function detalleProductosVenta(idDocumento) {
+function redireccionAccionVentas(nombre, tipo) {
+  switch (tipo) {
+    case "Agentes":
+      localStorage.setItem("centroDetalle", "");
+      localStorage.setItem("agenteDetalle", nombre);
+      localStorage.setItem("canalDetalle", "");
+      localStorage.setItem("clienteDetalle", "");
+      window.open("detalleVentas", "_blank");
+      break;
+    case "Canal":
+      localStorage.setItem("canalDetalle", nombre);
+      localStorage.setItem("agenteDetalle", "");
+      localStorage.setItem("centroDetalle", "");
+      localStorage.setItem("clienteDetalle", "");
+      window.open("detalleVentas", "_blank");
+      break;
+    case "Clientes":
+      localStorage.setItem("canalDetalle", "");
+      localStorage.setItem("agenteDetalle", "");
+      localStorage.setItem("centroDetalle", "");
+      localStorage.setItem("clienteDetalle", nombre);
+      window.open("detalleVentas", "_blank");
+      break;
+  }
+}
+function detalleProductosVenta(idDocumento, empresa) {
   $(".next-step").click();
   var centro = localStorage.getItem("centroDetalle");
-  cargarDetalleVentasProducto(1, idDocumento);
+  cargarDetalleVentasProducto(1, idDocumento, empresa);
   document
     .getElementById("previous-step")
     .setAttribute("onclick", "cargarDetalleVentasCliente(1, '" + centro + "')");
 }
-function removeItemFromArregloBusqueda(array, item) {
+function removeItemFromArregloBusqueda(array, item, nombreArreglo) {
   var arreglo = JSON.parse(array);
 
   for (var i in arreglo) {
     if (arreglo[i] == item) {
-      if (validarTipo(item) == 1) {
-        var nombreArreglo = "arrayProductos";
-      } else {
-        var nombreArreglo = "arrayClientes";
-      }
       arreglo.splice(i, 1);
       localStorage.setItem("" + nombreArreglo + "", JSON.stringify(arreglo));
 
@@ -1732,13 +3167,48 @@ function removeItemFromArregloBusqueda(array, item) {
     case "ventasMarcaAnual":
       cargarVentasMarcaAnual(1, "");
       break;
+    case "detalleDocumentos":
+      cargarDetalleDocumentos(1);
+      break;
   }
 }
-function validateItemArray(array, item) {
+function validateItemArray(array, item, nombreArreglo) {
   if (array.indexOf(item) === -1) {
     array.push(item);
-    localStorage.setItem("arrayClientes", JSON.stringify(array));
-    $("#arregloClientes").tagsinput("add", item);
+
+    localStorage.setItem("" + nombreArreglo + "", JSON.stringify(array));
+    var nombreCampo = "#" + nombreArreglo;
+    switch (nombreArreglo) {
+      case "arrayClientes":
+        $("#arregloClientes").tagEditor("destroy");
+        $("#arregloClientes").tagEditor({
+          initialTags: JSON.parse(localStorage.getItem("arrayClientes")),
+          delimiter: ", ",
+          forceLowercase: false,
+          beforeTagDelete: function (field, editor, tags, val) {
+            var arrayClientes = localStorage.getItem("arrayClientes");
+            removeItemFromArregloBusqueda(arrayClientes, val, "arrayClientes");
+          },
+        });
+        break;
+      case "arrayProductos":
+        $("#arregloProductos").tagEditor("destroy");
+        $("#arregloProductos").tagEditor({
+          initialTags: JSON.parse(localStorage.getItem("arrayProductos")),
+          delimiter: ", ",
+          forceLowercase: false,
+          beforeTagDelete: function (field, editor, tags, val) {
+            var arrayProductos = localStorage.getItem("arrayProductos");
+            removeItemFromArregloBusqueda(
+              arrayProductos,
+              val,
+              "arrayProductos"
+            );
+          },
+        });
+        break;
+    }
+
     switch (ruta[2]) {
       case "ventasClienteDiario":
         cargarVentasClienteDiario(1, "");
@@ -1800,102 +3270,28 @@ function validateItemArray(array, item) {
       case "ventasMarcaAnual":
         cargarVentasMarcaAnual(1, "");
         break;
-    }
-  } else if (array.indexOf(item) > -1) {
-    localStorage.setItem("arrayClientes", JSON.stringify(array));
-  }
-}
-function validateItemArrayProductos(array, item) {
-  if (array.indexOf(item) === -1) {
-    array.push(item);
-    localStorage.setItem("arrayProductos", JSON.stringify(array));
-    $("#arregloProductos").tagsinput("add", item);
-    switch (ruta[2]) {
-      case "ventasClienteDiario":
-        cargarVentasClienteDiario(1, "");
-        break;
-      case "ventasCanalDiario":
-        cargarVentasCanalDiario(1);
-        break;
-      case "ventasAgenteDiario":
-        cargarVentasAgenteDiario(1);
-        break;
-      case "ventasProductoDiario":
-        cargarVentasProductoMontoDiario(1, "", "");
-        cargarVentasProductoUnidadesDiario(1, "", "");
-        break;
-      case "ventasLitreadoDiario":
-        cargarVentasLitreadoMontoDiario(1, "", "");
-        cargarVentasLitreadoUnidadesDiario(1, "", "");
-        break;
-      case "ventasMarcaDiario":
-        cargarVentasMarcaDiario(1, "");
-        break;
-      case "ventasClienteMensual":
-        cargarVentasCliente(1, "");
-        break;
-      case "ventasCanalMensual":
-        cargarVentasCanal(1);
-        break;
-      case "ventasAgenteMensual":
-        cargarVentasAgente(1);
-        break;
-      case "ventasProductoMensual":
-        cargarVentasProductoMonto(1, "", "");
-        cargarVentasProductoUnidades(1, "", "");
-        break;
-      case "ventasLitreadoMensual":
-        cargarVentasLitreadoMonto(1, "", "");
-        cargarVentasLitreadoUnidades(1, "", "");
-        break;
-      case "ventasMarcaMensual":
-        cargarVentasMarcaMensual(1, "");
-        break;
-      case "ventasClienteAnual":
-        cargarVentasClienteAnual(1, "");
-        break;
-      case "ventasCanalAnual":
-        cargarVentasCanalAnual(1);
-        break;
-      case "ventasAgenteAnual":
-        cargarVentasAgenteAnual(1);
-        break;
-      case "ventasProductoAnual":
-        cargarVentasProductoMontoAnual(1, "", "");
-        cargarVentasProductoUnidadesAnual(1, "", "");
-        break;
-      case "ventasLitreadoAnual":
-        cargarVentasLitreadoMontoAnual(1, "", "");
-        cargarVentasLitreadoUnidadesAnual(1, "", "");
-        break;
-      case "ventasMarcaAnual":
-        cargarVentasMarcaAnual(1, "");
+      case "detalleDocumentos":
+        cargarDetalleDocumentos(1);
         break;
     }
   } else if (array.indexOf(item) > -1) {
-    localStorage.setItem("arrayProductos", JSON.stringify(array));
+    localStorage.setItem("" + nombreArreglo + "", JSON.stringify(array));
   }
 }
-function agregarClienteBusqueda(cliente) {
-  var array = localStorage.arrayClientes;
+
+function agregarDatosBusqueda(datoBusqueda, nombreArreglo) {
+  var array = localStorage.getItem("" + nombreArreglo + "");
+
   if (array == undefined || array == "") {
-    var arrayClientes = [];
-    validateItemArray(arrayClientes, cliente);
+    var nombreArray = [];
+    localStorage.setItem("" + nombreArreglo + "", "[]");
+    validateItemArray(nombreArray, datoBusqueda, "" + nombreArreglo + "");
   } else {
-    var arrayClientes = JSON.parse(localStorage.getItem("arrayClientes"));
-    validateItemArray(arrayClientes, cliente);
+    var nombreArray = JSON.parse(localStorage.getItem("" + nombreArreglo + ""));
+    validateItemArray(nombreArray, datoBusqueda, "" + nombreArreglo + "");
   }
 }
-function agregarProductoBusqueda(codigo) {
-  var array = localStorage.arrayProductos;
-  if (array == undefined || array == "") {
-    var arrayProductos = [];
-    validateItemArrayProductos(arrayProductos, codigo);
-  } else {
-    var arrayProductos = JSON.parse(localStorage.getItem("arrayProductos"));
-    validateItemArrayProductos(arrayProductos, codigo);
-  }
-}
+
 var numeros = "0123456789";
 function validarTipo(cadena) {
   for (i = 0; i < cadena.length; i++) {
@@ -1929,30 +3325,138 @@ function cargarVentasYearToDay(page) {
     },
   });
 }
+function cargarVentasYearToWeek(page) {
+  var vista = "cargarVentasYearToWeek";
+
+  var estatus = 0;
+  var per_page = 10;
+  var parametros = {
+    action: "ventasYearToWeek",
+    page: page,
+    estatus: estatus,
+    vista: vista,
+    per_page: per_page,
+  };
+  $("#loader").fadeIn("slow");
+  $("#loader").html("Cargando Porfavor Espere ........");
+
+  $.ajax({
+    url: "ajax/ventasYearToDay.ajax.php",
+    data: parametros,
+    beforeSend: function (objeto) {},
+    success: function (data) {
+      $(".ventasYearToWeek").html(data).fadeIn("slow");
+    },
+  });
+}
+function cargarVentasYearToMonth(page) {
+  var vista = "cargarVentasYearToMonth";
+
+  var estatus = 0;
+  var per_page = 10;
+  var parametros = {
+    action: "ventasYearToMonth",
+    page: page,
+    estatus: estatus,
+    vista: vista,
+    per_page: per_page,
+  };
+  $("#loader").fadeIn("slow");
+  $("#loader").html("Cargando Porfavor Espere ........");
+
+  $.ajax({
+    url: "ajax/ventasYearToDay.ajax.php",
+    data: parametros,
+    beforeSend: function (objeto) {},
+    success: function (data) {
+      $(".ventasYearToMonth").html(data).fadeIn("slow");
+    },
+  });
+}
 function generarReporteDiario(vista) {
   var arregloClientes = JSON.parse(localStorage.getItem("arrayClientes"));
   var arregloProductos = JSON.parse(localStorage.getItem("arrayProductos"));
+  var arregloAgente = JSON.parse(localStorage.getItem("arrayAgentes"));
+  var arregloCentro = JSON.parse(localStorage.getItem("arrayCentro"));
+  var arregloCanal = JSON.parse(localStorage.getItem("arrayCanal"));
+  var arregloMarca = JSON.parse(localStorage.getItem("arrayMarca"));
 
-  if (arregloProductos == "[]") {
+  agregarEvento("Descargo El Reporte " + vista + "", 3);
+  if (arregloProductos === null) {
+    localStorage.setItem("arrayProductos", "[]");
     var producto = "";
   } else {
-    var producto = arregloProductos.toString();
+    if (arregloProductos == "[]") {
+      var producto = "";
+    } else {
+      var producto = arregloProductos.toString();
+    }
   }
-  if (arregloClientes == "[]") {
+  if (arregloClientes === null) {
+    localStorage.setItem("arrayClientes", "[]");
     var query = "";
   } else {
-    var query = arregloClientes.toString();
+    if (arregloClientes == "[]") {
+      var query = "";
+    } else {
+      var query = JSON.stringify(arregloClientes);
+    }
   }
+  /****AGENTE-CENTRO DE TRABAJO-CANAL COMERCIAL */
+  if (arregloAgente === null) {
+    localStorage.setItem("arrayAgentes", "[]");
+    var agente = "";
+  } else {
+    if (arregloAgente == "[]") {
+      var agente = "";
+    } else {
+      var agente = arregloAgente.toString();
+    }
+  }
+
+  if (arregloCentro === null) {
+    localStorage.setItem("arrayCentro", "[]");
+    var centro = "";
+  } else {
+    if (arregloCentro == "[]") {
+      var centro = "";
+    } else {
+      var centro = arregloCentro.toString();
+    }
+  }
+
+  if (arregloCanal === null) {
+    localStorage.setItem("arrayClientes", "[]");
+    var canal = "";
+  } else {
+    if (arregloCanal == "[]") {
+      var canal = "";
+    } else {
+      var canal = arregloCanal.toString();
+    }
+  }
+  if (arregloMarca === null) {
+    localStorage.setItem("arrayMarca", "[]");
+    var marca = "";
+  } else {
+    if (arregloMarca == "[]") {
+      var marca = "";
+    } else {
+      var marca = arregloMarca.toString();
+    }
+  }
+  /****AGENTE-CENTRO DE TRABAJO-CANAL COMERCIAL */
   var estatus = $("#estatus").val();
   var anio = $("#anio").val();
   var semana = $("#semana").val();
-  var agente = $("#agente").val();
-  var canal = $("#canal").val();
+
   var per_page = $("#per_page").val();
+  var campo = $("#campoOrden").val();
+  var orden = $("#orden").val();
   var page = 1;
 
   location.href =
-    "views/moduls/reporteador.php?reporteVentas=" +
+    "views/moduls/reporteador.php?reporteVentasDiarias=" +
     "&estatus=" +
     estatus +
     "&año=" +
@@ -1963,6 +3467,8 @@ function generarReporteDiario(vista) {
     agente +
     "&canal=" +
     canal +
+    "&centro=" +
+    centro +
     "&per_page=" +
     per_page +
     "&page=" +
@@ -1971,6 +3477,357 @@ function generarReporteDiario(vista) {
     producto +
     "&clientes=" +
     query +
+    "&campo=" +
+    campo +
+    "&orden=" +
+    orden +
+    "&marca=" +
+    marca +
     "&vista=" +
     vista;
+}
+function generarReporteMensual(vista) {
+  var arregloClientes = JSON.parse(localStorage.getItem("arrayClientes"));
+  var arregloProductos = JSON.parse(localStorage.getItem("arrayProductos"));
+  var arregloAgente = JSON.parse(localStorage.getItem("arrayAgentes"));
+  var arregloCentro = JSON.parse(localStorage.getItem("arrayCentro"));
+  var arregloCanal = JSON.parse(localStorage.getItem("arrayCanal"));
+  var arregloMarca = JSON.parse(localStorage.getItem("arrayMarca"));
+  agregarEvento("Descargo El Reporte " + vista + "", 3);
+  if (arregloProductos === null) {
+    localStorage.setItem("arrayProductos", "[]");
+    var producto = "";
+  } else {
+    if (arregloProductos == "[]") {
+      var producto = "";
+    } else {
+      var producto = arregloProductos.toString();
+    }
+  }
+  if (arregloClientes === null) {
+    localStorage.setItem("arrayClientes", "[]");
+    var query = "";
+  } else {
+    if (arregloClientes == "[]") {
+      var query = "";
+    } else {
+      var query = JSON.stringify(arregloClientes);
+    }
+  }
+  /****AGENTE-CENTRO DE TRABAJO-CANAL COMERCIAL */
+  if (arregloAgente === null) {
+    localStorage.setItem("arrayAgentes", "[]");
+    var agente = "";
+  } else {
+    if (arregloAgente == "[]") {
+      var agente = "";
+    } else {
+      var agente = arregloAgente.toString();
+    }
+  }
+
+  if (arregloCentro === null) {
+    localStorage.setItem("arrayCentro", "[]");
+    var centro = "";
+  } else {
+    if (arregloCentro == "[]") {
+      var centro = "";
+    } else {
+      var centro = arregloCentro.toString();
+    }
+  }
+
+  if (arregloCanal === null) {
+    localStorage.setItem("arrayClientes", "[]");
+    var canal = "";
+  } else {
+    if (arregloCanal == "[]") {
+      var canal = "";
+    } else {
+      var canal = arregloCanal.toString();
+    }
+  }
+  if (arregloMarca === null) {
+    localStorage.setItem("arrayMarca", "[]");
+    var marca = "";
+  } else {
+    if (arregloMarca == "[]") {
+      var marca = "";
+    } else {
+      var marca = arregloMarca.toString();
+    }
+  }
+  /****AGENTE-CENTRO DE TRABAJO-CANAL COMERCIAL */
+  var estatus = $("#estatus").val();
+  var anio = $("#anio").val();
+  var per_page = $("#per_page").val();
+  var campo = $("#campoOrden").val();
+  var orden = $("#orden").val();
+  var page = 1;
+
+  location.href =
+    "views/moduls/reporteador.php?reporteVentasMensuales=" +
+    "&estatus=" +
+    estatus +
+    "&año=" +
+    anio +
+    "&agente=" +
+    agente +
+    "&canal=" +
+    canal +
+    "&centro=" +
+    centro +
+    "&per_page=" +
+    per_page +
+    "&page=" +
+    page +
+    "&productos=" +
+    producto +
+    "&clientes=" +
+    query +
+    "&campo=" +
+    campo +
+    "&orden=" +
+    orden +
+    "&marca=" +
+    marca +
+    "&vista=" +
+    vista;
+}
+function generarReporteAnual(vista) {
+  var arregloClientes = JSON.parse(localStorage.getItem("arrayClientes"));
+  var arregloProductos = JSON.parse(localStorage.getItem("arrayProductos"));
+  var arregloAgente = JSON.parse(localStorage.getItem("arrayAgentes"));
+  var arregloCentro = JSON.parse(localStorage.getItem("arrayCentro"));
+  var arregloCanal = JSON.parse(localStorage.getItem("arrayCanal"));
+  var arregloMarca = JSON.parse(localStorage.getItem("arrayMarca"));
+
+  agregarEvento("Descargo El Reporte " + vista + "", 3);
+  if (arregloProductos === null) {
+    localStorage.setItem("arrayProductos", "[]");
+    var producto = "";
+  } else {
+    if (arregloProductos == "[]") {
+      var producto = "";
+    } else {
+      var producto = arregloProductos.toString();
+    }
+  }
+  if (arregloClientes === null) {
+    localStorage.setItem("arrayClientes", "[]");
+    var query = "";
+  } else {
+    if (arregloClientes == "[]") {
+      var query = "";
+    } else {
+      var query = JSON.stringify(arregloClientes);
+    }
+  }
+  /****AGENTE-CENTRO DE TRABAJO-CANAL COMERCIAL */
+  if (arregloAgente === null) {
+    localStorage.setItem("arrayAgentes", "[]");
+    var agente = "";
+  } else {
+    if (arregloAgente == "[]") {
+      var agente = "";
+    } else {
+      var agente = arregloAgente.toString();
+    }
+  }
+
+  if (arregloCentro === null) {
+    localStorage.setItem("arrayCentro", "[]");
+    var centro = "";
+  } else {
+    if (arregloCentro == "[]") {
+      var centro = "";
+    } else {
+      var centro = arregloCentro.toString();
+    }
+  }
+
+  if (arregloCanal === null) {
+    localStorage.setItem("arrayClientes", "[]");
+    var canal = "";
+  } else {
+    if (arregloCanal == "[]") {
+      var canal = "";
+    } else {
+      var canal = arregloCanal.toString();
+    }
+  }
+  if (arregloMarca === null) {
+    localStorage.setItem("arrayMarca", "[]");
+    var marca = "";
+  } else {
+    if (arregloMarca == "[]") {
+      var marca = "";
+    } else {
+      var marca = arregloMarca.toString();
+    }
+  }
+  /****AGENTE-CENTRO DE TRABAJO-CANAL COMERCIAL */
+  var estatus = $("#estatus").val();
+  var per_page = $("#per_page").val();
+  var campo = $("#campoOrden").val();
+  var orden = $("#orden").val();
+  var page = 1;
+
+  location.href =
+    "views/moduls/reporteador.php?reporteVentasAnuales=" +
+    "&estatus=" +
+    estatus +
+    "&agente=" +
+    agente +
+    "&canal=" +
+    canal +
+    "&centro=" +
+    centro +
+    "&per_page=" +
+    per_page +
+    "&page=" +
+    page +
+    "&productos=" +
+    producto +
+    "&clientes=" +
+    query +
+    "&campo=" +
+    campo +
+    "&orden=" +
+    orden +
+    "&marca=" +
+    marca +
+    "&vista=" +
+    vista;
+}
+function generarReporteDetalleDocumentos(vista) {
+  var arreglo = JSON.parse(localStorage.getItem("arrayClientes"));
+  var arregloAgente = JSON.parse(localStorage.getItem("arrayAgentes"));
+  var arregloCentro = JSON.parse(localStorage.getItem("arrayCentro"));
+  var arregloCanal = JSON.parse(localStorage.getItem("arrayCanal"));
+  agregarEvento("Descargo El Reporte " + vista + "", 3);
+  if (arreglo === null) {
+    localStorage.setItem("arrayClientes", "[]");
+    var query = "";
+  } else {
+    if (arreglo == "[]") {
+      var query = "";
+    } else {
+      var query = JSON.stringify(arreglo);
+    }
+  }
+
+  if (arregloAgente === null) {
+    localStorage.setItem("arrayAgentes", "[]");
+    var agente = "";
+  } else {
+    if (arregloAgente == "[]") {
+      var agente = "";
+    } else {
+      var agente = arregloAgente.toString();
+    }
+  }
+
+  if (arregloCentro === null) {
+    localStorage.setItem("arrayCentro", "[]");
+    var centro = "";
+  } else {
+    if (arregloCentro == "[]") {
+      var centro = "";
+    } else {
+      var centro = arregloCentro.toString();
+    }
+  }
+
+  if (arregloCanal === null) {
+    localStorage.setItem("arrayClientes", "[]");
+    var canal = "";
+  } else {
+    if (arregloCanal == "[]") {
+      var canal = "";
+    } else {
+      var canal = arregloCanal.toString();
+    }
+  }
+  var estatus = $("#estatus").val();
+  var año = $("#anio").val();
+  var per_page = $("#per_page").val();
+  var page = 1;
+  var campo = $("#campoOrden").val();
+  var orden = $("#orden").val();
+  var mes = $("#mesDetalle").val();
+  var abonado = $("#abonado").val();
+
+  location.href =
+    "views/moduls/reporteador.php?reporteVentasDetalle=" +
+    "&estatus=" +
+    estatus +
+    "&año=" +
+    año +
+    "&agente=" +
+    agente +
+    "&canal=" +
+    canal +
+    "&centro=" +
+    centro +
+    "&per_page=" +
+    per_page +
+    "&page=" +
+    page +
+    "&campo=" +
+    campo +
+    "&orden=" +
+    orden +
+    "&mes=" +
+    mes +
+    "&abonado=" +
+    abonado +
+    "&clientes=" +
+    query +
+    "&vista=" +
+    vista;
+}
+function cargarBitacora(page) {
+  var query = $("#nombre").val();
+  var accion = $("#accion").val();
+  var per_page = $("#per_page").val();
+  var parametros = {
+    action: "bitacora",
+    page: page,
+    query: query,
+    accion: accion,
+    per_page: per_page,
+  };
+  $("#loader").fadeIn("slow");
+  $.ajax({
+    url: "ajax/conceptos.ajax.php",
+    data: parametros,
+    beforeSend: function (objeto) {
+      $("#loader").html("Cargando Porfavor Espere ........");
+    },
+    success: function (data) {
+      $(".bitacora").html(data).fadeIn("slow");
+      $("#loader").html("");
+    },
+  });
+}
+function agregarEvento(accion, idAccion) {
+  var formData = new FormData();
+  formData.append("accionBitacora", accion);
+  formData.append("idAccion", idAccion);
+  $.ajax({
+    url: "ajax/admonFunctions.ajax.php",
+    type: "post",
+    dataType: "json",
+    data: formData,
+    cache: false,
+    contentType: false,
+    processData: false,
+  })
+    .done(function (res) {
+      var response = res.replace(/['"]+/g, "");
+      if (response == "ok") {
+      }
+    })
+    .fail(function (res) {});
 }

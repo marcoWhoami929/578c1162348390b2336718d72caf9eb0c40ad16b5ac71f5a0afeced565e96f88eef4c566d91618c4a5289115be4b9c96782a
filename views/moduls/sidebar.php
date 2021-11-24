@@ -21,32 +21,15 @@
                 </a>
             </li>
         </ul>
-        <div class="pcoded-navigation-label">Configuración</div>
 
+        <div class="pcoded-navigation-label">Detalle</div>
         <ul class="pcoded-item pcoded-left-item">
-
-            <li class="pcoded-hasmenu">
-                <a href="javascript:void(0)" class="waves-effect waves-dark">
-                    <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i><b></b></span>
-                    <span class="pcoded-mtext">Conceptos</span>
+            <li class="">
+                <a href="detalleDocumentos" class="waves-effect waves-dark">
+                    <span class="pcoded-micon"><i class="ti-money"></i><b>UC</b></span>
+                    <span class="pcoded-mtext">Detalle Documentos</span>
                     <span class="pcoded-mcaret"></span>
                 </a>
-                <ul class="pcoded-submenu">
-                    <li class=" ">
-                        <a href="conceptosPinturas" class="waves-effect waves-dark">
-                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                            <span class="pcoded-mtext">Pinturas</span>
-                            <span class="pcoded-mcaret"></span>
-                        </a>
-                    </li>
-                    <li class=" ">
-                        <a href="conceptosFlex" class="waves-effect waves-dark">
-                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                            <span class="pcoded-mtext">Flex</span>
-                            <span class="pcoded-mcaret"></span>
-                        </a>
-                    </li>
-                </ul>
             </li>
         </ul>
         <div class="pcoded-navigation-label">Ventas Diarias</div>
@@ -279,6 +262,62 @@
                 <a href="ultimosCostos" class="waves-effect waves-dark">
                     <span class="pcoded-micon"><i class="ti-money"></i><b>UC</b></span>
                     <span class="pcoded-mtext">Ultimos Costos</span>
+                    <span class="pcoded-mcaret"></span>
+                </a>
+            </li>
+        </ul>
+        <?php
+        if ($_SESSION["nombre"] == 'Elsa Martinez') {
+
+            echo ' <div class="pcoded-navigation-label">Administracion</div><ul class="pcoded-item pcoded-left-item">
+            <li class="pcoded-hasmenu">
+                <a href="javascript:void(0)" class="waves-effect waves-dark">
+                    <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i><b></b></span>
+                    <span class="pcoded-mtext">Administracion</span>
+                    <span class="pcoded-mcaret"></span>
+                </a>
+                <ul class="pcoded-submenu">
+                <li class="">
+                    <a href="usuarios" class="waves-effect waves-dark">
+                        <span class="pcoded-micon"><i class="ti-user"></i><b>UC</b></span>
+                        <span class="pcoded-mtext">Usuarios</span>
+                        <span class="pcoded-mcaret"></span>
+                    </a>
+                </li>
+                <li class="">
+                    <a href="bitacora" class="waves-effect waves-dark">
+                        <span class="pcoded-micon"><i class="ti-user"></i><b>UC</b></span>
+                        <span class="pcoded-mtext">Bitacora</span>
+                        <span class="pcoded-mcaret"></span>
+                    </a>
+                </li>
+                <li class=" ">
+                        <a href="conceptosPinturas" class="waves-effect waves-dark">
+                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                            <span class="pcoded-mtext">Pinturas</span>
+                            <span class="pcoded-mcaret"></span>
+                        </a>
+                    </li>
+                    <li class=" ">
+                        <a href="conceptosFlex" class="waves-effect waves-dark">
+                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                            <span class="pcoded-mtext">Flex</span>
+                            <span class="pcoded-mcaret"></span>
+                        </a>
+                    </li>
+                    
+
+                </ul>
+            </li>
+        </ul>';
+        }
+        ?>
+        <div class="pcoded-navigation-label">Mi Perfil</div>
+        <ul class="pcoded-item pcoded-left-item">
+            <li class="">
+                <a href="miPerfil" class="waves-effect waves-dark">
+                    <span class="pcoded-micon"><i class="ti-pencil-alt"></i><b>UC</b></span>
+                    <span class="pcoded-mtext">Mi perfil</span>
                     <span class="pcoded-mcaret"></span>
                 </a>
             </li>

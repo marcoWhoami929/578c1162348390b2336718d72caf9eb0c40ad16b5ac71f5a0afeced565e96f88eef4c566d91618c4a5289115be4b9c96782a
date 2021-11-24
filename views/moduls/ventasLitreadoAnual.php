@@ -43,6 +43,8 @@
                                                     <div class="card">
                                                         <div class="card-header">
                                                             <h3>Ventas Litreado Anual</h3>
+                                                            <small>*Atajo Para Buscador Clientes: <strong>CTRL + B</strong></small>
+                                                            <small>*Atajo Para Buscador Productos: <strong>CTRL + X</strong></small>
                                                             <div class="card-header-right">
                                                                 <ul class="list-unstyled card-option">
                                                                     <li>
@@ -98,7 +100,7 @@
                                                                 </div>
 
 
-                                                                <div class="table-filter">
+                                                                <div class="table-filter filterParams">
                                                                     <div class="row">
 
                                                                         <div class="col-lg-12 col-md-12 col-sm-12">
@@ -106,11 +108,18 @@
 
                                                                             <div style="width: 100%; margin: auto;">
 
-                                                                                <input id="arregloClientes" type="text" value="" data-role="tagsinput" />
-                                                                                <input id="arregloProductos" type="text" value="" data-role="tagsinput" />
+                                                                                <input id="arregloClientes">
+                                                                                <input id="arregloProductos">
 
 
 
+                                                                            </div>
+                                                                            <div class="filter-group">
+                                                                                <a href="dashboard2">
+                                                                                    <div class="homeCircle">
+                                                                                        <center><i class="fa fa-home fa-2x"></i></center>
+                                                                                    </div>
+                                                                                </a>
                                                                             </div>
                                                                             <div class="filter-group">
                                                                                 <span class="filter-icon"><i class="fa fa-filter"></i></span>
@@ -142,11 +151,11 @@
                                                                             <div class="filter-group">
                                                                                 <label>Agente</label>
                                                                                 <span class="filter-icon"><i class="fa fa-filter"></i></span>
-                                                                                <select class="form-control selectorAgentes" id="agente" onchange="cargarVentasLitreadoMontoAnual(1,'','');cargarVentasLitreadoUnidadesAnual(1,'','');">
+                                                                                <select class="form-control selectorAgentes" name="agente[]" multiple="multiple" id="agente">
                                                                                     <option value="">Todos</option>
                                                                                     <?php
 
-                                                                                    $agente = new ModelAmdon();
+                                                                                    $agente = new ModelAdmon();
                                                                                     $agentes = $agente->mdlObtenerListaAgentes();
 
                                                                                     foreach ($agentes as $key => $value) {
@@ -156,16 +165,50 @@
                                                                                 </select>
                                                                             </div>
                                                                             <div class="filter-group">
+                                                                                <label>Centro</label>
+                                                                                <span class="filter-icon"><i class="fa fa-filter"></i></span>
+                                                                                <select class="form-control selectorCentro" name="centro[]" multiple="multiple" id="centroTrabajo">
+                                                                                    <option value="">Todos</option>
+                                                                                    <?php
+
+                                                                                    $centroTrabajo = new ModelAdmon();
+                                                                                    $listaCentros = $centroTrabajo->mdlListarCentrosTrabajo();
+                                                                                    foreach ($listaCentros as $key => $value) {
+                                                                                        if ($value["CCENTROTRABAJO"] == "") {
+                                                                                            $centro = "VACIO";
+                                                                                        } else {
+                                                                                            $centro = $value["CCENTROTRABAJO"];
+                                                                                        }
+
+                                                                                        echo "<option value='" . $centro . "'>" . $value["CCENTROTRABAJO"] . "</option>";
+                                                                                    }
+
+                                                                                    ?>
+                                                                                </select>
+
+                                                                            </div>
+                                                                            <div class="filter-group">
                                                                                 <label>Canal</label>
                                                                                 <span class="filter-icon"><i class="fa fa-filter"></i></span>
-                                                                                <select class="form-control" id="canal" onchange="cargarVentasLitreadoMontoAnual(1,'','');cargarVentasLitreadoUnidadesAnual(1,'','');">
-                                                                                    <option value=""></option>
-                                                                                    <option value="SIN ASIGNAR">SIN ASIGNAR</option>
-                                                                                    <option value="FLOTILLAS">FLOTILLAS</option>
-                                                                                    <option value="MAYOREO">MAYOREO</option>
-                                                                                    <option value="RUTAS">RUTAS</option>
-                                                                                    <option value="TIENDAS">TIENDAS</option>
+                                                                                <select class="form-control selectorCanal" name="canal[]" multiple="multiple" id="canal">
+                                                                                    <option value="">Todos</option>
+                                                                                    <?php
+
+                                                                                    $canalComercial = new ModelAdmon();
+                                                                                    $canales = $canalComercial->mdlListarCanalesComerciales();
+                                                                                    foreach ($canales as $key => $value) {
+                                                                                        if ($value["CCANALCOMERCIAL"] == "") {
+                                                                                            $canal = "VACIO";
+                                                                                        } else {
+                                                                                            $canal = $value["CCANALCOMERCIAL"];
+                                                                                        }
+
+                                                                                        echo "<option value=" . $canal . ">" . $value["CCANALCOMERCIAL"] . "</option>";
+                                                                                    }
+
+                                                                                    ?>
                                                                                 </select>
+
                                                                             </div>
                                                                             <div class="filter-group">
                                                                                 <button type="button" id="searchClient" class="btn btn-primary" data-toggle="modal" data-target="#modalClientesVenta"> <i class="fa fa-search"></i>Clientes</button>
@@ -192,6 +235,24 @@
                                                                                     <option>2000</option>
                                                                                 </select>
                                                                             </div>
+                                                                            <div class="filter-group">
+                                                                                <span>Campo Orden</span>
+                                                                                <select class="form-control" id="campoOrden" onchange="cargarVentasLitreadoMontoAnual(1,'','');cargarVentasLitreadoUnidadesAnual(1,'','');">
+                                                                                    <option value="monto">Total General</option>
+                                                                                    <option value="codigo">Codigo</option>
+                                                                                    <option value="nombre">Producto</option>
+                                                                                </select>
+                                                                            </div>
+                                                                            <div class="filter-group">
+                                                                                <span>Orden</span>
+                                                                                <select class="form-control" id="orden" onchange="cargarVentasLitreadoMontoAnual(1,'','');cargarVentasLitreadoUnidadesAnual(1,'','');">
+                                                                                    <option value="desc">Desc</option>
+                                                                                    <option value="asc">Asc</option>
+                                                                                </select>
+                                                                            </div>
+                                                                            <div class="filter-group">
+                                                                                <a onclick="generarReporteAnual('ventasLitreadoAnual')"><i class="fa fa-file-excel-o fa-3x" aria-hidden="true"></i></a>
+                                                                            </div>
                                                                             <!----->
 
 
@@ -207,10 +268,10 @@
 
                                                                     </div>
                                                                 </div>
-                                                                <div class="ventasLitreadoMontoAnualData">
+                                                                <div class="ventasLitreadoMontoAnualData dataParams">
 
                                                                 </div>
-                                                                <div class="ventasLitreadoUnidadesAnualData">
+                                                                <div class="ventasLitreadoUnidadesAnualData dataParams">
 
                                                                 </div>
 
@@ -249,9 +310,10 @@
                         <div class="col-lg-12 col-md-12 col-sm-12"></div>
                         <div class="row">
                             <div class="col-lg-9 col-md-9 col-sm-9">
+                                 <input type="text" class="form-control" id="nombreClienteSearch" placeholder="Buscar cliente" onkeyup="loadClients(1)">
                                 <input type="hidden" class="form-control" id="clasificacionVenta">
                                 <input type="hidden" class="form-control" id="clasificacionVenta2">
-                                <input type="text" class="form-control" id="nombreClienteSearch" placeholder="Buscar cliente" onkeyup="loadClients(1)">
+                               
                             </div>
 
                         </div>
@@ -310,36 +372,24 @@
     });
 
     /**ELIMINAR ELEMENTOS ARREGLO CLIENTES */
-    $("#arregloClientes").val(JSON.parse(localStorage.getItem("arrayClientes")));
-    $("#arregloProductos").val(JSON.parse(localStorage.getItem("arrayProductos")));
-
-    $(document).on("click", ".label-info span[data-role=remove]", function() {
-
-        var to_remove = $(this).closest(".label-info").clone().children().remove().end().text().trim();
-
-        $(this).closest(".label-info").remove()
-        var i = $(this).closest(".label-info").clone().children().remove().end().text();
-
-        if (validarTipo(i) == 1) {
-            var arregloSelect = "arregloProductos";
-            var arreglo = "arrayProductos";
-        } else {
-            var arregloSelect = "arregloClientes";
-            var arreglo = "arrayClientes";
+    $('#arregloClientes').tagEditor({
+        initialTags: JSON.parse(localStorage.getItem("arrayClientes")),
+        delimiter: ', ',
+        forceLowercase: false,
+        beforeTagDelete: function(field, editor, tags, val) {
+            var arrayClientes = localStorage.getItem("arrayClientes");
+            removeItemFromArregloBusqueda(arrayClientes, val, "arrayClientes")
         }
-        var array = localStorage.getItem("" + arreglo + "");
 
-        removeItemFromArregloBusqueda(array, i)
-        var valuesString = $("#" + arregloSelect + "").val();
-        var values = valuesString.split(',');
-        $(this).closest(".label-info").remove();
-        $("#" + arregloSelect + "").val(values);
-        $("#" + arregloSelect + "").data('tagsinput').itemsArray = values;
+    });
+    $('#arregloProductos').tagEditor({
+        initialTags: JSON.parse(localStorage.getItem("arrayProductos")),
+        delimiter: ', ',
+        forceLowercase: false,
+        beforeTagDelete: function(field, editor, tags, val) {
+            var arrayProductos = localStorage.getItem("arrayProductos");
+            removeItemFromArregloBusqueda(arrayProductos, val, "arrayProductos")
+        }
 
-
-    })
-
-    $('input').on('beforeItemRemove', function(e) {
-        e.cancel = true; //set cancel to false..
     });
 </script>

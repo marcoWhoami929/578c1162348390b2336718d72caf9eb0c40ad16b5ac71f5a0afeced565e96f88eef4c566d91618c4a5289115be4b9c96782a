@@ -1,431 +1,474 @@
 <?php
 
 include("../models/db_connect_pinturas.php");
-$parametrosCanal = "case adoc.CRAZONSOCIAL
-    WHEN 'CIPSA INDUSTRIAS S.A DE C.V.'
-    THEN
-    (SELECT [CCENTROTRABAJO] FROM [parametrosVentas].[dbo].[CONCEPTOSPINTURAS] WHERE CAST(CNOMBREAGENTE AS NVARCHAR(100))in (CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-        WHEN 'TR'
-        THEN 'PV TORRES'
-        WHEN 'RF'
-        THEN 'PV REFORMA'
-        WHEN 'SG'
-        THEN 'PV SANTIAGO'
-        WHEN 'SM'
-        THEN 'PV SAN MANUEL'
-        WHEN 'CP'
-        THEN 'PV CAPU'
-        ELSE
-        agen.CNOMBREAGENTE
-        END ))
-    ELSE
-    case acon.CNOMBRECONCEPTO
-    WHEN 'DEVOLUCIÓN FX PUEBLA V 3.3'
-    THEN
-    (SELECT [CCENTROTRABAJO] FROM [parametrosVentas].[dbo].[CONCEPTOSFLEX] WHERE CAST(CNOMBREAGENTE AS NVARCHAR(100))in (CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-        WHEN 'TR'
-        THEN 'PV TORRES'
-        WHEN 'RF'
-        THEN 'PV REFORMA'
-        WHEN 'SG'
-        THEN 'PV SANTIAGO'
-        WHEN 'SM'
-        THEN 'PV SAN MANUEL'
-        WHEN 'CP'
-        THEN 'PV CAPU'
-        ELSE
-        agen.CNOMBREAGENTE
-        END ))
-    WHEN 'DEVOLUCIÓN MAYOREO V 3.3'
-    THEN
-    (SELECT [CCENTROTRABAJO] FROM [parametrosVentas].[dbo].[CONCEPTOSFLEX] WHERE CAST(CNOMBREAGENTE AS NVARCHAR(100))in (CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-        WHEN 'TR'
-        THEN 'PV TORRES'
-        WHEN 'RF'
-        THEN 'PV REFORMA'
-        WHEN 'SG'
-        THEN 'PV SANTIAGO'
-        WHEN 'SM'
-        THEN 'PV SAN MANUEL'
-        WHEN 'CP'
-        THEN 'PV CAPU'
-        ELSE
-        agen.CNOMBREAGENTE
-        END ))
-    WHEN 'FACTURA FX PUEBLA V 3.3'
-    THEN
-    (SELECT [CCENTROTRABAJO] FROM [parametrosVentas].[dbo].[CONCEPTOSFLEX] WHERE CAST(CNOMBREAGENTE AS NVARCHAR(100))in (CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-        WHEN 'TR'
-        THEN 'PV TORRES'
-        WHEN 'RF'
-        THEN 'PV REFORMA'
-        WHEN 'SG'
-        THEN 'PV SANTIAGO'
-        WHEN 'SM'
-        THEN 'PV SAN MANUEL'
-        WHEN 'CP'
-        THEN 'PV CAPU'
-        ELSE
-        agen.CNOMBREAGENTE
-        END ))
-    WHEN 'FACTURA MAYOREO V 3.3'
-    THEN
-    (SELECT [CCENTROTRABAJO] FROM [parametrosVentas].[dbo].[CONCEPTOSFLEX] WHERE CAST(CNOMBREAGENTE AS NVARCHAR(100))in (CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-        WHEN 'TR'
-        THEN 'PV TORRES'
-        WHEN 'RF'
-        THEN 'PV REFORMA'
-        WHEN 'SG'
-        THEN 'PV SANTIAGO'
-        WHEN 'SM'
-        THEN 'PV SAN MANUEL'
-        WHEN 'CP'
-        THEN 'PV CAPU'
-        ELSE
-        agen.CNOMBREAGENTE
-        END ))
-    WHEN 'NOTA DE CARGO AL CLIENTE FX V 3.3'
-    THEN
-    (SELECT [CCENTROTRABAJO] FROM [parametrosVentas].[dbo].[CONCEPTOSFLEX] WHERE CAST(CNOMBREAGENTE AS NVARCHAR(100))in (CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-        WHEN 'TR'
-        THEN 'PV TORRES'
-        WHEN 'RF'
-        THEN 'PV REFORMA'
-        WHEN 'SG'
-        THEN 'PV SANTIAGO'
-        WHEN 'SM'
-        THEN 'PV SAN MANUEL'
-        WHEN 'CP'
-        THEN 'PV CAPU'
-        ELSE
-        agen.CNOMBREAGENTE
-        END ))
-    WHEN 'NOTA DE CARGO CLIENTE MAYOREO V 3.3'
-    THEN
-    (SELECT [CCENTROTRABAJO] FROM [parametrosVentas].[dbo].[CONCEPTOSFLEX] WHERE CAST(CNOMBREAGENTE AS NVARCHAR(100))in (CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-        WHEN 'TR'
-        THEN 'PV TORRES'
-        WHEN 'RF'
-        THEN 'PV REFORMA'
-        WHEN 'SG'
-        THEN 'PV SANTIAGO'
-        WHEN 'SM'
-        THEN 'PV SAN MANUEL'
-        WHEN 'CP'
-        THEN 'PV CAPU'
-        ELSE
-        agen.CNOMBREAGENTE
-        END ))
-    WHEN 'NOTA DE CRÉDITO FX PUEBLA V 3.3'
-    THEN
-    (SELECT [CCENTROTRABAJO] FROM [parametrosVentas].[dbo].[CONCEPTOSFLEX] WHERE CAST(CNOMBREAGENTE AS NVARCHAR(100))in (CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-        WHEN 'TR'
-        THEN 'PV TORRES'
-        WHEN 'RF'
-        THEN 'PV REFORMA'
-        WHEN 'SG'
-        THEN 'PV SANTIAGO'
-        WHEN 'SM'
-        THEN 'PV SAN MANUEL'
-        WHEN 'CP'
-        THEN 'PV CAPU'
-        ELSE
-        agen.CNOMBREAGENTE
-        END ))
-    WHEN 'NOTA DE CREDITO MAYOREO V 3.3'
-    THEN
-    (SELECT [CCENTROTRABAJO] FROM [parametrosVentas].[dbo].[CONCEPTOSFLEX] WHERE CAST(CNOMBREAGENTE AS NVARCHAR(100))in (CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-        WHEN 'TR'
-        THEN 'PV TORRES'
-        WHEN 'RF'
-        THEN 'PV REFORMA'
-        WHEN 'SG'
-        THEN 'PV SANTIAGO'
-        WHEN 'SM'
-        THEN 'PV SAN MANUEL'
-        WHEN 'CP'
-        THEN 'PV CAPU'
-        ELSE
-        agen.CNOMBREAGENTE
-        END ))
-    WHEN 'DOCUMENTO PRUEBA V 3.3'
-    THEN
-    (SELECT [CCENTROTRABAJO] FROM [parametrosVentas].[dbo].[CONCEPTOSFLEX] WHERE CAST(CNOMBREAGENTE AS NVARCHAR(100))in (CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-        WHEN 'TR'
-        THEN 'PV TORRES'
-        WHEN 'RF'
-        THEN 'PV REFORMA'
-        WHEN 'SG'
-        THEN 'PV SANTIAGO'
-        WHEN 'SM'
-        THEN 'PV SAN MANUEL'
-        WHEN 'CP'
-        THEN 'PV CAPU'
-        ELSE
-        agen.CNOMBREAGENTE
-        END ))
-    ELSE
-    (SELECT [CCENTROTRABAJO] FROM [parametrosVentas].[dbo].[CONCEPTOSPINTURAS] WHERE CAST(CNOMBREAGENTE AS NVARCHAR(100))in (CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-        WHEN 'TR'
-        THEN 'PV TORRES'
-        WHEN 'RF'
-        THEN 'PV REFORMA'
-        WHEN 'SG'
-        THEN 'PV SANTIAGO'
-        WHEN 'SM'
-        THEN 'PV SAN MANUEL'
-        WHEN 'CP'
-        THEN 'PV CAPU'
-        ELSE
-        agen.CNOMBREAGENTE
-        END ))
-    END 
-    END AS centroTrabajo,
-    case adoc.CRAZONSOCIAL
-    WHEN 'CIPSA INDUSTRIAS S.A DE C.V.'
-    THEN
-    (SELECT [CCANALCOMERCIAL] FROM [parametrosVentas].[dbo].[CONCEPTOSPINTURAS] WHERE CAST(CNOMBREAGENTE AS NVARCHAR(100))in (CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-        WHEN 'TR'
-        THEN 'PV TORRES'
-        WHEN 'RF'
-        THEN 'PV REFORMA'
-        WHEN 'SG'
-        THEN 'PV SANTIAGO'
-        WHEN 'SM'
-        THEN 'PV SAN MANUEL'
-        WHEN 'CP'
-        THEN 'PV CAPU'
-        ELSE
-        agen.CNOMBREAGENTE
-        END ))
-    ELSE
-    case acon.CNOMBRECONCEPTO
-    WHEN 'DEVOLUCIÓN FX PUEBLA V 3.3'
-    THEN
-    (SELECT [CCANALCOMERCIAL] FROM [parametrosVentas].[dbo].[CONCEPTOSFLEX] WHERE CAST(CNOMBREAGENTE AS NVARCHAR(100))in (CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-        WHEN 'TR'
-        THEN 'PV TORRES'
-        WHEN 'RF'
-        THEN 'PV REFORMA'
-        WHEN 'SG'
-        THEN 'PV SANTIAGO'
-        WHEN 'SM'
-        THEN 'PV SAN MANUEL'
-        WHEN 'CP'
-        THEN 'PV CAPU'
-        ELSE
-        agen.CNOMBREAGENTE
-        END ))
-    WHEN 'DEVOLUCIÓN MAYOREO V 3.3'
-    THEN
-    (SELECT [CCANALCOMERCIAL] FROM [parametrosVentas].[dbo].[CONCEPTOSFLEX] WHERE CAST(CNOMBREAGENTE AS NVARCHAR(100))in (CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-        WHEN 'TR'
-        THEN 'PV TORRES'
-        WHEN 'RF'
-        THEN 'PV REFORMA'
-        WHEN 'SG'
-        THEN 'PV SANTIAGO'
-        WHEN 'SM'
-        THEN 'PV SAN MANUEL'
-        WHEN 'CP'
-        THEN 'PV CAPU'
-        ELSE
-        agen.CNOMBREAGENTE
-        END ))
-    WHEN 'FACTURA FX PUEBLA V 3.3'
-    THEN
-    (SELECT [CCANALCOMERCIAL] FROM [parametrosVentas].[dbo].[CONCEPTOSFLEX] WHERE CAST(CNOMBREAGENTE AS NVARCHAR(100))in (CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-        WHEN 'TR'
-        THEN 'PV TORRES'
-        WHEN 'RF'
-        THEN 'PV REFORMA'
-        WHEN 'SG'
-        THEN 'PV SANTIAGO'
-        WHEN 'SM'
-        THEN 'PV SAN MANUEL'
-        WHEN 'CP'
-        THEN 'PV CAPU'
-        ELSE
-        agen.CNOMBREAGENTE
-        END ))
-    WHEN 'FACTURA MAYOREO V 3.3'
-    THEN
-    (SELECT [CCANALCOMERCIAL] FROM [parametrosVentas].[dbo].[CONCEPTOSFLEX] WHERE CAST(CNOMBREAGENTE AS NVARCHAR(100))in (CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-        WHEN 'TR'
-        THEN 'PV TORRES'
-        WHEN 'RF'
-        THEN 'PV REFORMA'
-        WHEN 'SG'
-        THEN 'PV SANTIAGO'
-        WHEN 'SM'
-        THEN 'PV SAN MANUEL'
-        WHEN 'CP'
-        THEN 'PV CAPU'
-        ELSE
-        agen.CNOMBREAGENTE
-        END ))
-    WHEN 'NOTA DE CARGO AL CLIENTE FX V 3.3'
-    THEN
-    (SELECT [CCANALCOMERCIAL] FROM [parametrosVentas].[dbo].[CONCEPTOSFLEX] WHERE CAST(CNOMBREAGENTE AS NVARCHAR(100))in (CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-        WHEN 'TR'
-        THEN 'PV TORRES'
-        WHEN 'RF'
-        THEN 'PV REFORMA'
-        WHEN 'SG'
-        THEN 'PV SANTIAGO'
-        WHEN 'SM'
-        THEN 'PV SAN MANUEL'
-        WHEN 'CP'
-        THEN 'PV CAPU'
-        ELSE
-        agen.CNOMBREAGENTE
-        END ))
-    WHEN 'NOTA DE CARGO CLIENTE MAYOREO V 3.3'
-    THEN
-    (SELECT [CCANALCOMERCIAL] FROM [parametrosVentas].[dbo].[CONCEPTOSFLEX] WHERE CAST(CNOMBREAGENTE AS NVARCHAR(100))in (CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-        WHEN 'TR'
-        THEN 'PV TORRES'
-        WHEN 'RF'
-        THEN 'PV REFORMA'
-        WHEN 'SG'
-        THEN 'PV SANTIAGO'
-        WHEN 'SM'
-        THEN 'PV SAN MANUEL'
-        WHEN 'CP'
-        THEN 'PV CAPU'
-        ELSE
-        agen.CNOMBREAGENTE
-        END ))
-    WHEN 'NOTA DE CRÉDITO FX PUEBLA V 3.3'
-    THEN
-    (SELECT [CCANALCOMERCIAL] FROM [parametrosVentas].[dbo].[CONCEPTOSFLEX] WHERE CAST(CNOMBREAGENTE AS NVARCHAR(100))in (CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-        WHEN 'TR'
-        THEN 'PV TORRES'
-        WHEN 'RF'
-        THEN 'PV REFORMA'
-        WHEN 'SG'
-        THEN 'PV SANTIAGO'
-        WHEN 'SM'
-        THEN 'PV SAN MANUEL'
-        WHEN 'CP'
-        THEN 'PV CAPU'
-        ELSE
-        agen.CNOMBREAGENTE
-        END ))
-    WHEN 'NOTA DE CREDITO MAYOREO V 3.3'
-    THEN
-    (SELECT [CCANALCOMERCIAL] FROM [parametrosVentas].[dbo].[CONCEPTOSFLEX] WHERE CAST(CNOMBREAGENTE AS NVARCHAR(100))in (CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-        WHEN 'TR'
-        THEN 'PV TORRES'
-        WHEN 'RF'
-        THEN 'PV REFORMA'
-        WHEN 'SG'
-        THEN 'PV SANTIAGO'
-        WHEN 'SM'
-        THEN 'PV SAN MANUEL'
-        WHEN 'CP'
-        THEN 'PV CAPU'
-        ELSE
-        agen.CNOMBREAGENTE
-        END ))
-    WHEN 'DOCUMENTO PRUEBA V 3.3'
-    THEN
-    (SELECT [CCANALCOMERCIAL] FROM [parametrosVentas].[dbo].[CONCEPTOSFLEX] WHERE CAST(CNOMBREAGENTE AS NVARCHAR(100))in (CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-        WHEN 'TR'
-        THEN 'PV TORRES'
-        WHEN 'RF'
-        THEN 'PV REFORMA'
-        WHEN 'SG'
-        THEN 'PV SANTIAGO'
-        WHEN 'SM'
-        THEN 'PV SAN MANUEL'
-        WHEN 'CP'
-        THEN 'PV CAPU'
-        ELSE
-        agen.CNOMBREAGENTE
-        END ))
-    ELSE
-    (SELECT [CCANALCOMERCIAL] FROM [parametrosVentas].[dbo].[CONCEPTOSPINTURAS] WHERE CAST(CNOMBREAGENTE AS NVARCHAR(100))in (CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-        WHEN 'TR'
-        THEN 'PV TORRES'
-        WHEN 'RF'
-        THEN 'PV REFORMA'
-        WHEN 'SG'
-        THEN 'PV SANTIAGO'
-        WHEN 'SM'
-        THEN 'PV SAN MANUEL'
-        WHEN 'CP'
-        THEN 'PV CAPU'
-        ELSE
-        agen.CNOMBREAGENTE
-        END ))
-    END 
-    END AS canalComercial";
+$agenteList = "CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
+WHEN 'TR'
+THEN 'PV TORRES'
+WHEN 'RF'
+THEN 'PV REFORMA'
+WHEN 'SG'
+THEN 'PV SANTIAGO'
+WHEN 'SM'
+THEN 'PV SAN MANUEL'
+WHEN 'CP'
+THEN 'PV CAPU' 
+WHEN 'EC' 
+THEN 'CARLOS MENDOZA MORALES' 
+
+ELSE
+CASE adoc.CSERIEDOCUMENTO
+WHEN 'CACI'
+THEN 
+CASE  adoc.CRAZONSOCIAL
+WHEN 'CLIENTE MOSTRADOR'
+THEN 'ORLANDO BRIONES AGUIRRE'
+ELSE
+(SELECT CNOMBREAGENTE FROM adPINTURAS2020SADEC.dbo.admAgentes WHERE CIDAGENTE = aclien.CIDAGENTEVENTA)
+END
+WHEN 'CRTD'
+THEN 
+CASE agen.CNOMBREAGENTE
+WHEN '(Ninguno)'
+THEN 
+(SELECT CNOMBREAGENTE FROM adPINTURAS2020SADEC.dbo.admAgentes WHERE CIDAGENTE = aclien.CIDAGENTEVENTA)
+ELSE
+agen.CNOMBREAGENTE
+END
+WHEN 'CACM'
+THEN 
+CASE agen.CNOMBREAGENTE
+WHEN '(Ninguno)'
+THEN 
+(SELECT CNOMBREAGENTE FROM adPINTURAS2020SADEC.dbo.admAgentes WHERE CIDAGENTE = aclien.CIDAGENTEVENTA)
+ELSE
+agen.CNOMBREAGENTE
+END
+WHEN 'CRCD'
+THEN 
+CASE agen.CNOMBREAGENTE
+WHEN '(Ninguno)'
+THEN 
+(SELECT CNOMBREAGENTE FROM adPINTURAS2020SADEC.dbo.admAgentes WHERE CIDAGENTE = aclien.CIDAGENTEVENTA)
+WHEN 'MARIA DE LOURDES JUAREZ JUAREZ'
+THEN
+(SELECT CNOMBREAGENTE FROM adPINTURAS2020SADEC.dbo.admAgentes WHERE CIDAGENTE = aclien.CIDAGENTEVENTA)
+ELSE
+agen.CNOMBREAGENTE
+END
+WHEN 'DECD'
+THEN 
+CASE agen.CNOMBREAGENTE
+WHEN '(Ninguno)'
+THEN 
+(SELECT CNOMBREAGENTE FROM adPINTURAS2020SADEC.dbo.admAgentes WHERE CIDAGENTE = aclien.CIDAGENTEVENTA)
+ELSE
+agen.CNOMBREAGENTE
+END
+WHEN 'DEPB'
+THEN 
+CASE agen.CNOMBREAGENTE
+WHEN '(Ninguno)'
+THEN 
+(SELECT CNOMBREAGENTE FROM adPINTURAS2020SADEC.dbo.admAgentes WHERE CIDAGENTE = aclien.CIDAGENTEVENTA)
+ELSE
+agen.CNOMBREAGENTE
+END
+WHEN 'FAND'
+THEN 
+CASE agen.CNOMBREAGENTE
+WHEN '(Ninguno)'
+THEN 
+(SELECT CNOMBREAGENTE FROM adPINTURAS2020SADEC.dbo.admAgentes WHERE CIDAGENTE = aclien.CIDAGENTEVENTA)
+ELSE
+agen.CNOMBREAGENTE
+END
+WHEN 'FACD'
+THEN 
+CASE agen.CNOMBREAGENTE
+WHEN '(Ninguno)'
+THEN 
+CASE adoc.CRAZONSOCIAL
+WHEN 'CLIENTE MOSTRADOR'
+THEN 
+'CLAUDIA MARCELA VEGA AGUAYO'
+ELSE
+(SELECT CNOMBREAGENTE FROM adPINTURAS2020SADEC.dbo.admAgentes WHERE CIDAGENTE = aclien.CIDAGENTEVENTA)
+END
+ELSE
+agen.CNOMBREAGENTE
+END
+WHEN 'FAPB'
+THEN 
+CASE agen.CNOMBREAGENTE
+WHEN '(Ninguno)'
+THEN 
+(SELECT CNOMBREAGENTE FROM [adFLEX2020SADEC].[dbo].[admAgentes] WHERE CIDAGENTE = aclien.CIDAGENTEVENTA)
+ELSE
+agen.CNOMBREAGENTE
+END
+WHEN 'CRUE'
+THEN 
+CASE agen.CNOMBREAGENTE
+WHEN '(Ninguno)'
+THEN 
+(SELECT CNOMBREAGENTE FROM [adFLEX2020SADEC].[dbo].[admAgentes] WHERE CIDAGENTE = aclien.CIDAGENTEVENTA)
+WHEN 'MARIA DE LOURDES JUAREZ JUAREZ'
+THEN
+(SELECT CNOMBREAGENTE FROM [adFLEX2020SADEC].[dbo].[admAgentes] WHERE CIDAGENTE = aclien.CIDAGENTEVENTA)
+ELSE
+agen.CNOMBREAGENTE
+END
+WHEN 'NCPB'
+THEN 
+CASE agen.CNOMBREAGENTE
+WHEN '(Ninguno)'
+THEN 
+(SELECT CNOMBREAGENTE FROM [adFLEX2020SADEC].[dbo].[admAgentes] WHERE CIDAGENTE = aclien.CIDAGENTEVENTA)
+ELSE
+agen.CNOMBREAGENTE
+END
+WHEN 'GCTD'
+THEN 'PV TORRES'
+
+ELSE
+agen.CNOMBREAGENTE
+END
+END";
+$parametrosCanal = "CASE agen.CNOMBREAGENTE
+WHEN '(Ninguno)'
+THEN
+     CASE adoc.CSERIEDOCUMENTO
+     WHEN 'DOPR'
+     THEN
+     'RUTA 5'
+     WHEN 'FACD'
+     THEN
+     'CEDIS'
+     WHEN 'FAND'
+     THEN
+     'CUENTAS CORPORATIVAS'
+      WHEN 'FAPB'
+     THEN
+     'CEDIS'
+     WHEN 'CRTD'
+     THEN
+        CASE agen.CNOMBREAGENTE
+          WHEN 'PV TORRES'
+         THEN '9 TORRES'
+         WHEN 'PV REFORMA'
+         THEN '3 REFORMA'
+         WHEN 'PV SANTIAGO'
+         THEN '6 SANTIAGO'
+         WHEN 'PV SAN MANUEL'
+         THEN '1 SAN MANUEL'
+         WHEN 'PV CAPU'
+         THEN '7 CAPU' 
+		 WHEN 'CARLOS MENDOZA MORALES' 
+		 THEN 'E-COMMERCE'
+         ELSE
+         'SIN ASIGNAR'
+         END
+      WHEN 'GCTD'
+     THEN
+        CASE agen.CNOMBREAGENTE
+          WHEN 'PV TORRES'
+         THEN '9 TORRES'
+         WHEN 'PV REFORMA'
+         THEN '3 REFORMA'
+         WHEN 'PV SANTIAGO'
+         THEN '6 SANTIAGO'
+         WHEN 'PV SAN MANUEL'
+         THEN '1 SAN MANUEL'
+         WHEN 'PV CAPU'
+         THEN '7 CAPU' 
+		 WHEN 'CARLOS MENDOZA MORALES' 
+		 THEN 'E-COMMERCE'
+          ELSE
+         'SIN ASIGNAR'
+         END
+      WHEN 'CACI'
+     THEN
+     'SIN ASIGNAR'
+     WHEN 'NCPB'
+     THEN
+     'RUTA 5'
+     WHEN 'FATR'
+     THEN '9 TORRES'
+     WHEN 'FARF'
+     THEN '3 REFORMA'
+     WHEN 'FASG'
+     THEN '6 SANTIAGO'
+     WHEN 'FASM'
+     THEN '1 SAN MANUEL'
+     WHEN 'FACP'
+     THEN '7 CAPU' 
+     WHEN 'FAEC' 
+     THEN 'E-COMMERCE' 
+     ELSE
+     'SIN ASIGNAR'
+     END
+
+ELSE
+case adoc.CRAZONSOCIAL
+     WHEN 'CIPSA INDUSTRIAS S.A DE C.V.'
+     THEN
+     (SELECT [CCENTROTRABAJO] FROM [parametrosVentas].[dbo].[CONCEPTOSPINTURAS] WHERE CAST(CNOMBREAGENTE AS NVARCHAR(100))in ($agenteList ))
+     ELSE
+     case acon.CNOMBRECONCEPTO
+     WHEN 'DEVOLUCIÓN FX PUEBLA V 3.3'
+     THEN
+     (SELECT [CCENTROTRABAJO] FROM [parametrosVentas].[dbo].[CONCEPTOSFLEX] WHERE CAST(CNOMBREAGENTE AS NVARCHAR(100))in ($agenteList ))
+     WHEN 'DEVOLUCIÓN MAYOREO V 3.3'
+     THEN
+     (SELECT [CCENTROTRABAJO] FROM [parametrosVentas].[dbo].[CONCEPTOSFLEX] WHERE CAST(CNOMBREAGENTE AS NVARCHAR(100))in ($agenteList ))
+     WHEN 'FACTURA FX PUEBLA V 3.3'
+     THEN
+     (SELECT [CCENTROTRABAJO] FROM [parametrosVentas].[dbo].[CONCEPTOSFLEX] WHERE CAST(CNOMBREAGENTE AS NVARCHAR(100))in ($agenteList ))
+     WHEN 'FACTURA MAYOREO V 3.3'
+     THEN
+     (SELECT [CCENTROTRABAJO] FROM [parametrosVentas].[dbo].[CONCEPTOSFLEX] WHERE CAST(CNOMBREAGENTE AS NVARCHAR(100))in ($agenteList ))
+     WHEN 'NOTA DE CARGO AL CLIENTE FX V 3.3'
+     THEN
+     (SELECT [CCENTROTRABAJO] FROM [parametrosVentas].[dbo].[CONCEPTOSFLEX] WHERE CAST(CNOMBREAGENTE AS NVARCHAR(100))in ($agenteList ))
+     WHEN 'NOTA DE CARGO CLIENTE MAYOREO V 3.3'
+     THEN
+     (SELECT [CCENTROTRABAJO] FROM [parametrosVentas].[dbo].[CONCEPTOSFLEX] WHERE CAST(CNOMBREAGENTE AS NVARCHAR(100))in ($agenteList ))
+     WHEN 'NOTA DE CRÉDITO FX PUEBLA V 3.3'
+     THEN
+     (SELECT [CCENTROTRABAJO] FROM [parametrosVentas].[dbo].[CONCEPTOSFLEX] WHERE CAST(CNOMBREAGENTE AS NVARCHAR(100))in ($agenteList ))
+     WHEN 'NOTA DE CREDITO MAYOREO V 3.3'
+     THEN
+     (SELECT [CCENTROTRABAJO] FROM [parametrosVentas].[dbo].[CONCEPTOSFLEX] WHERE CAST(CNOMBREAGENTE AS NVARCHAR(100))in ($agenteList ))
+     WHEN 'DOCUMENTO PRUEBA V 3.3'
+     THEN
+     (SELECT [CCENTROTRABAJO] FROM [parametrosVentas].[dbo].[CONCEPTOSFLEX] WHERE CAST(CNOMBREAGENTE AS NVARCHAR(100))in ($agenteList ))
+     ELSE
+     (SELECT [CCENTROTRABAJO] FROM [parametrosVentas].[dbo].[CONCEPTOSPINTURAS] WHERE CAST(CNOMBREAGENTE AS NVARCHAR(100))in ($agenteList ))
+     END 
+     END
+END As centroTrabajo,
+    CASE agen.CNOMBREAGENTE
+           WHEN '(Ninguno)'
+           THEN
+                CASE adoc.CSERIEDOCUMENTO
+                WHEN 'DOPR'
+                THEN
+                'RUTAS'
+                WHEN 'FACD'
+                THEN
+                'CEDIS'
+                WHEN 'FAND'
+                THEN
+                'FLOTILLAS'
+                 WHEN 'FAPB'
+                THEN
+                'CEDIS'
+                WHEN 'CRTD'
+                THEN
+                'TIENDAS'
+                WHEN 'GCTD'
+                THEN 'TIENDAS'
+                 WHEN 'CACI'
+                THEN
+                'FLOTILLAS'
+                WHEN 'NCPB'
+                THEN
+                'RUTAS'
+                WHEN 'FATR'
+                THEN 'TIENDAS'
+                WHEN 'FARF'
+                THEN 'TIENDAS'
+                WHEN 'FASG'
+                THEN 'TIENDAS'
+                WHEN 'FASM'
+                THEN 'TIENDAS'
+                WHEN 'FACP'
+                THEN 'TIENDAS' 
+                WHEN 'FAEC' 
+                THEN 'E-COMMERCE' 
+                ELSE
+                'SIN ASIGNAR'
+                END
+           
+           ELSE
+           CASE adoc.crazonsocial
+                 WHEN 'CIPSA INDUSTRIAS S.A DE C.V.' THEN (SELECT [ccanalcomercial]
+                                                           FROM
+                 [parametrosVentas].[dbo].[conceptospinturas]
+                                                           WHERE  Cast(cnombreagente AS
+                                                                       NVARCHAR(100))IN
+               (
+               $agenteList ))
+                 ELSE
+                   CASE acon.cnombreconcepto
+                     WHEN 'DEVOLUCIÓN FX PUEBLA V 3.3' THEN (SELECT [ccanalcomercial]
+                                                              FROM
+                     [parametrosVentas].[dbo].[conceptosflex]
+                                                              WHERE  Cast(cnombreagente AS
+                                                                          NVARCHAR
+                                                                          (100))IN
+               (
+               $agenteList ))
+               WHEN 'DEVOLUCIÓN MAYOREO V 3.3' THEN (SELECT [ccanalcomercial]
+                                                    FROM
+               [parametrosVentas].[dbo].[conceptosflex]
+                                                    WHERE  Cast(cnombreagente AS NVARCHAR(
+                                                                100))IN
+               (
+               $agenteList ))
+               WHEN 'FACTURA FX PUEBLA V 3.3' THEN (SELECT [ccanalcomercial]
+                                                  FROM
+               [parametrosVentas].[dbo].[conceptosflex]
+                                                  WHERE  Cast(cnombreagente AS
+                                                              NVARCHAR(100))IN
+               (
+               $agenteList ))
+               WHEN 'FACTURA MAYOREO V 3.3' THEN (SELECT [ccanalcomercial]
+                                                FROM
+               [parametrosVentas].[dbo].[conceptosflex]
+                                                WHERE
+               Cast(cnombreagente AS NVARCHAR(100))IN
+               (
+               $agenteList ))
+               WHEN 'NOTA DE CARGO AL CLIENTE FX V 3.3' THEN (SELECT [ccanalcomercial]
+                                                            FROM
+               [parametrosVentas].[dbo].[conceptosflex]
+                                                            WHERE  Cast(cnombreagente AS
+                                                                        NVARCHAR(100))IN
+               (
+               $agenteList ))
+               WHEN 'NOTA DE CARGO CLIENTE MAYOREO V 3.3' THEN (SELECT [ccanalcomercial]
+                                                              FROM
+               [parametrosVentas].[dbo].[conceptosflex]
+                                                              WHERE  Cast(cnombreagente AS
+                                                                          NVARCHAR(100))IN
+               (
+               $agenteList ))
+               WHEN 'NOTA DE CRÉDITO FX PUEBLA V 3.3' THEN (SELECT [ccanalcomercial]
+                                                           FROM
+               [parametrosVentas].[dbo].[conceptosflex]
+                                                           WHERE
+               Cast(cnombreagente AS
+                  NVARCHAR(100))IN
+               (
+               $agenteList ))
+               WHEN 'NOTA DE CREDITO MAYOREO V 3.3' THEN (SELECT [ccanalcomercial]
+                                                      FROM
+               [parametrosVentas].[dbo].[conceptosflex]
+                                                      WHERE
+               Cast(cnombreagente AS
+                NVARCHAR(100))IN
+               (
+               $agenteList
+               ))
+               WHEN 'DOCUMENTO PRUEBA V 3.3' THEN (SELECT [ccanalcomercial]
+                                               FROM
+               [parametrosVentas].[dbo].[conceptosflex]
+                                               WHERE
+               Cast(cnombreagente AS NVARCHAR(100))IN
+               (
+               $agenteList ))
+               ELSE (SELECT [ccanalcomercial]
+                 FROM   [parametrosVentas].[dbo].[conceptospinturas]
+                 WHERE  Cast(cnombreagente AS NVARCHAR(100))IN
+               (
+               $agenteList ))
+                END 
+                END
+           END As canalComercial";
 class detalleVentasAnual extends ConexionPinturas
 {
-    public $mysqli;
-    public $counter;
+  public $mysqli;
+  public $counter;
 
-    function __construct()
-    {
-        $this->mysqli = $this->conectarPinturas();
+  function __construct()
+  {
+    $this->mysqli = $this->conectarPinturas();
+  }
+
+  public function countAll($sql)
+  {
+    $query = $this->mysqli->query($sql);
+    $query = $query->fetchAll();
+    return count($query);
+  }
+
+  public function getVentasCliente($tables, $campos, $search)
+  {
+    global $parametrosCanal;
+    global $agenteList;
+    $offset = $search['offset'];
+    $per_page = $search['per_page'];
+    $estatus = $search['estatus'];
+    $clientes = json_decode($search['query'], true);
+    $cliente = "";
+    for ($i = 0; $i < count($clientes); $i++) {
+      $cliente .= "'" . $clientes[$i] . "', ";
+    }
+    $cliente = substr($cliente, 0, -2);
+    /**AGENTES */
+    $agentes = explode(',', $search['agente']);
+    $agente = "";
+
+    for ($i = 0; $i < count($agentes); $i++) {
+      $agente .= "'" . $agentes[$i] . "', ";
+    }
+    $agente = substr($agente, 0, -2);
+    /***AGENTES */
+    /**CENTRO */
+    $centros = explode(',', $search['centro']);
+    $centro = "";
+
+    for ($i = 0; $i < count($centros); $i++) {
+      $centro .= "'" . $centros[$i] . "', ";
+    }
+    $centro = substr($centro, 0, -2);
+    /***CENTRO */
+    /**CANAL */
+    $canals = explode(',', $search['canal']);
+    $canal = "";
+
+    for ($i = 0; $i < count($canals); $i++) {
+      $canal .= "'" . $canals[$i] . "', ";
+    }
+    $canal = substr($canal, 0, -2);
+    /***CANAL */
+    $orden = $search['orden'];
+    switch ($search["campo"]) {
+      case 'cliente':
+        $campoOrden = "NombreCliente";
+        break;
+      case 'monto':
+        $campoOrden = "IsNull([2013],0) + IsNull([2014],0) + IsNull([2015],0) + IsNull([2016],0) + IsNull([2017],0) + IsNull([2018],0) + IsNull([2019],0) + IsNull([2020],0) + IsNull([2021],0)";
+        break;
+    }
+    $sWhere = " adoc.CCANCELADO  = '" . $estatus . "' ";
+
+    if ($search["query"] != "[]") {
+      $sWhere .= " and adoc.CRAZONSOCIAL in(" . $cliente . ") ";
+    }
+    $condicional = "WHERE indicador = 1  and canalComercial != 'PROPIAS' ";
+
+    if ($search['canal'] != "") {
+
+      $condicional .= " and canalComercial in(" . $canal . ") ";
+    }
+    if ($search['centro'] != "") {
+
+      $condicional .= " and centroTrabajo  in(" . $centro . ") ";
+    }
+    if ($search['agente'] != "") {
+
+      $condicional .= " and Agente in(" . $agente . ") ";
     }
 
-    public function countAll($sql)
-    {
-        $query = $this->mysqli->query($sql);
-        $query = $query->fetchAll();
-        return count($query);
-    }
 
-    public function getVentasCliente($tables, $campos, $search)
-    {
-        global $parametrosCanal;
-        $offset = $search['offset'];
-        $per_page = $search['per_page'];
-        $estatus = $search['estatus'];
-        $clientes = explode(',', $search['query']);
-        $cliente = "";
-        for ($i = 0; $i < count($clientes); $i++) {
-            $cliente .= "'" . $clientes[$i] . "', ";
-        }
-        $cliente = substr($cliente, 0, -2);
-
-        $sWhere = " adoc.CCANCELADO  = '" . $estatus . "' ";
-
-        if ($search["query"] != "") {
-            $sWhere .= " and adoc.CRAZONSOCIAL in(" . $cliente . ") ";
-        }
-        $condicional = "WHERE indicador = 1 ";
-
-        if ($search['canal'] != "") {
-
-            $condicional .= " and CanalComercial = '" . $search['canal'] . "' ";
-        }
-        if ($search['agente'] != "") {
-
-            $condicional .= " and Agente = '" . $search['agente'] . "' ";
-        }
-
-
-        $sql = "WITH ventasData AS(SELECT 
+    $sql = "WITH ventasData AS(SELECT 
         adoc.CSERIEDOCUMENTO,
         adoc.CFOLIO,
         adoc.CRAZONSOCIAL As NombreCliente,
         YEAR(adoc.CFECHA) As Año,
-         CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-         WHEN 'TR'
-         THEN 'PV TORRES'
-         WHEN 'RF'
-         THEN 'PV REFORMA'
-         WHEN 'SG'
-         THEN 'PV SANTIAGO'
-         WHEN 'SM'
-         THEN 'PV SAN MANUEL'
-         WHEN 'CP'
-         THEN 'PV CAPU'
-         ELSE
-         agen.CNOMBREAGENTE END As Agente,
+        $agenteList as Agente,
          adoc.CNETO As Importe,
          adoc.CDESCUENTOMOV As Descuento,
          adoc.CIMPUESTO1 As IVA,
@@ -441,7 +484,7 @@ class detalleVentasAnual extends ConexionPinturas
          SUM(adoc.CTOTAL-adoc.CIMPUESTO1) END AS Total,
          $parametrosCanal,
          '1' As indicador
-  FROM [adPINTURAS2020SADEC].[dbo].[admDocumentos] as adoc INNER JOIN [adPINTURAS2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPINTURAS2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere  and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO in(4,
+  FROM [adPINTURAS2020SADEC].[dbo].[admDocumentos] as adoc INNER JOIN [adPINTURAS2020SADEC].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adPINTURAS2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPINTURAS2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere  and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO in(4,
 5,
 3001,
 3002,
@@ -498,27 +541,15 @@ class detalleVentasAnual extends ConexionPinturas
 3189,
 3190,
 3191,
-3212)
-  GROUP BY adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO
+3212,3233,3234)
+  GROUP BY aclien.CIDAGENTEVENTA,adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO
   UNION
   SELECT 
         adoc.CSERIEDOCUMENTO,
         adoc.CFOLIO,
         adoc.CRAZONSOCIAL As NombreCliente,
         YEAR(adoc.CFECHA) As Año,
-         CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-         WHEN 'TR'
-         THEN 'PV TORRES'
-         WHEN 'RF'
-         THEN 'PV REFORMA'
-         WHEN 'SG'
-         THEN 'PV SANTIAGO'
-         WHEN 'SM'
-         THEN 'PV SAN MANUEL'
-         WHEN 'CP'
-         THEN 'PV CAPU'
-         ELSE
-         agen.CNOMBREAGENTE END As Agente,
+        $agenteList as Agente,
          adoc.CNETO As Importe,
          adoc.CDESCUENTOMOV As Descuento,
          adoc.CIMPUESTO1 As IVA,
@@ -534,7 +565,7 @@ class detalleVentasAnual extends ConexionPinturas
          SUM(adoc.CTOTAL-adoc.CIMPUESTO1) END AS Total,
          $parametrosCanal,
          '1' As indicador
-  FROM [adFLEX2020SADEC].[dbo].[admDocumentos] as adoc INNER JOIN [adFLEX2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adFLEX2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere   and adoc.CIDDOCUMENTODE IN(4,5,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
+  FROM [adFLEX2020SADEC].[dbo].[admDocumentos] as adoc INNER JOIN [adFLEX2020SADEC].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adFLEX2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adFLEX2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere   and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
 5,
 3001,
 3048,
@@ -544,27 +575,15 @@ class detalleVentasAnual extends ConexionPinturas
 3004,
 3012,
 3052,
-3061)
-  GROUP BY adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO
+3061,3053)
+  GROUP BY aclien.CIDAGENTEVENTA,adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO
   UNION
   SELECT 
         adoc.CSERIEDOCUMENTO,
         adoc.CFOLIO,
         adoc.CRAZONSOCIAL As NombreCliente,
         YEAR(adoc.CFECHA) As Año,
-         CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-         WHEN 'TR'
-         THEN 'PV TORRES'
-         WHEN 'RF'
-         THEN 'PV REFORMA'
-         WHEN 'SG'
-         THEN 'PV SANTIAGO'
-         WHEN 'SM'
-         THEN 'PV SAN MANUEL'
-         WHEN 'CP'
-         THEN 'PV CAPU'
-         ELSE
-         agen.CNOMBREAGENTE END As Agente,
+        $agenteList as Agente,
          adoc.CNETO As Importe,
          adoc.CDESCUENTOMOV As Descuento,
          adoc.CIMPUESTO1 As IVA,
@@ -580,7 +599,7 @@ class detalleVentasAnual extends ConexionPinturas
          SUM(adoc.CTOTAL-adoc.CIMPUESTO1) END AS Total,
          $parametrosCanal,
          '1' As indicador
-  FROM [adPinturas_y_Complemen].[dbo].[admDocumentos] as adoc INNER JOIN [adPinturas_y_Complemen].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPinturas_y_Complemen].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
+  FROM [adPinturas_y_Complemen].[dbo].[admDocumentos] as adoc INNER JOIN [adPinturas_y_Complemen].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adPinturas_y_Complemen].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPinturas_y_Complemen].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
 5,
 3047,
 3049,
@@ -593,7 +612,7 @@ class detalleVentasAnual extends ConexionPinturas
 3058,
 3111,
 3105)
-  GROUP BY adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO),
+  GROUP BY aclien.CIDAGENTEVENTA,adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO),
 
 ventasOrdenadas As(
     SELECT
@@ -603,29 +622,17 @@ ventasOrdenadas As(
     FROM ventasData  $condicional
     
     )
-SELECT *,IsNull([2013],0) + IsNull([2014],0) + IsNull([2015],0) + IsNull([2016],0) + IsNull([2017],0) + IsNull([2018],0) + IsNull([2019],0) + IsNull([2020],0) + IsNull([2021],0) Totales FROM ventasOrdenadas PIVOT(SUM(Total) FOR Año in([2013],[2014],[2015],[2016],[2017],[2018],[2019],[2020],[2021])) as pivotTable  order by NombreCliente asc  OFFSET $offset ROWS FETCH NEXT $per_page ROWS ONLY";
+SELECT *,IsNull([2013],0) + IsNull([2014],0) + IsNull([2015],0) + IsNull([2016],0) + IsNull([2017],0) + IsNull([2018],0) + IsNull([2019],0) + IsNull([2020],0) + IsNull([2021],0) Totales FROM ventasOrdenadas PIVOT(SUM(Total) FOR Año in([2013],[2014],[2015],[2016],[2017],[2018],[2019],[2020],[2021])) as pivotTable  order by $campoOrden $orden  OFFSET $offset ROWS FETCH NEXT $per_page ROWS ONLY";
 
 
-        $query = $this->mysqli->query($sql);
+    $query = $this->mysqli->query($sql);
 
-        $sql1 = "WITH ventasData AS(SELECT 
+    $sql1 = "WITH ventasData AS(SELECT 
         adoc.CSERIEDOCUMENTO,
         adoc.CFOLIO,
         adoc.CRAZONSOCIAL As NombreCliente,
         YEAR(adoc.CFECHA) As Año,
-         CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-         WHEN 'TR'
-         THEN 'PV TORRES'
-         WHEN 'RF'
-         THEN 'PV REFORMA'
-         WHEN 'SG'
-         THEN 'PV SANTIAGO'
-         WHEN 'SM'
-         THEN 'PV SAN MANUEL'
-         WHEN 'CP'
-         THEN 'PV CAPU'
-         ELSE
-         agen.CNOMBREAGENTE END As Agente,
+        $agenteList as Agente,
          adoc.CNETO As Importe,
          adoc.CDESCUENTOMOV As Descuento,
          adoc.CIMPUESTO1 As IVA,
@@ -641,7 +648,7 @@ SELECT *,IsNull([2013],0) + IsNull([2014],0) + IsNull([2015],0) + IsNull([2016],
          SUM(adoc.CTOTAL-adoc.CIMPUESTO1) END AS Total,
          $parametrosCanal,
          '1' As indicador
-  FROM [adPINTURAS2020SADEC].[dbo].[admDocumentos] as adoc INNER JOIN [adPINTURAS2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPINTURAS2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere  and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO in(4,
+  FROM [adPINTURAS2020SADEC].[dbo].[admDocumentos] as adoc INNER JOIN [adPINTURAS2020SADEC].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adPINTURAS2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPINTURAS2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere  and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO in(4,
 5,
 3001,
 3002,
@@ -698,27 +705,15 @@ SELECT *,IsNull([2013],0) + IsNull([2014],0) + IsNull([2015],0) + IsNull([2016],
 3189,
 3190,
 3191,
-3212)
-  GROUP BY adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO
+3212,3233,3234)
+  GROUP BY aclien.CIDAGENTEVENTA,adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO
   UNION
   SELECT 
         adoc.CSERIEDOCUMENTO,
         adoc.CFOLIO,
         adoc.CRAZONSOCIAL As NombreCliente,
         YEAR(adoc.CFECHA) As Año,
-         CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-         WHEN 'TR'
-         THEN 'PV TORRES'
-         WHEN 'RF'
-         THEN 'PV REFORMA'
-         WHEN 'SG'
-         THEN 'PV SANTIAGO'
-         WHEN 'SM'
-         THEN 'PV SAN MANUEL'
-         WHEN 'CP'
-         THEN 'PV CAPU'
-         ELSE
-         agen.CNOMBREAGENTE END As Agente,
+        $agenteList as Agente,
          adoc.CNETO As Importe,
          adoc.CDESCUENTOMOV As Descuento,
          adoc.CIMPUESTO1 As IVA,
@@ -734,7 +729,7 @@ SELECT *,IsNull([2013],0) + IsNull([2014],0) + IsNull([2015],0) + IsNull([2016],
          SUM(adoc.CTOTAL-adoc.CIMPUESTO1) END AS Total,
          $parametrosCanal,
          '1' As indicador
-  FROM [adFLEX2020SADEC].[dbo].[admDocumentos] as adoc INNER JOIN [adFLEX2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adFLEX2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere   and adoc.CIDDOCUMENTODE IN(4,5,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
+  FROM [adFLEX2020SADEC].[dbo].[admDocumentos] as adoc INNER JOIN [adFLEX2020SADEC].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adFLEX2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adFLEX2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere   and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
 5,
 3001,
 3048,
@@ -744,27 +739,15 @@ SELECT *,IsNull([2013],0) + IsNull([2014],0) + IsNull([2015],0) + IsNull([2016],
 3004,
 3012,
 3052,
-3061)
-  GROUP BY adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO
+3061,3053)
+  GROUP BY aclien.CIDAGENTEVENTA,adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO
   UNION
   SELECT 
         adoc.CSERIEDOCUMENTO,
         adoc.CFOLIO,
         adoc.CRAZONSOCIAL As NombreCliente,
         YEAR(adoc.CFECHA) As Año,
-         CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-         WHEN 'TR'
-         THEN 'PV TORRES'
-         WHEN 'RF'
-         THEN 'PV REFORMA'
-         WHEN 'SG'
-         THEN 'PV SANTIAGO'
-         WHEN 'SM'
-         THEN 'PV SAN MANUEL'
-         WHEN 'CP'
-         THEN 'PV CAPU'
-         ELSE
-         agen.CNOMBREAGENTE END As Agente,
+        $agenteList as Agente,
          adoc.CNETO As Importe,
          adoc.CDESCUENTOMOV As Descuento,
          adoc.CIMPUESTO1 As IVA,
@@ -780,7 +763,7 @@ SELECT *,IsNull([2013],0) + IsNull([2014],0) + IsNull([2015],0) + IsNull([2016],
          SUM(adoc.CTOTAL-adoc.CIMPUESTO1) END AS Total,
          $parametrosCanal,
          '1' As indicador
-  FROM [adPinturas_y_Complemen].[dbo].[admDocumentos] as adoc INNER JOIN [adPinturas_y_Complemen].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPinturas_y_Complemen].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
+  FROM [adPinturas_y_Complemen].[dbo].[admDocumentos] as adoc INNER JOIN [adPinturas_y_Complemen].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adPinturas_y_Complemen].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPinturas_y_Complemen].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
 5,
 3047,
 3049,
@@ -793,7 +776,7 @@ SELECT *,IsNull([2013],0) + IsNull([2014],0) + IsNull([2015],0) + IsNull([2016],
 3058,
 3111,
 3105)
-  GROUP BY adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO),
+  GROUP BY aclien.CIDAGENTEVENTA,adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO),
 
 ventasOrdenadas As(
     SELECT
@@ -803,61 +786,92 @@ ventasOrdenadas As(
     FROM ventasData  $condicional
     
     )
-SELECT *,IsNull([2013],0) + IsNull([2014],0) + IsNull([2015],0) + IsNull([2016],0) + IsNull([2017],0) + IsNull([2018],0) + IsNull([2019],0) + IsNull([2020],0) + IsNull([2021],0) Totales FROM ventasOrdenadas PIVOT(SUM(Total) FOR Año in([2013],[2014],[2015],[2016],[2017],[2018],[2019],[2020],[2021])) as pivotTable  order by NombreCliente asc ";
+SELECT *,IsNull([2013],0) + IsNull([2014],0) + IsNull([2015],0) + IsNull([2016],0) + IsNull([2017],0) + IsNull([2018],0) + IsNull([2019],0) + IsNull([2020],0) + IsNull([2021],0) Totales FROM ventasOrdenadas PIVOT(SUM(Total) FOR Año in([2013],[2014],[2015],[2016],[2017],[2018],[2019],[2020],[2021])) as pivotTable  order by $campoOrden $orden ";
 
-        $nums_row = $this->countAll($sql1);
+    $nums_row = $this->countAll($sql1);
 
-        //Set counter
-        $this->setCounter($nums_row);
+    //Set counter
+    $this->setCounter($nums_row);
 
-        $query = $query->fetchAll();
-        return $query;
+    $query = $query->fetchAll();
+    return $query;
+  }
+
+  public function getVentasCanal($tables, $campos, $search)
+  {
+    global $parametrosCanal;
+    global $agenteList;
+    $offset = $search['offset'];
+    $per_page = $search['per_page'];
+    $estatus = $search['estatus'];
+    $clientes = json_decode($search['query'], true);
+    $cliente = "";
+    for ($i = 0; $i < count($clientes); $i++) {
+      $cliente .= "'" . $clientes[$i] . "', ";
+    }
+    $cliente = substr($cliente, 0, -2);
+    /**AGENTES */
+    $agentes = explode(',', $search['agente']);
+    $agente = "";
+
+    for ($i = 0; $i < count($agentes); $i++) {
+      $agente .= "'" . $agentes[$i] . "', ";
+    }
+    $agente = substr($agente, 0, -2);
+    /***AGENTES */
+    /**CENTRO */
+    $centros = explode(',', $search['centro']);
+    $centro = "";
+
+    for ($i = 0; $i < count($centros); $i++) {
+      $centro .= "'" . $centros[$i] . "', ";
+    }
+    $centro = substr($centro, 0, -2);
+    /***CENTRO */
+    /**CANAL */
+    $canals = explode(',', $search['canal']);
+    $canal = "";
+
+    for ($i = 0; $i < count($canals); $i++) {
+      $canal .= "'" . $canals[$i] . "', ";
+    }
+    $canal = substr($canal, 0, -2);
+    /***CANAL */
+    $orden = $search['orden'];
+    switch ($search["campo"]) {
+      case 'canal':
+        $campoOrden = "canalComercial";
+        break;
+      case 'monto':
+        $campoOrden = "IsNull([2013],0) + IsNull([2014],0) + IsNull([2015],0) + IsNull([2016],0) + IsNull([2017],0) + IsNull([2018],0) + IsNull([2019],0) + IsNull([2020],0) + IsNull([2021],0)";
+        break;
+    }
+    $sWhere = " adoc.CCANCELADO  = '" . $estatus . "' ";
+
+    if ($search["query"] != "[]") {
+      $sWhere .= " and adoc.CRAZONSOCIAL in(" . $cliente . ") ";
+    }
+    $condicional = "WHERE indicador = 1  and canalComercial != 'PROPIAS'";
+
+    if ($search['canal'] != "") {
+
+      $condicional .= " and canalComercial in(" . $canal . ") ";
+    }
+    if ($search['centro'] != "") {
+
+      $condicional .= " and centroTrabajo  in(" . $centro . ") ";
+    }
+    if ($search['agente'] != "") {
+
+      $condicional .= " and Agente in(" . $agente . ") ";
     }
 
-    public function getVentasCanal($tables, $campos, $search)
-    {
-        global $parametrosCanal;
-        $offset = $search['offset'];
-        $per_page = $search['per_page'];
-        $estatus = $search['estatus'];
-        $clientes = explode(',', $search['query']);
-        $cliente = "";
-        for ($i = 0; $i < count($clientes); $i++) {
-            $cliente .= "'" . $clientes[$i] . "', ";
-        }
-        $cliente = substr($cliente, 0, -2);
-
-        $sWhere = " adoc.CCANCELADO  = '" . $estatus . "' ";
-
-        if ($search["query"] != "") {
-            $sWhere .= " and adoc.CRAZONSOCIAL in(" . $cliente . ") ";
-        }
-        $condicional = "WHERE indicador = 1 ";
-
-        if ($search['agente'] != "") {
-
-            $condicional .= " and Agente = '" . $search['agente'] . "' ";
-        }
-
-
-        $sql = "WITH ventasData AS(SELECT 
+    $sql = "WITH ventasData AS(SELECT 
         adoc.CSERIEDOCUMENTO,
         adoc.CFOLIO,
         adoc.CRAZONSOCIAL As NombreCliente,
         YEAR(adoc.CFECHA) As Año,
-         CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-         WHEN 'TR'
-         THEN 'PV TORRES'
-         WHEN 'RF'
-         THEN 'PV REFORMA'
-         WHEN 'SG'
-         THEN 'PV SANTIAGO'
-         WHEN 'SM'
-         THEN 'PV SAN MANUEL'
-         WHEN 'CP'
-         THEN 'PV CAPU'
-         ELSE
-         agen.CNOMBREAGENTE END As Agente,
+        $agenteList as Agente,
          adoc.CNETO As Importe,
          adoc.CDESCUENTOMOV As Descuento,
          adoc.CIMPUESTO1 As IVA,
@@ -873,7 +887,7 @@ SELECT *,IsNull([2013],0) + IsNull([2014],0) + IsNull([2015],0) + IsNull([2016],
          SUM(adoc.CTOTAL-adoc.CIMPUESTO1) END AS Total,
          $parametrosCanal,
          '1' As indicador
-  FROM [adPINTURAS2020SADEC].[dbo].[admDocumentos] as adoc INNER JOIN [adPINTURAS2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPINTURAS2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere  and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO in(4,
+  FROM [adPINTURAS2020SADEC].[dbo].[admDocumentos] as adoc INNER JOIN [adPINTURAS2020SADEC].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adPINTURAS2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPINTURAS2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere  and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO in(4,
 5,
 3001,
 3002,
@@ -930,27 +944,15 @@ SELECT *,IsNull([2013],0) + IsNull([2014],0) + IsNull([2015],0) + IsNull([2016],
 3189,
 3190,
 3191,
-3212)
-  GROUP BY adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO
+3212,3233,3234)
+  GROUP BY aclien.CIDAGENTEVENTA,adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO
   UNION
   SELECT 
         adoc.CSERIEDOCUMENTO,
         adoc.CFOLIO,
         adoc.CRAZONSOCIAL As NombreCliente,
         YEAR(adoc.CFECHA) As Año,
-         CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-         WHEN 'TR'
-         THEN 'PV TORRES'
-         WHEN 'RF'
-         THEN 'PV REFORMA'
-         WHEN 'SG'
-         THEN 'PV SANTIAGO'
-         WHEN 'SM'
-         THEN 'PV SAN MANUEL'
-         WHEN 'CP'
-         THEN 'PV CAPU'
-         ELSE
-         agen.CNOMBREAGENTE END As Agente,
+        $agenteList as Agente,
          adoc.CNETO As Importe,
          adoc.CDESCUENTOMOV As Descuento,
          adoc.CIMPUESTO1 As IVA,
@@ -966,7 +968,7 @@ SELECT *,IsNull([2013],0) + IsNull([2014],0) + IsNull([2015],0) + IsNull([2016],
          SUM(adoc.CTOTAL-adoc.CIMPUESTO1) END AS Total,
          $parametrosCanal,
          '1' As indicador
-  FROM [adFLEX2020SADEC].[dbo].[admDocumentos] as adoc INNER JOIN [adFLEX2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adFLEX2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere   and adoc.CIDDOCUMENTODE IN(4,5,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
+  FROM [adFLEX2020SADEC].[dbo].[admDocumentos] as adoc INNER JOIN [adFLEX2020SADEC].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adFLEX2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adFLEX2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere   and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
 5,
 3001,
 3048,
@@ -976,27 +978,15 @@ SELECT *,IsNull([2013],0) + IsNull([2014],0) + IsNull([2015],0) + IsNull([2016],
 3004,
 3012,
 3052,
-3061)
-  GROUP BY adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO
+3061,3053)
+  GROUP BY aclien.CIDAGENTEVENTA,adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO
   UNION
   SELECT 
         adoc.CSERIEDOCUMENTO,
         adoc.CFOLIO,
         adoc.CRAZONSOCIAL As NombreCliente,
         YEAR(adoc.CFECHA) As Año,
-         CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-         WHEN 'TR'
-         THEN 'PV TORRES'
-         WHEN 'RF'
-         THEN 'PV REFORMA'
-         WHEN 'SG'
-         THEN 'PV SANTIAGO'
-         WHEN 'SM'
-         THEN 'PV SAN MANUEL'
-         WHEN 'CP'
-         THEN 'PV CAPU'
-         ELSE
-         agen.CNOMBREAGENTE END As Agente,
+        $agenteList as Agente,
          adoc.CNETO As Importe,
          adoc.CDESCUENTOMOV As Descuento,
          adoc.CIMPUESTO1 As IVA,
@@ -1012,7 +1002,7 @@ SELECT *,IsNull([2013],0) + IsNull([2014],0) + IsNull([2015],0) + IsNull([2016],
          SUM(adoc.CTOTAL-adoc.CIMPUESTO1) END AS Total,
          $parametrosCanal,
          '1' As indicador
-  FROM [adPinturas_y_Complemen].[dbo].[admDocumentos] as adoc INNER JOIN [adPinturas_y_Complemen].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPinturas_y_Complemen].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
+  FROM [adPinturas_y_Complemen].[dbo].[admDocumentos] as adoc INNER JOIN [adPinturas_y_Complemen].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adPinturas_y_Complemen].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPinturas_y_Complemen].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
 5,
 3047,
 3049,
@@ -1025,7 +1015,7 @@ SELECT *,IsNull([2013],0) + IsNull([2014],0) + IsNull([2015],0) + IsNull([2016],
 3058,
 3111,
 3105)
-  GROUP BY adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO),
+  GROUP BY aclien.CIDAGENTEVENTA,adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO),
 
 ventasOrdenadas As(
     SELECT
@@ -1036,29 +1026,17 @@ ventasOrdenadas As(
     FROM ventasData  $condicional
     
     )
-    SELECT *,IsNull([2013],0) + IsNull([2014],0) + IsNull([2015],0) + IsNull([2016],0) + IsNull([2017],0) + IsNull([2018],0) + IsNull([2019],0) + IsNull([2020],0) + IsNull([2021],0) Totales FROM ventasOrdenadas PIVOT(SUM(Total) FOR Año in([2013],[2014],[2015],[2016],[2017],[2018],[2019],[2020],[2021])) as pivotTable  order by canalComercial asc OFFSET $offset ROWS FETCH NEXT $per_page ROWS ONLY";
+    SELECT *,IsNull([2013],0) + IsNull([2014],0) + IsNull([2015],0) + IsNull([2016],0) + IsNull([2017],0) + IsNull([2018],0) + IsNull([2019],0) + IsNull([2020],0) + IsNull([2021],0) Totales FROM ventasOrdenadas PIVOT(SUM(Total) FOR Año in([2013],[2014],[2015],[2016],[2017],[2018],[2019],[2020],[2021])) as pivotTable  order by $campoOrden $orden OFFSET $offset ROWS FETCH NEXT $per_page ROWS ONLY";
 
 
-        $query = $this->mysqli->query($sql);
+    $query = $this->mysqli->query($sql);
 
-        $sql1 = "WITH ventasData AS(SELECT 
+    $sql1 = "WITH ventasData AS(SELECT 
         adoc.CSERIEDOCUMENTO,
         adoc.CFOLIO,
         adoc.CRAZONSOCIAL As NombreCliente,
         YEAR(adoc.CFECHA) As Año,
-         CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-         WHEN 'TR'
-         THEN 'PV TORRES'
-         WHEN 'RF'
-         THEN 'PV REFORMA'
-         WHEN 'SG'
-         THEN 'PV SANTIAGO'
-         WHEN 'SM'
-         THEN 'PV SAN MANUEL'
-         WHEN 'CP'
-         THEN 'PV CAPU'
-         ELSE
-         agen.CNOMBREAGENTE END As Agente,
+        $agenteList as Agente,
          adoc.CNETO As Importe,
          adoc.CDESCUENTOMOV As Descuento,
          adoc.CIMPUESTO1 As IVA,
@@ -1074,7 +1052,7 @@ ventasOrdenadas As(
          SUM(adoc.CTOTAL-adoc.CIMPUESTO1) END AS Total,
          $parametrosCanal,
          '1' As indicador
-  FROM [adPINTURAS2020SADEC].[dbo].[admDocumentos] as adoc INNER JOIN [adPINTURAS2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPINTURAS2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere  and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO in(4,
+  FROM [adPINTURAS2020SADEC].[dbo].[admDocumentos] as adoc INNER JOIN [adPINTURAS2020SADEC].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adPINTURAS2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPINTURAS2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere  and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO in(4,
 5,
 3001,
 3002,
@@ -1131,27 +1109,15 @@ ventasOrdenadas As(
 3189,
 3190,
 3191,
-3212)
-  GROUP BY adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO
+3212,3233,3234)
+  GROUP BY aclien.CIDAGENTEVENTA,adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO
   UNION
   SELECT 
         adoc.CSERIEDOCUMENTO,
         adoc.CFOLIO,
         adoc.CRAZONSOCIAL As NombreCliente,
         YEAR(adoc.CFECHA) As Año,
-         CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-         WHEN 'TR'
-         THEN 'PV TORRES'
-         WHEN 'RF'
-         THEN 'PV REFORMA'
-         WHEN 'SG'
-         THEN 'PV SANTIAGO'
-         WHEN 'SM'
-         THEN 'PV SAN MANUEL'
-         WHEN 'CP'
-         THEN 'PV CAPU'
-         ELSE
-         agen.CNOMBREAGENTE END As Agente,
+        $agenteList as Agente,
          adoc.CNETO As Importe,
          adoc.CDESCUENTOMOV As Descuento,
          adoc.CIMPUESTO1 As IVA,
@@ -1167,7 +1133,7 @@ ventasOrdenadas As(
          SUM(adoc.CTOTAL-adoc.CIMPUESTO1) END AS Total,
          $parametrosCanal,
          '1' As indicador
-  FROM [adFLEX2020SADEC].[dbo].[admDocumentos] as adoc INNER JOIN [adFLEX2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adFLEX2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere   and adoc.CIDDOCUMENTODE IN(4,5,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
+  FROM [adFLEX2020SADEC].[dbo].[admDocumentos] as adoc INNER JOIN [adFLEX2020SADEC].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adFLEX2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adFLEX2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere   and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
 5,
 3001,
 3048,
@@ -1177,27 +1143,15 @@ ventasOrdenadas As(
 3004,
 3012,
 3052,
-3061)
-  GROUP BY adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO
+3061,3053)
+  GROUP BY aclien.CIDAGENTEVENTA,adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO
   UNION
   SELECT 
         adoc.CSERIEDOCUMENTO,
         adoc.CFOLIO,
         adoc.CRAZONSOCIAL As NombreCliente,
         YEAR(adoc.CFECHA) As Año,
-         CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-         WHEN 'TR'
-         THEN 'PV TORRES'
-         WHEN 'RF'
-         THEN 'PV REFORMA'
-         WHEN 'SG'
-         THEN 'PV SANTIAGO'
-         WHEN 'SM'
-         THEN 'PV SAN MANUEL'
-         WHEN 'CP'
-         THEN 'PV CAPU'
-         ELSE
-         agen.CNOMBREAGENTE END As Agente,
+        $agenteList as Agente,
          adoc.CNETO As Importe,
          adoc.CDESCUENTOMOV As Descuento,
          adoc.CIMPUESTO1 As IVA,
@@ -1213,7 +1167,7 @@ ventasOrdenadas As(
          SUM(adoc.CTOTAL-adoc.CIMPUESTO1) END AS Total,
          $parametrosCanal,
          '1' As indicador
-  FROM [adPinturas_y_Complemen].[dbo].[admDocumentos] as adoc INNER JOIN [adPinturas_y_Complemen].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPinturas_y_Complemen].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
+  FROM [adPinturas_y_Complemen].[dbo].[admDocumentos] as adoc INNER JOIN [adPinturas_y_Complemen].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adPinturas_y_Complemen].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPinturas_y_Complemen].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
 5,
 3047,
 3049,
@@ -1226,7 +1180,7 @@ ventasOrdenadas As(
 3058,
 3111,
 3105)
-  GROUP BY adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO),
+  GROUP BY aclien.CIDAGENTEVENTA,adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO),
 
 ventasOrdenadas As(
     SELECT
@@ -1237,64 +1191,92 @@ ventasOrdenadas As(
     FROM ventasData  $condicional
     
     )
-    SELECT *,IsNull([2013],0) + IsNull([2014],0) + IsNull([2015],0) + IsNull([2016],0) + IsNull([2017],0) + IsNull([2018],0) + IsNull([2019],0) + IsNull([2020],0) + IsNull([2021],0) Totales FROM ventasOrdenadas PIVOT(SUM(Total) FOR Año in([2013],[2014],[2015],[2016],[2017],[2018],[2019],[2020],[2021])) as pivotTable  order by canalComercial asc";
+    SELECT *,IsNull([2013],0) + IsNull([2014],0) + IsNull([2015],0) + IsNull([2016],0) + IsNull([2017],0) + IsNull([2018],0) + IsNull([2019],0) + IsNull([2020],0) + IsNull([2021],0) Totales FROM ventasOrdenadas PIVOT(SUM(Total) FOR Año in([2013],[2014],[2015],[2016],[2017],[2018],[2019],[2020],[2021])) as pivotTable  order by $campoOrden $orden";
 
-        $nums_row = $this->countAll($sql1);
+    $nums_row = $this->countAll($sql1);
 
-        //Set counter
-        $this->setCounter($nums_row);
+    //Set counter
+    $this->setCounter($nums_row);
 
-        $query = $query->fetchAll();
-        return $query;
+    $query = $query->fetchAll();
+    return $query;
+  }
+  public function getVentasAgente($tables, $campos, $search)
+  {
+    global $parametrosCanal;
+    global $agenteList;
+    $offset = $search['offset'];
+    $per_page = $search['per_page'];
+    $estatus = $search['estatus'];
+    $clientes = json_decode($search['query'], true);
+    $cliente = "";
+    for ($i = 0; $i < count($clientes); $i++) {
+      $cliente .= "'" . $clientes[$i] . "', ";
     }
-    public function getVentasAgente($tables, $campos, $search)
-    {
-        global $parametrosCanal;
-        $offset = $search['offset'];
-        $per_page = $search['per_page'];
-        $estatus = $search['estatus'];
-        $clientes = explode(',', $search['query']);
-        $cliente = "";
-        for ($i = 0; $i < count($clientes); $i++) {
-            $cliente .= "'" . $clientes[$i] . "', ";
-        }
-        $cliente = substr($cliente, 0, -2);
+    $cliente = substr($cliente, 0, -2);
+    /**AGENTES */
+    $agentes = explode(',', $search['agente']);
+    $agente = "";
 
-        $sWhere = " adoc.CCANCELADO  = '" . $estatus . "' ";
+    for ($i = 0; $i < count($agentes); $i++) {
+      $agente .= "'" . $agentes[$i] . "', ";
+    }
+    $agente = substr($agente, 0, -2);
+    /***AGENTES */
+    /**CENTRO */
+    $centros = explode(',', $search['centro']);
+    $centro = "";
 
-        if ($search["query"] != "") {
-            $sWhere .= " and adoc.CRAZONSOCIAL in(" . $cliente . ") ";
-        }
-        $condicional = "WHERE indicador = 1 ";
+    for ($i = 0; $i < count($centros); $i++) {
+      $centro .= "'" . $centros[$i] . "', ";
+    }
+    $centro = substr($centro, 0, -2);
+    /***CENTRO */
+    /**CANAL */
+    $canals = explode(',', $search['canal']);
+    $canal = "";
 
-        if ($search['canal'] != "") {
+    for ($i = 0; $i < count($canals); $i++) {
+      $canal .= "'" . $canals[$i] . "', ";
+    }
+    $canal = substr($canal, 0, -2);
+    /***CANAL */
+    $orden = $search['orden'];
+    switch ($search["campo"]) {
+      case 'agente':
+        $campoOrden = "Agente";
+        break;
+      case 'monto':
+        $campoOrden = "IsNull([2013],0) + IsNull([2014],0) + IsNull([2015],0) + IsNull([2016],0) + IsNull([2017],0) + IsNull([2018],0) + IsNull([2019],0) + IsNull([2020],0) + IsNull([2021],0)";
+        break;
+    }
+    $sWhere = " adoc.CCANCELADO  = '" . $estatus . "' ";
 
-            $condicional .= " and CanalComercial = '" . $search['canal'] . "' ";
-        }
-        if ($search['agente'] != "") {
+    if ($search["query"] != "[]") {
+      $sWhere .= " and adoc.CRAZONSOCIAL in(" . $cliente . ") ";
+    }
+    $condicional = "WHERE indicador = 1  and canalComercial != 'PROPIAS'";
 
-            $condicional .= " and Agente = '" . $search['agente'] . "' ";
-        }
+    if ($search['canal'] != "") {
+
+      $condicional .= " and canalComercial in(" . $canal . ") ";
+    }
+    if ($search['centro'] != "") {
+
+      $condicional .= " and centroTrabajo  in(" . $centro . ") ";
+    }
+    if ($search['agente'] != "") {
+
+      $condicional .= " and Agente in(" . $agente . ") ";
+    }
 
 
-        $sql = "WITH ventasData AS(SELECT 
+    $sql = "WITH ventasData AS(SELECT 
         adoc.CSERIEDOCUMENTO,
         adoc.CFOLIO,
         adoc.CRAZONSOCIAL As NombreCliente,
         YEAR(adoc.CFECHA) As Año,
-         CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-         WHEN 'TR'
-         THEN 'PV TORRES'
-         WHEN 'RF'
-         THEN 'PV REFORMA'
-         WHEN 'SG'
-         THEN 'PV SANTIAGO'
-         WHEN 'SM'
-         THEN 'PV SAN MANUEL'
-         WHEN 'CP'
-         THEN 'PV CAPU'
-         ELSE
-         agen.CNOMBREAGENTE END As Agente,
+        $agenteList as Agente,
          adoc.CNETO As Importe,
          adoc.CDESCUENTOMOV As Descuento,
          adoc.CIMPUESTO1 As IVA,
@@ -1310,7 +1292,7 @@ ventasOrdenadas As(
          SUM(adoc.CTOTAL-adoc.CIMPUESTO1) END AS Total,
          $parametrosCanal,
          '1' As indicador
-  FROM [adPINTURAS2020SADEC].[dbo].[admDocumentos] as adoc INNER JOIN [adPINTURAS2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPINTURAS2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere  and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO in(4,
+  FROM [adPINTURAS2020SADEC].[dbo].[admDocumentos] as adoc INNER JOIN [adPINTURAS2020SADEC].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adPINTURAS2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPINTURAS2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere  and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO in(4,
 5,
 3001,
 3002,
@@ -1367,27 +1349,15 @@ ventasOrdenadas As(
 3189,
 3190,
 3191,
-3212)
-  GROUP BY adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO
+3212,3233,3234)
+  GROUP BY aclien.CIDAGENTEVENTA,adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO
   UNION
   SELECT 
         adoc.CSERIEDOCUMENTO,
         adoc.CFOLIO,
         adoc.CRAZONSOCIAL As NombreCliente,
         YEAR(adoc.CFECHA) As Año,
-         CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-         WHEN 'TR'
-         THEN 'PV TORRES'
-         WHEN 'RF'
-         THEN 'PV REFORMA'
-         WHEN 'SG'
-         THEN 'PV SANTIAGO'
-         WHEN 'SM'
-         THEN 'PV SAN MANUEL'
-         WHEN 'CP'
-         THEN 'PV CAPU'
-         ELSE
-         agen.CNOMBREAGENTE END As Agente,
+        $agenteList as Agente,
          adoc.CNETO As Importe,
          adoc.CDESCUENTOMOV As Descuento,
          adoc.CIMPUESTO1 As IVA,
@@ -1403,7 +1373,7 @@ ventasOrdenadas As(
          SUM(adoc.CTOTAL-adoc.CIMPUESTO1) END AS Total,
          $parametrosCanal,
          '1' As indicador
-  FROM [adFLEX2020SADEC].[dbo].[admDocumentos] as adoc INNER JOIN [adFLEX2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adFLEX2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere   and adoc.CIDDOCUMENTODE IN(4,5,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
+  FROM [adFLEX2020SADEC].[dbo].[admDocumentos] as adoc INNER JOIN [adFLEX2020SADEC].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adFLEX2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adFLEX2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere   and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
 5,
 3001,
 3048,
@@ -1413,27 +1383,15 @@ ventasOrdenadas As(
 3004,
 3012,
 3052,
-3061)
-  GROUP BY adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO
+3061,3053)
+  GROUP BY aclien.CIDAGENTEVENTA,adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO
   UNION
   SELECT 
         adoc.CSERIEDOCUMENTO,
         adoc.CFOLIO,
         adoc.CRAZONSOCIAL As NombreCliente,
         YEAR(adoc.CFECHA) As Año,
-         CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-         WHEN 'TR'
-         THEN 'PV TORRES'
-         WHEN 'RF'
-         THEN 'PV REFORMA'
-         WHEN 'SG'
-         THEN 'PV SANTIAGO'
-         WHEN 'SM'
-         THEN 'PV SAN MANUEL'
-         WHEN 'CP'
-         THEN 'PV CAPU'
-         ELSE
-         agen.CNOMBREAGENTE END As Agente,
+        $agenteList as Agente,
          adoc.CNETO As Importe,
          adoc.CDESCUENTOMOV As Descuento,
          adoc.CIMPUESTO1 As IVA,
@@ -1449,7 +1407,7 @@ ventasOrdenadas As(
          SUM(adoc.CTOTAL-adoc.CIMPUESTO1) END AS Total,
          $parametrosCanal,
          '1' As indicador
-  FROM [adPinturas_y_Complemen].[dbo].[admDocumentos] as adoc INNER JOIN [adPinturas_y_Complemen].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPinturas_y_Complemen].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
+  FROM [adPinturas_y_Complemen].[dbo].[admDocumentos] as adoc INNER JOIN [adPinturas_y_Complemen].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adPinturas_y_Complemen].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPinturas_y_Complemen].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
 5,
 3047,
 3049,
@@ -1462,7 +1420,7 @@ ventasOrdenadas As(
 3058,
 3111,
 3105)
-  GROUP BY adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO),
+  GROUP BY aclien.CIDAGENTEVENTA,adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO),
 
 ventasOrdenadas As(
     SELECT
@@ -1472,29 +1430,17 @@ ventasOrdenadas As(
     FROM ventasData  $condicional
     
     )
-    SELECT *,IsNull([2013],0) + IsNull([2014],0) + IsNull([2015],0) + IsNull([2016],0) + IsNull([2017],0) + IsNull([2018],0) + IsNull([2019],0) + IsNull([2020],0) + IsNull([2021],0) Totales FROM ventasOrdenadas PIVOT(SUM(Total) FOR Año in([2013],[2014],[2015],[2016],[2017],[2018],[2019],[2020],[2021])) as pivotTable  order by Agente asc  OFFSET $offset ROWS FETCH NEXT $per_page ROWS ONLY";
+    SELECT *,IsNull([2013],0) + IsNull([2014],0) + IsNull([2015],0) + IsNull([2016],0) + IsNull([2017],0) + IsNull([2018],0) + IsNull([2019],0) + IsNull([2020],0) + IsNull([2021],0) Totales FROM ventasOrdenadas PIVOT(SUM(Total) FOR Año in([2013],[2014],[2015],[2016],[2017],[2018],[2019],[2020],[2021])) as pivotTable  order by $campoOrden $orden  OFFSET $offset ROWS FETCH NEXT $per_page ROWS ONLY";
 
 
-        $query = $this->mysqli->query($sql);
+    $query = $this->mysqli->query($sql);
 
-        $sql1 = "WITH ventasData AS(SELECT 
+    $sql1 = "WITH ventasData AS(SELECT 
         adoc.CSERIEDOCUMENTO,
         adoc.CFOLIO,
         adoc.CRAZONSOCIAL As NombreCliente,
         YEAR(adoc.CFECHA) As Año,
-         CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-         WHEN 'TR'
-         THEN 'PV TORRES'
-         WHEN 'RF'
-         THEN 'PV REFORMA'
-         WHEN 'SG'
-         THEN 'PV SANTIAGO'
-         WHEN 'SM'
-         THEN 'PV SAN MANUEL'
-         WHEN 'CP'
-         THEN 'PV CAPU'
-         ELSE
-         agen.CNOMBREAGENTE END As Agente,
+        $agenteList as Agente,
          adoc.CNETO As Importe,
          adoc.CDESCUENTOMOV As Descuento,
          adoc.CIMPUESTO1 As IVA,
@@ -1510,7 +1456,7 @@ ventasOrdenadas As(
          SUM(adoc.CTOTAL-adoc.CIMPUESTO1) END AS Total,
          $parametrosCanal,
          '1' As indicador
-  FROM [adPINTURAS2020SADEC].[dbo].[admDocumentos] as adoc INNER JOIN [adPINTURAS2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPINTURAS2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere  and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO in(4,
+  FROM [adPINTURAS2020SADEC].[dbo].[admDocumentos] as adoc INNER JOIN [adPINTURAS2020SADEC].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adPINTURAS2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPINTURAS2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere  and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO in(4,
 5,
 3001,
 3002,
@@ -1567,27 +1513,15 @@ ventasOrdenadas As(
 3189,
 3190,
 3191,
-3212)
-  GROUP BY adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO
+3212,3233,3234)
+  GROUP BY aclien.CIDAGENTEVENTA,adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO
   UNION
   SELECT 
         adoc.CSERIEDOCUMENTO,
         adoc.CFOLIO,
         adoc.CRAZONSOCIAL As NombreCliente,
         YEAR(adoc.CFECHA) As Año,
-         CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-         WHEN 'TR'
-         THEN 'PV TORRES'
-         WHEN 'RF'
-         THEN 'PV REFORMA'
-         WHEN 'SG'
-         THEN 'PV SANTIAGO'
-         WHEN 'SM'
-         THEN 'PV SAN MANUEL'
-         WHEN 'CP'
-         THEN 'PV CAPU'
-         ELSE
-         agen.CNOMBREAGENTE END As Agente,
+        $agenteList as Agente,
          adoc.CNETO As Importe,
          adoc.CDESCUENTOMOV As Descuento,
          adoc.CIMPUESTO1 As IVA,
@@ -1603,7 +1537,7 @@ ventasOrdenadas As(
          SUM(adoc.CTOTAL-adoc.CIMPUESTO1) END AS Total,
          $parametrosCanal,
          '1' As indicador
-  FROM [adFLEX2020SADEC].[dbo].[admDocumentos] as adoc INNER JOIN [adFLEX2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adFLEX2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere   and adoc.CIDDOCUMENTODE IN(4,5,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
+  FROM [adFLEX2020SADEC].[dbo].[admDocumentos] as adoc INNER JOIN [adFLEX2020SADEC].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adFLEX2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adFLEX2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere   and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
 5,
 3001,
 3048,
@@ -1613,27 +1547,15 @@ ventasOrdenadas As(
 3004,
 3012,
 3052,
-3061)
-  GROUP BY adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO
+3061,3053)
+  GROUP BY aclien.CIDAGENTEVENTA,adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO
   UNION
   SELECT 
         adoc.CSERIEDOCUMENTO,
         adoc.CFOLIO,
         adoc.CRAZONSOCIAL As NombreCliente,
         YEAR(adoc.CFECHA) As Año,
-         CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-         WHEN 'TR'
-         THEN 'PV TORRES'
-         WHEN 'RF'
-         THEN 'PV REFORMA'
-         WHEN 'SG'
-         THEN 'PV SANTIAGO'
-         WHEN 'SM'
-         THEN 'PV SAN MANUEL'
-         WHEN 'CP'
-         THEN 'PV CAPU'
-         ELSE
-         agen.CNOMBREAGENTE END As Agente,
+        $agenteList as Agente,
          adoc.CNETO As Importe,
          adoc.CDESCUENTOMOV As Descuento,
          adoc.CIMPUESTO1 As IVA,
@@ -1649,7 +1571,7 @@ ventasOrdenadas As(
          SUM(adoc.CTOTAL-adoc.CIMPUESTO1) END AS Total,
          $parametrosCanal,
          '1' As indicador
-  FROM [adPinturas_y_Complemen].[dbo].[admDocumentos] as adoc INNER JOIN [adPinturas_y_Complemen].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPinturas_y_Complemen].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
+  FROM [adPinturas_y_Complemen].[dbo].[admDocumentos] as adoc INNER JOIN [adPinturas_y_Complemen].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adPinturas_y_Complemen].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPinturas_y_Complemen].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
 5,
 3047,
 3049,
@@ -1662,7 +1584,7 @@ ventasOrdenadas As(
 3058,
 3111,
 3105)
-  GROUP BY adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO),
+  GROUP BY aclien.CIDAGENTEVENTA,adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO),
 
 ventasOrdenadas As(
     SELECT
@@ -1672,60 +1594,102 @@ ventasOrdenadas As(
     FROM ventasData  $condicional
     
     )
-    SELECT *,IsNull([2013],0) + IsNull([2014],0) + IsNull([2015],0) + IsNull([2016],0) + IsNull([2017],0) + IsNull([2018],0) + IsNull([2019],0) + IsNull([2020],0) + IsNull([2021],0) Totales FROM ventasOrdenadas PIVOT(SUM(Total) FOR Año in([2013],[2014],[2015],[2016],[2017],[2018],[2019],[2020],[2021])) as pivotTable  order by Agente asc";
+    SELECT *,IsNull([2013],0) + IsNull([2014],0) + IsNull([2015],0) + IsNull([2016],0) + IsNull([2017],0) + IsNull([2018],0) + IsNull([2019],0) + IsNull([2020],0) + IsNull([2021],0) Totales FROM ventasOrdenadas PIVOT(SUM(Total) FOR Año in([2013],[2014],[2015],[2016],[2017],[2018],[2019],[2020],[2021])) as pivotTable  order by $campoOrden $orden";
 
-        $nums_row = $this->countAll($sql1);
+    $nums_row = $this->countAll($sql1);
 
-        //Set counter
-        $this->setCounter($nums_row);
+    //Set counter
+    $this->setCounter($nums_row);
 
-        $query = $query->fetchAll();
-        return $query;
+    $query = $query->fetchAll();
+    return $query;
+  }
+  /***VENTAS PRODUCTOS */
+  public function getVentasProductoMonto($tables, $campos, $search)
+  {
+    global $parametrosCanal;
+    global $agenteList;
+
+    $offset = $search['offset'];
+    $per_page = $search['per_page'];
+    $estatus = $search['estatus'];
+    /***CODIGOS DE PRODUCTOS */
+    $codigos = explode(',', $search['producto']);
+    $codigoProducto = "";
+    for ($i = 0; $i < count($codigos); $i++) {
+      $codigoProducto .= "'" . $codigos[$i] . "', ";
     }
-    /***VENTAS PRODUCTOS */
-    public function getVentasProductoMonto($tables, $campos, $search)
-    {
-        global $parametrosCanal;
+    $codigoProducto = substr($codigoProducto, 0, -2);
+    /**NOMBRE CLIENTES */
+    $clientes = json_decode($search['query'], true);
+    $cliente = "";
+    for ($i = 0; $i < count($clientes); $i++) {
+      $cliente .= "'" . $clientes[$i] . "', ";
+    }
+    $cliente = substr($cliente, 0, -2);
+    /**AGENTES */
+    $agentes = explode(',', $search['agente']);
+    $agente = "";
 
-        $offset = $search['offset'];
-        $per_page = $search['per_page'];
-        $estatus = $search['estatus'];
-        /***CODIGOS DE PRODUCTOS */
-        $codigos = explode(',', $search['producto']);
-        $codigoProducto = "";
-        for ($i = 0; $i < count($codigos); $i++) {
-            $codigoProducto .= "'" . $codigos[$i] . "', ";
-        }
-        $codigoProducto = substr($codigoProducto, 0, -2);
-        /**NOMBRE CLIENTES */
-        $clientes = explode(',', $search['query']);
-        $cliente = "";
-        for ($i = 0; $i < count($clientes); $i++) {
-            $cliente .= "'" . $clientes[$i] . "', ";
-        }
-        $cliente = substr($cliente, 0, -2);
+    for ($i = 0; $i < count($agentes); $i++) {
+      $agente .= "'" . $agentes[$i] . "', ";
+    }
+    $agente = substr($agente, 0, -2);
+    /***AGENTES */
+    /**CENTRO */
+    $centros = explode(',', $search['centro']);
+    $centro = "";
 
+    for ($i = 0; $i < count($centros); $i++) {
+      $centro .= "'" . $centros[$i] . "', ";
+    }
+    $centro = substr($centro, 0, -2);
+    /***CENTRO */
+    /**CANAL */
+    $canals = explode(',', $search['canal']);
+    $canal = "";
 
-        $sWhere = " adoc.CCANCELADO  = '" . $estatus . "' ";
+    for ($i = 0; $i < count($canals); $i++) {
+      $canal .= "'" . $canals[$i] . "', ";
+    }
+    $canal = substr($canal, 0, -2);
+    /***CANAL */
+    $orden = $search['orden'];
+    switch ($search["campo"]) {
+      case 'nombre':
+        $campoOrden = "CNOMBREPRODUCTO";
+        break;
+      case 'codigo':
+        $campoOrden = "CCODIGOPRODUCTO";
+        break;
+      case 'monto':
+        $campoOrden = "IsNull([2013],0) + IsNull([2014],0) + IsNull([2015],0) + IsNull([2016],0) + IsNull([2017],0) + IsNull([2018],0) + IsNull([2019],0) + IsNull([2020],0) + IsNull([2021],0)";
+        break;
+    }
 
-        if ($search["producto"] != "") {
-            $sWhere .= " and apro.CCODIGOPRODUCTO in(" . $codigoProducto . ") ";
-        }
-        if ($search["query"] != "") {
-            $sWhere .= " and adoc.CRAZONSOCIAL in(" . $cliente . ") ";
-        }
-        $condicional = "WHERE indicador = 1 and canalComercial IS NOT NULL and Agente != 'ING. MIGUEL GUTIERREZ A.'";
-        if ($search['canal'] != "") {
+    $sWhere = " adoc.CCANCELADO  = '" . $estatus . "' ";
 
-            $condicional .= " and CanalComercial = '" . $search['canal'] . "' ";
-        }
+    if ($search["producto"] != "") {
+      $sWhere .= " and apro.CCODIGOPRODUCTO in(" . $codigoProducto . ") ";
+    }
+    if ($search["query"] != "[]") {
+      $sWhere .= " and adoc.CRAZONSOCIAL in(" . $cliente . ") ";
+    }
+    $condicional = "WHERE indicador = 1  and canalComercial != 'PROPIAS'";
+    if ($search['canal'] != "") {
 
-        if ($search['agente'] != "") {
+      $condicional .= " and canalComercial in(" . $canal . ") ";
+    }
+    if ($search['centro'] != "") {
 
-            $condicional .= " and Agente = '" . $search['agente'] . "' ";
-        }
+      $condicional .= " and centroTrabajo  in(" . $centro . ") ";
+    }
+    if ($search['agente'] != "") {
 
-        $sql = "WITH ventasData AS(SELECT 
+      $condicional .= " and Agente in(" . $agente . ") ";
+    }
+
+    $sql = "WITH ventasData AS(SELECT 
                     apro.CCODIGOPRODUCTO,
                     apro.CIDPRODUCTO,
                     apro.CNOMBREPRODUCTO,
@@ -1734,19 +1698,7 @@ ventasOrdenadas As(
                     adoc.CRAZONSOCIAL,
                     amov.CIDDOCUMENTO,
                     YEAR(adoc.CFECHA) As Año,
-                    CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-                    WHEN 'TR'
-                    THEN 'PV TORRES'
-                    WHEN 'RF'
-                    THEN 'PV REFORMA'
-                    WHEN 'SG'
-                    THEN 'PV SANTIAGO'
-                    WHEN 'SM'
-                    THEN 'PV SAN MANUEL'
-                    WHEN 'CP'
-                    THEN 'PV CAPU'
-                    ELSE
-                    agen.CNOMBREAGENTE END As Agente,
+                    $agenteList as Agente,
                     CASE SUBSTRING(acon.CNOMBRECONCEPTO,1,10)
                     WHEN 'DEVOLUCIÓN'
                     THEN (SUM((amov.CTOTAL)-amov.CIMPUESTO1)*0) -SUM((amov.CTOTAL)-amov.CIMPUESTO1)
@@ -1758,7 +1710,7 @@ ventasOrdenadas As(
                     SUM((amov.CTOTAL)-amov.CIMPUESTO1) END AS Total,
                     $parametrosCanal,
                     '1' As indicador
-                    FROM [adPINTURAS2020SADEC].[dbo].[admProductos] as apro LEFT OUTER JOIN [adPINTURAS2020SADEC].[dbo].[admMovimientos] as amov ON apro.CIDPRODUCTO = amov.CIDPRODUCTO LEFT OUTER JOIN [adPINTURAS2020SADEC].[dbo].[admDocumentos] as adoc ON amov.CIDDOCUMENTO = adoc.CIDDOCUMENTO INNER JOIN [adPINTURAS2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPINTURAS2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere  and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO in(4,
+                    FROM [adPINTURAS2020SADEC].[dbo].[admProductos] as apro LEFT OUTER JOIN [adPINTURAS2020SADEC].[dbo].[admMovimientos] as amov ON apro.CIDPRODUCTO = amov.CIDPRODUCTO LEFT OUTER JOIN [adPINTURAS2020SADEC].[dbo].[admDocumentos] as adoc ON amov.CIDDOCUMENTO = adoc.CIDDOCUMENTO INNER JOIN [adPINTURAS2020SADEC].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adPINTURAS2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPINTURAS2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere  and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO in(4,
             5,
             3001,
             3002,
@@ -1815,8 +1767,8 @@ ventasOrdenadas As(
             3189,
             3190,
             3191,
-            3212)
-            GROUP BY apro.CCODIGOPRODUCTO,apro.CIDPRODUCTO,apro.CNOMBREPRODUCTO,amov.CUNIDADES,amov.CPRECIO,adoc.CRAZONSOCIAL,amov.CIDDOCUMENTO,adoc.CFECHA,adoc.CSERIEDOCUMENTO,agen.CNOMBREAGENTE,acon.CNOMBRECONCEPTO,amov.CPRECIO,amov.CUNIDADES,amov.CIMPUESTO1,adoc.CRAZONSOCIAL
+            3212,3233,3234)
+            GROUP BY aclien.CIDAGENTEVENTA,apro.CCODIGOPRODUCTO,apro.CIDPRODUCTO,apro.CNOMBREPRODUCTO,amov.CUNIDADES,amov.CPRECIO,adoc.CRAZONSOCIAL,amov.CIDDOCUMENTO,adoc.CFECHA,adoc.CSERIEDOCUMENTO,agen.CNOMBREAGENTE,acon.CNOMBRECONCEPTO,amov.CPRECIO,amov.CUNIDADES,amov.CIMPUESTO1,adoc.CRAZONSOCIAL
             UNION
             SELECT 
                     apro.CCODIGOPRODUCTO,
@@ -1828,19 +1780,7 @@ ventasOrdenadas As(
                     amov.CIDDOCUMENTO,
                     YEAR(adoc.CFECHA) As Año,
                     
-                    CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-                    WHEN 'TR'
-                    THEN 'PV TORRES'
-                    WHEN 'RF'
-                    THEN 'PV REFORMA'
-                    WHEN 'SG'
-                    THEN 'PV SANTIAGO'
-                    WHEN 'SM'
-                    THEN 'PV SAN MANUEL'
-                    WHEN 'CP'
-                    THEN 'PV CAPU'
-                    ELSE
-                    agen.CNOMBREAGENTE END As Agente,
+                    $agenteList as Agente,
                     CASE SUBSTRING(acon.CNOMBRECONCEPTO,1,10)
                     WHEN 'DEVOLUCIÓN'
                     THEN (SUM((amov.CTOTAL)-amov.CIMPUESTO1)*0) -SUM((amov.CTOTAL)-amov.CIMPUESTO1)
@@ -1852,7 +1792,7 @@ ventasOrdenadas As(
                     SUM((amov.CTOTAL)-amov.CIMPUESTO1) END AS Total,
                     $parametrosCanal,
                     '1' As indicador
-                    FROM [adFLEX2020SADEC].[dbo].[admProductos] as apro LEFT OUTER JOIN [adFLEX2020SADEC].[dbo].[admMovimientos] as amov ON apro.CIDPRODUCTO = amov.CIDPRODUCTO LEFT OUTER JOIN [adFLEX2020SADEC].[dbo].[admDocumentos] as adoc ON amov.CIDDOCUMENTO = adoc.CIDDOCUMENTO INNER JOIN [adFLEX2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adFLEX2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere   and adoc.CIDDOCUMENTODE IN(4,5,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
+                    FROM [adFLEX2020SADEC].[dbo].[admProductos] as apro LEFT OUTER JOIN [adFLEX2020SADEC].[dbo].[admMovimientos] as amov ON apro.CIDPRODUCTO = amov.CIDPRODUCTO LEFT OUTER JOIN [adFLEX2020SADEC].[dbo].[admDocumentos] as adoc ON amov.CIDDOCUMENTO = adoc.CIDDOCUMENTO INNER JOIN [adFLEX2020SADEC].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adFLEX2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adFLEX2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere   and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
             5,
             3001,
             3048,
@@ -1862,8 +1802,8 @@ ventasOrdenadas As(
             3004,
             3012,
             3052,
-            3061)
-            GROUP BY apro.CCODIGOPRODUCTO,apro.CIDPRODUCTO,apro.CNOMBREPRODUCTO,amov.CUNIDADES,amov.CPRECIO,adoc.CRAZONSOCIAL,amov.CIDDOCUMENTO,adoc.CFECHA,adoc.CSERIEDOCUMENTO,agen.CNOMBREAGENTE,acon.CNOMBRECONCEPTO,amov.CPRECIO,amov.CUNIDADES,amov.CIMPUESTO1,adoc.CRAZONSOCIAL
+            3061,3053)
+            GROUP BY aclien.CIDAGENTEVENTA,apro.CCODIGOPRODUCTO,apro.CIDPRODUCTO,apro.CNOMBREPRODUCTO,amov.CUNIDADES,amov.CPRECIO,adoc.CRAZONSOCIAL,amov.CIDDOCUMENTO,adoc.CFECHA,adoc.CSERIEDOCUMENTO,agen.CNOMBREAGENTE,acon.CNOMBRECONCEPTO,amov.CPRECIO,amov.CUNIDADES,amov.CIMPUESTO1,adoc.CRAZONSOCIAL
             UNION
             SELECT 
                     apro.CCODIGOPRODUCTO,
@@ -1875,19 +1815,7 @@ ventasOrdenadas As(
                     amov.CIDDOCUMENTO,
                     YEAR(adoc.CFECHA) As Año,
                     
-                    CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-                    WHEN 'TR'
-                    THEN 'PV TORRES'
-                    WHEN 'RF'
-                    THEN 'PV REFORMA'
-                    WHEN 'SG'
-                    THEN 'PV SANTIAGO'
-                    WHEN 'SM'
-                    THEN 'PV SAN MANUEL'
-                    WHEN 'CP'
-                    THEN 'PV CAPU'
-                    ELSE
-                    agen.CNOMBREAGENTE END As Agente,
+                    $agenteList as Agente,
                     CASE SUBSTRING(acon.CNOMBRECONCEPTO,1,10)
                     WHEN 'DEVOLUCIÓN'
                     THEN (SUM((amov.CTOTAL)-amov.CIMPUESTO1)*0) -SUM((amov.CTOTAL)-amov.CIMPUESTO1)
@@ -1899,7 +1827,7 @@ ventasOrdenadas As(
                     SUM((amov.CTOTAL)-amov.CIMPUESTO1) END AS Total,
                     $parametrosCanal,
                     '1' As indicador
-                    FROM [adPinturas_y_Complemen].[dbo].[admProductos] as apro LEFT OUTER JOIN [adPinturas_y_Complemen].[dbo].[admMovimientos] as amov ON apro.CIDPRODUCTO = amov.CIDPRODUCTO LEFT OUTER JOIN [adPinturas_y_Complemen].[dbo].[admDocumentos] as adoc ON amov.CIDDOCUMENTO = adoc.CIDDOCUMENTO INNER JOIN [adPinturas_y_Complemen].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPinturas_y_Complemen].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO  WHERE $sWhere and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
+                    FROM [adPinturas_y_Complemen].[dbo].[admProductos] as apro LEFT OUTER JOIN [adPinturas_y_Complemen].[dbo].[admMovimientos] as amov ON apro.CIDPRODUCTO = amov.CIDPRODUCTO LEFT OUTER JOIN [adPinturas_y_Complemen].[dbo].[admDocumentos] as adoc ON amov.CIDDOCUMENTO = adoc.CIDDOCUMENTO INNER JOIN [adPinturas_y_Complemen].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adPinturas_y_Complemen].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPinturas_y_Complemen].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO  WHERE $sWhere and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
             5,
             3047,
             3049,
@@ -1912,7 +1840,7 @@ ventasOrdenadas As(
             3058,
             3111,
             3105)
-            GROUP BY apro.CCODIGOPRODUCTO,apro.CIDPRODUCTO,apro.CNOMBREPRODUCTO,amov.CUNIDADES,amov.CPRECIO,adoc.CRAZONSOCIAL,amov.CIDDOCUMENTO,adoc.CFECHA,adoc.CSERIEDOCUMENTO,agen.CNOMBREAGENTE,acon.CNOMBRECONCEPTO,amov.CPRECIO,amov.CUNIDADES,amov.CIMPUESTO1,adoc.CRAZONSOCIAL),
+            GROUP BY aclien.CIDAGENTEVENTA,apro.CCODIGOPRODUCTO,apro.CIDPRODUCTO,apro.CNOMBREPRODUCTO,amov.CUNIDADES,amov.CPRECIO,adoc.CRAZONSOCIAL,amov.CIDDOCUMENTO,adoc.CFECHA,adoc.CSERIEDOCUMENTO,agen.CNOMBREAGENTE,acon.CNOMBRECONCEPTO,amov.CPRECIO,amov.CUNIDADES,amov.CIMPUESTO1,adoc.CRAZONSOCIAL),
             
             ventasOrdenadas As(
                 SELECT
@@ -1923,12 +1851,12 @@ ventasOrdenadas As(
                 FROM ventasData  $condicional
                 
                 )
-                SELECT *,IsNull([2013],0) + IsNull([2014],0) + IsNull([2015],0) + IsNull([2016],0) + IsNull([2017],0) + IsNull([2018],0) + IsNull([2019],0) + IsNull([2020],0) + IsNull([2021],0) Totales FROM ventasOrdenadas PIVOT(SUM(Total) FOR Año in([2013],[2014],[2015],[2016],[2017],[2018],[2019],[2020],[2021])) as pivotTable  order by CCODIGOPRODUCTO asc OFFSET $offset ROWS FETCH NEXT $per_page ROWS ONLY";
+                SELECT *,IsNull([2013],0) + IsNull([2014],0) + IsNull([2015],0) + IsNull([2016],0) + IsNull([2017],0) + IsNull([2018],0) + IsNull([2019],0) + IsNull([2020],0) + IsNull([2021],0) Totales FROM ventasOrdenadas PIVOT(SUM(Total) FOR Año in([2013],[2014],[2015],[2016],[2017],[2018],[2019],[2020],[2021])) as pivotTable  order by $campoOrden $orden OFFSET $offset ROWS FETCH NEXT $per_page ROWS ONLY";
 
 
-        $query = $this->mysqli->query($sql);
+    $query = $this->mysqli->query($sql);
 
-        $sql1 = "WITH ventasData AS(SELECT 
+    $sql1 = "WITH ventasData AS(SELECT 
         apro.CCODIGOPRODUCTO,
         apro.CIDPRODUCTO,
         apro.CNOMBREPRODUCTO,
@@ -1937,19 +1865,7 @@ ventasOrdenadas As(
         adoc.CRAZONSOCIAL,
         amov.CIDDOCUMENTO,
         YEAR(adoc.CFECHA) As Año, 
-        CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-        WHEN 'TR'
-        THEN 'PV TORRES'
-        WHEN 'RF'
-        THEN 'PV REFORMA'
-        WHEN 'SG'
-        THEN 'PV SANTIAGO'
-        WHEN 'SM'
-        THEN 'PV SAN MANUEL'
-        WHEN 'CP'
-        THEN 'PV CAPU'
-        ELSE
-        agen.CNOMBREAGENTE END As Agente,
+        $agenteList as Agente,
         CASE SUBSTRING(acon.CNOMBRECONCEPTO,1,10)
         WHEN 'DEVOLUCIÓN'
         THEN (SUM((amov.CTOTAL)-amov.CIMPUESTO1)*0) -SUM((amov.CTOTAL)-amov.CIMPUESTO1)
@@ -1961,7 +1877,7 @@ ventasOrdenadas As(
         SUM((amov.CTOTAL)-amov.CIMPUESTO1) END AS Total,
         $parametrosCanal,
         '1' As indicador
-        FROM [adPINTURAS2020SADEC].[dbo].[admProductos] as apro LEFT OUTER JOIN [adPINTURAS2020SADEC].[dbo].[admMovimientos] as amov ON apro.CIDPRODUCTO = amov.CIDPRODUCTO LEFT OUTER JOIN [adPINTURAS2020SADEC].[dbo].[admDocumentos] as adoc ON amov.CIDDOCUMENTO = adoc.CIDDOCUMENTO INNER JOIN [adPINTURAS2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPINTURAS2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere  and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO in(4,
+        FROM [adPINTURAS2020SADEC].[dbo].[admProductos] as apro LEFT OUTER JOIN [adPINTURAS2020SADEC].[dbo].[admMovimientos] as amov ON apro.CIDPRODUCTO = amov.CIDPRODUCTO LEFT OUTER JOIN [adPINTURAS2020SADEC].[dbo].[admDocumentos] as adoc ON amov.CIDDOCUMENTO = adoc.CIDDOCUMENTO INNER JOIN [adPINTURAS2020SADEC].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adPINTURAS2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPINTURAS2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere  and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO in(4,
 5,
 3001,
 3002,
@@ -2018,8 +1934,8 @@ ventasOrdenadas As(
 3189,
 3190,
 3191,
-3212)
-GROUP BY apro.CCODIGOPRODUCTO,apro.CIDPRODUCTO,apro.CNOMBREPRODUCTO,amov.CUNIDADES,amov.CPRECIO,adoc.CRAZONSOCIAL,amov.CIDDOCUMENTO,adoc.CFECHA,adoc.CSERIEDOCUMENTO,agen.CNOMBREAGENTE,acon.CNOMBRECONCEPTO,amov.CPRECIO,amov.CUNIDADES,amov.CIMPUESTO1,adoc.CRAZONSOCIAL
+3212,3233,3234)
+GROUP BY aclien.CIDAGENTEVENTA,apro.CCODIGOPRODUCTO,apro.CIDPRODUCTO,apro.CNOMBREPRODUCTO,amov.CUNIDADES,amov.CPRECIO,adoc.CRAZONSOCIAL,amov.CIDDOCUMENTO,adoc.CFECHA,adoc.CSERIEDOCUMENTO,agen.CNOMBREAGENTE,acon.CNOMBRECONCEPTO,amov.CPRECIO,amov.CUNIDADES,amov.CIMPUESTO1,adoc.CRAZONSOCIAL
 UNION
 SELECT 
         apro.CCODIGOPRODUCTO,
@@ -2031,19 +1947,7 @@ SELECT
         amov.CIDDOCUMENTO,
         YEAR(adoc.CFECHA) As Año,
         
-        CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-        WHEN 'TR'
-        THEN 'PV TORRES'
-        WHEN 'RF'
-        THEN 'PV REFORMA'
-        WHEN 'SG'
-        THEN 'PV SANTIAGO'
-        WHEN 'SM'
-        THEN 'PV SAN MANUEL'
-        WHEN 'CP'
-        THEN 'PV CAPU'
-        ELSE
-        agen.CNOMBREAGENTE END As Agente,
+        $agenteList as Agente,
         CASE SUBSTRING(acon.CNOMBRECONCEPTO,1,10)
         WHEN 'DEVOLUCIÓN'
         THEN (SUM((amov.CTOTAL)-amov.CIMPUESTO1)*0) -SUM((amov.CTOTAL)-amov.CIMPUESTO1)
@@ -2055,7 +1959,7 @@ SELECT
         SUM((amov.CTOTAL)-amov.CIMPUESTO1) END AS Total,
         $parametrosCanal,
         '1' As indicador
-        FROM [adFLEX2020SADEC].[dbo].[admProductos] as apro LEFT OUTER JOIN [adFLEX2020SADEC].[dbo].[admMovimientos] as amov ON apro.CIDPRODUCTO = amov.CIDPRODUCTO LEFT OUTER JOIN [adFLEX2020SADEC].[dbo].[admDocumentos] as adoc ON amov.CIDDOCUMENTO = adoc.CIDDOCUMENTO INNER JOIN [adFLEX2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adFLEX2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere   and adoc.CIDDOCUMENTODE IN(4,5,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
+        FROM [adFLEX2020SADEC].[dbo].[admProductos] as apro LEFT OUTER JOIN [adFLEX2020SADEC].[dbo].[admMovimientos] as amov ON apro.CIDPRODUCTO = amov.CIDPRODUCTO LEFT OUTER JOIN [adFLEX2020SADEC].[dbo].[admDocumentos] as adoc ON amov.CIDDOCUMENTO = adoc.CIDDOCUMENTO INNER JOIN [adFLEX2020SADEC].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adFLEX2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adFLEX2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere   and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
 5,
 3001,
 3048,
@@ -2065,8 +1969,8 @@ SELECT
 3004,
 3012,
 3052,
-3061)
-GROUP BY apro.CCODIGOPRODUCTO,apro.CIDPRODUCTO,apro.CNOMBREPRODUCTO,amov.CUNIDADES,amov.CPRECIO,adoc.CRAZONSOCIAL,amov.CIDDOCUMENTO,adoc.CFECHA,adoc.CSERIEDOCUMENTO,agen.CNOMBREAGENTE,acon.CNOMBRECONCEPTO,amov.CPRECIO,amov.CUNIDADES,amov.CIMPUESTO1,adoc.CRAZONSOCIAL
+3061,3053)
+GROUP BY aclien.CIDAGENTEVENTA,apro.CCODIGOPRODUCTO,apro.CIDPRODUCTO,apro.CNOMBREPRODUCTO,amov.CUNIDADES,amov.CPRECIO,adoc.CRAZONSOCIAL,amov.CIDDOCUMENTO,adoc.CFECHA,adoc.CSERIEDOCUMENTO,agen.CNOMBREAGENTE,acon.CNOMBRECONCEPTO,amov.CPRECIO,amov.CUNIDADES,amov.CIMPUESTO1,adoc.CRAZONSOCIAL
 UNION
 SELECT 
         apro.CCODIGOPRODUCTO,
@@ -2078,19 +1982,7 @@ SELECT
         amov.CIDDOCUMENTO,
         YEAR(adoc.CFECHA) As Año,
         
-        CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-        WHEN 'TR'
-        THEN 'PV TORRES'
-        WHEN 'RF'
-        THEN 'PV REFORMA'
-        WHEN 'SG'
-        THEN 'PV SANTIAGO'
-        WHEN 'SM'
-        THEN 'PV SAN MANUEL'
-        WHEN 'CP'
-        THEN 'PV CAPU'
-        ELSE
-        agen.CNOMBREAGENTE END As Agente,
+        $agenteList as Agente,
         CASE SUBSTRING(acon.CNOMBRECONCEPTO,1,10)
         WHEN 'DEVOLUCIÓN'
         THEN (SUM((amov.CTOTAL)-amov.CIMPUESTO1)*0) -SUM((amov.CTOTAL)-amov.CIMPUESTO1)
@@ -2102,7 +1994,7 @@ SELECT
         SUM((amov.CTOTAL)-amov.CIMPUESTO1) END AS Total,
         $parametrosCanal,
         '1' As indicador
-        FROM [adPinturas_y_Complemen].[dbo].[admProductos] as apro LEFT OUTER JOIN [adPinturas_y_Complemen].[dbo].[admMovimientos] as amov ON apro.CIDPRODUCTO = amov.CIDPRODUCTO LEFT OUTER JOIN [adPinturas_y_Complemen].[dbo].[admDocumentos] as adoc ON amov.CIDDOCUMENTO = adoc.CIDDOCUMENTO INNER JOIN [adPinturas_y_Complemen].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPinturas_y_Complemen].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO  WHERE $sWhere and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
+        FROM [adPinturas_y_Complemen].[dbo].[admProductos] as apro LEFT OUTER JOIN [adPinturas_y_Complemen].[dbo].[admMovimientos] as amov ON apro.CIDPRODUCTO = amov.CIDPRODUCTO LEFT OUTER JOIN [adPinturas_y_Complemen].[dbo].[admDocumentos] as adoc ON amov.CIDDOCUMENTO = adoc.CIDDOCUMENTO INNER JOIN [adPinturas_y_Complemen].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adPinturas_y_Complemen].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPinturas_y_Complemen].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO  WHERE $sWhere and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
 5,
 3047,
 3049,
@@ -2115,7 +2007,7 @@ SELECT
 3058,
 3111,
 3105)
-GROUP BY apro.CCODIGOPRODUCTO,apro.CIDPRODUCTO,apro.CNOMBREPRODUCTO,amov.CUNIDADES,amov.CPRECIO,adoc.CRAZONSOCIAL,amov.CIDDOCUMENTO,adoc.CFECHA,adoc.CSERIEDOCUMENTO,agen.CNOMBREAGENTE,acon.CNOMBRECONCEPTO,amov.CPRECIO,amov.CUNIDADES,amov.CIMPUESTO1,adoc.CRAZONSOCIAL),
+GROUP BY aclien.CIDAGENTEVENTA,apro.CCODIGOPRODUCTO,apro.CIDPRODUCTO,apro.CNOMBREPRODUCTO,amov.CUNIDADES,amov.CPRECIO,adoc.CRAZONSOCIAL,amov.CIDDOCUMENTO,adoc.CFECHA,adoc.CSERIEDOCUMENTO,agen.CNOMBREAGENTE,acon.CNOMBRECONCEPTO,amov.CPRECIO,amov.CUNIDADES,amov.CIMPUESTO1,adoc.CRAZONSOCIAL),
 
 ventasOrdenadas As(
     SELECT
@@ -2126,59 +2018,100 @@ ventasOrdenadas As(
     FROM ventasData  $condicional
     
     )
-    SELECT *,IsNull([2013],0) + IsNull([2014],0) + IsNull([2015],0) + IsNull([2016],0) + IsNull([2017],0) + IsNull([2018],0) + IsNull([2019],0) + IsNull([2020],0) + IsNull([2021],0) Totales FROM ventasOrdenadas PIVOT(SUM(Total) FOR Año in([2013],[2014],[2015],[2016],[2017],[2018],[2019],[2020],[2021])) as pivotTable  order by CCODIGOPRODUCTO asc";
+    SELECT *,IsNull([2013],0) + IsNull([2014],0) + IsNull([2015],0) + IsNull([2016],0) + IsNull([2017],0) + IsNull([2018],0) + IsNull([2019],0) + IsNull([2020],0) + IsNull([2021],0) Totales FROM ventasOrdenadas PIVOT(SUM(Total) FOR Año in([2013],[2014],[2015],[2016],[2017],[2018],[2019],[2020],[2021])) as pivotTable  order by $campoOrden $orden";
 
-        $nums_row = $this->countAll($sql1);
+    $nums_row = $this->countAll($sql1);
 
-        //Set counter
-        $this->setCounter($nums_row);
+    //Set counter
+    $this->setCounter($nums_row);
 
-        $query = $query->fetchAll();
-        return $query;
+    $query = $query->fetchAll();
+    return $query;
+  }
+  public function getVentasProductoUnidades($tables, $campos, $search)
+  {
+    global $parametrosCanal;
+    global $agenteList;
+
+    $offset = $search['offset'];
+    $per_page = $search['per_page'];
+    $estatus = $search['estatus'];
+    /***CODIGOS DE PRODUCTOS */
+    $codigos = explode(',', $search['producto']);
+    $codigoProducto = "";
+    for ($i = 0; $i < count($codigos); $i++) {
+      $codigoProducto .= "'" . $codigos[$i] . "', ";
     }
-    public function getVentasProductoUnidades($tables, $campos, $search)
-    {
-        global $parametrosCanal;
+    $codigoProducto = substr($codigoProducto, 0, -2);
+    /**NOMBRE CLIENTES */
+    $clientes = json_decode($search['query'], true);
+    $cliente = "";
+    for ($i = 0; $i < count($clientes); $i++) {
+      $cliente .= "'" . $clientes[$i] . "', ";
+    }
+    $cliente = substr($cliente, 0, -2);
+    /**AGENTES */
+    $agentes = explode(',', $search['agente']);
+    $agente = "";
 
-        $offset = $search['offset'];
-        $per_page = $search['per_page'];
-        $estatus = $search['estatus'];
-        /***CODIGOS DE PRODUCTOS */
-        $codigos = explode(',', $search['producto']);
-        $codigoProducto = "";
-        for ($i = 0; $i < count($codigos); $i++) {
-            $codigoProducto .= "'" . $codigos[$i] . "', ";
-        }
-        $codigoProducto = substr($codigoProducto, 0, -2);
-        /**NOMBRE CLIENTES */
-        $clientes = explode(',', $search['query']);
-        $cliente = "";
-        for ($i = 0; $i < count($clientes); $i++) {
-            $cliente .= "'" . $clientes[$i] . "', ";
-        }
-        $cliente = substr($cliente, 0, -2);
+    for ($i = 0; $i < count($agentes); $i++) {
+      $agente .= "'" . $agentes[$i] . "', ";
+    }
+    $agente = substr($agente, 0, -2);
+    /***AGENTES */
+    /**CENTRO */
+    $centros = explode(',', $search['centro']);
+    $centro = "";
 
+    for ($i = 0; $i < count($centros); $i++) {
+      $centro .= "'" . $centros[$i] . "', ";
+    }
+    $centro = substr($centro, 0, -2);
+    /***CENTRO */
+    /**CANAL */
+    $canals = explode(',', $search['canal']);
+    $canal = "";
 
-        $sWhere = " adoc.CCANCELADO  = '" . $estatus . "' ";
+    for ($i = 0; $i < count($canals); $i++) {
+      $canal .= "'" . $canals[$i] . "', ";
+    }
+    $canal = substr($canal, 0, -2);
+    /***CANAL */
+    $orden = $search['orden'];
+    switch ($search["campo"]) {
+      case 'nombre':
+        $campoOrden = "CNOMBREPRODUCTO";
+        break;
+      case 'codigo':
+        $campoOrden = "CCODIGOPRODUCTO";
+        break;
+      case 'monto':
+        $campoOrden = "IsNull([2013],0) + IsNull([2014],0) + IsNull([2015],0) + IsNull([2016],0) + IsNull([2017],0) + IsNull([2018],0) + IsNull([2019],0) + IsNull([2020],0) + IsNull([2021],0)";
+        break;
+    }
+    $sWhere = " adoc.CCANCELADO  = '" . $estatus . "' ";
 
-        if ($search["producto"] != "") {
-            $sWhere .= " and apro.CCODIGOPRODUCTO in(" . $codigoProducto . ") ";
-        }
-        if ($search["query"] != "") {
-            $sWhere .= " and adoc.CRAZONSOCIAL in(" . $cliente . ") ";
-        }
-        $condicional = "WHERE indicador = 1 and canalComercial IS NOT NULL and Agente != 'ING. MIGUEL GUTIERREZ A.'";
-        if ($search['canal'] != "") {
+    if ($search["producto"] != "") {
+      $sWhere .= " and apro.CCODIGOPRODUCTO in(" . $codigoProducto . ") ";
+    }
+    if ($search["query"] != "[]") {
+      $sWhere .= " and adoc.CRAZONSOCIAL in(" . $cliente . ") ";
+    }
+    $condicional = "WHERE indicador = 1  and canalComercial != 'PROPIAS'";
+    if ($search['canal'] != "") {
 
-            $condicional .= " and CanalComercial = '" . $search['canal'] . "' ";
-        }
+      $condicional .= " and canalComercial in(" . $canal . ") ";
+    }
+    if ($search['centro'] != "") {
 
-        if ($search['agente'] != "") {
+      $condicional .= " and centroTrabajo  in(" . $centro . ") ";
+    }
+    if ($search['agente'] != "") {
 
-            $condicional .= " and Agente = '" . $search['agente'] . "' ";
-        }
+      $condicional .= " and Agente in(" . $agente . ") ";
+    }
 
-        $sql = "WITH ventasData AS(SELECT 
+    $sql = "WITH ventasData AS(SELECT 
                     apro.CCODIGOPRODUCTO,
                     apro.CIDPRODUCTO,
                     apro.CNOMBREPRODUCTO,
@@ -2187,19 +2120,7 @@ ventasOrdenadas As(
                     adoc.CRAZONSOCIAL,
                     amov.CIDDOCUMENTO,
                     YEAR(adoc.CFECHA) As Año,
-                    CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-                    WHEN 'TR'
-                    THEN 'PV TORRES'
-                    WHEN 'RF'
-                    THEN 'PV REFORMA'
-                    WHEN 'SG'
-                    THEN 'PV SANTIAGO'
-                    WHEN 'SM'
-                    THEN 'PV SAN MANUEL'
-                    WHEN 'CP'
-                    THEN 'PV CAPU'
-                    ELSE
-                    agen.CNOMBREAGENTE END As Agente,
+                    $agenteList as Agente,
                     CASE SUBSTRING(acon.CNOMBRECONCEPTO,1,10)
                     WHEN 'DEVOLUCIÓN'
                     THEN (SUM((amov.CTOTAL)-amov.CIMPUESTO1)*0) -SUM((amov.CTOTAL)-amov.CIMPUESTO1)
@@ -2211,7 +2132,7 @@ ventasOrdenadas As(
                     SUM((amov.CTOTAL)-amov.CIMPUESTO1) END AS Total,
                     $parametrosCanal,
                     '1' As indicador
-                    FROM [adPINTURAS2020SADEC].[dbo].[admProductos] as apro LEFT OUTER JOIN [adPINTURAS2020SADEC].[dbo].[admMovimientos] as amov ON apro.CIDPRODUCTO = amov.CIDPRODUCTO LEFT OUTER JOIN [adPINTURAS2020SADEC].[dbo].[admDocumentos] as adoc ON amov.CIDDOCUMENTO = adoc.CIDDOCUMENTO INNER JOIN [adPINTURAS2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPINTURAS2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere  and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO in(4,
+                    FROM [adPINTURAS2020SADEC].[dbo].[admProductos] as apro LEFT OUTER JOIN [adPINTURAS2020SADEC].[dbo].[admMovimientos] as amov ON apro.CIDPRODUCTO = amov.CIDPRODUCTO LEFT OUTER JOIN [adPINTURAS2020SADEC].[dbo].[admDocumentos] as adoc ON amov.CIDDOCUMENTO = adoc.CIDDOCUMENTO INNER JOIN [adPINTURAS2020SADEC].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adPINTURAS2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPINTURAS2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere  and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO in(4,
             5,
             3001,
             3002,
@@ -2268,8 +2189,8 @@ ventasOrdenadas As(
             3189,
             3190,
             3191,
-            3212)
-            GROUP BY apro.CCODIGOPRODUCTO,apro.CIDPRODUCTO,apro.CNOMBREPRODUCTO,amov.CUNIDADES,amov.CPRECIO,adoc.CRAZONSOCIAL,amov.CIDDOCUMENTO,adoc.CFECHA,adoc.CSERIEDOCUMENTO,agen.CNOMBREAGENTE,acon.CNOMBRECONCEPTO,amov.CPRECIO,amov.CUNIDADES,amov.CIMPUESTO1,adoc.CRAZONSOCIAL
+            3212,3233,3234)
+            GROUP BY aclien.CIDAGENTEVENTA,apro.CCODIGOPRODUCTO,apro.CIDPRODUCTO,apro.CNOMBREPRODUCTO,amov.CUNIDADES,amov.CPRECIO,adoc.CRAZONSOCIAL,amov.CIDDOCUMENTO,adoc.CFECHA,adoc.CSERIEDOCUMENTO,agen.CNOMBREAGENTE,acon.CNOMBRECONCEPTO,amov.CPRECIO,amov.CUNIDADES,amov.CIMPUESTO1,adoc.CRAZONSOCIAL
             UNION
             SELECT 
                     apro.CCODIGOPRODUCTO,
@@ -2280,19 +2201,7 @@ ventasOrdenadas As(
                     adoc.CRAZONSOCIAL,
                     amov.CIDDOCUMENTO,
                     YEAR(adoc.CFECHA) As Año,
-                    CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-                    WHEN 'TR'
-                    THEN 'PV TORRES'
-                    WHEN 'RF'
-                    THEN 'PV REFORMA'
-                    WHEN 'SG'
-                    THEN 'PV SANTIAGO'
-                    WHEN 'SM'
-                    THEN 'PV SAN MANUEL'
-                    WHEN 'CP'
-                    THEN 'PV CAPU'
-                    ELSE
-                    agen.CNOMBREAGENTE END As Agente,
+                    $agenteList as Agente,
                     CASE SUBSTRING(acon.CNOMBRECONCEPTO,1,10)
                     WHEN 'DEVOLUCIÓN'
                     THEN (SUM((amov.CTOTAL)-amov.CIMPUESTO1)*0) -SUM((amov.CTOTAL)-amov.CIMPUESTO1)
@@ -2304,7 +2213,7 @@ ventasOrdenadas As(
                     SUM((amov.CTOTAL)-amov.CIMPUESTO1) END AS Total,
                     $parametrosCanal,
                     '1' As indicador
-                    FROM [adFLEX2020SADEC].[dbo].[admProductos] as apro LEFT OUTER JOIN [adFLEX2020SADEC].[dbo].[admMovimientos] as amov ON apro.CIDPRODUCTO = amov.CIDPRODUCTO LEFT OUTER JOIN [adFLEX2020SADEC].[dbo].[admDocumentos] as adoc ON amov.CIDDOCUMENTO = adoc.CIDDOCUMENTO INNER JOIN [adFLEX2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adFLEX2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere   and adoc.CIDDOCUMENTODE IN(4,5,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
+                    FROM [adFLEX2020SADEC].[dbo].[admProductos] as apro LEFT OUTER JOIN [adFLEX2020SADEC].[dbo].[admMovimientos] as amov ON apro.CIDPRODUCTO = amov.CIDPRODUCTO LEFT OUTER JOIN [adFLEX2020SADEC].[dbo].[admDocumentos] as adoc ON amov.CIDDOCUMENTO = adoc.CIDDOCUMENTO INNER JOIN [adFLEX2020SADEC].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adFLEX2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adFLEX2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere   and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
             5,
             3001,
             3048,
@@ -2314,8 +2223,8 @@ ventasOrdenadas As(
             3004,
             3012,
             3052,
-            3061)
-            GROUP BY apro.CCODIGOPRODUCTO,apro.CIDPRODUCTO,apro.CNOMBREPRODUCTO,amov.CUNIDADES,amov.CPRECIO,adoc.CRAZONSOCIAL,amov.CIDDOCUMENTO,adoc.CFECHA,adoc.CSERIEDOCUMENTO,agen.CNOMBREAGENTE,acon.CNOMBRECONCEPTO,amov.CPRECIO,amov.CUNIDADES,amov.CIMPUESTO1,adoc.CRAZONSOCIAL
+            3061,3053)
+            GROUP BY aclien.CIDAGENTEVENTA,apro.CCODIGOPRODUCTO,apro.CIDPRODUCTO,apro.CNOMBREPRODUCTO,amov.CUNIDADES,amov.CPRECIO,adoc.CRAZONSOCIAL,amov.CIDDOCUMENTO,adoc.CFECHA,adoc.CSERIEDOCUMENTO,agen.CNOMBREAGENTE,acon.CNOMBRECONCEPTO,amov.CPRECIO,amov.CUNIDADES,amov.CIMPUESTO1,adoc.CRAZONSOCIAL
             UNION
             SELECT 
                     apro.CCODIGOPRODUCTO,
@@ -2326,19 +2235,7 @@ ventasOrdenadas As(
                     adoc.CRAZONSOCIAL,
                     amov.CIDDOCUMENTO,
                     YEAR(adoc.CFECHA) As Año,
-                    CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-                    WHEN 'TR'
-                    THEN 'PV TORRES'
-                    WHEN 'RF'
-                    THEN 'PV REFORMA'
-                    WHEN 'SG'
-                    THEN 'PV SANTIAGO'
-                    WHEN 'SM'
-                    THEN 'PV SAN MANUEL'
-                    WHEN 'CP'
-                    THEN 'PV CAPU'
-                    ELSE
-                    agen.CNOMBREAGENTE END As Agente,
+                    $agenteList as Agente,
                     CASE SUBSTRING(acon.CNOMBRECONCEPTO,1,10)
                     WHEN 'DEVOLUCIÓN'
                     THEN (SUM((amov.CTOTAL)-amov.CIMPUESTO1)*0) -SUM((amov.CTOTAL)-amov.CIMPUESTO1)
@@ -2350,7 +2247,7 @@ ventasOrdenadas As(
                     SUM((amov.CTOTAL)-amov.CIMPUESTO1) END AS Total,
                     $parametrosCanal,
                     '1' As indicador
-                    FROM [adPinturas_y_Complemen].[dbo].[admProductos] as apro LEFT OUTER JOIN [adPinturas_y_Complemen].[dbo].[admMovimientos] as amov ON apro.CIDPRODUCTO = amov.CIDPRODUCTO LEFT OUTER JOIN [adPinturas_y_Complemen].[dbo].[admDocumentos] as adoc ON amov.CIDDOCUMENTO = adoc.CIDDOCUMENTO INNER JOIN [adPinturas_y_Complemen].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPinturas_y_Complemen].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO  WHERE $sWhere and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
+                    FROM [adPinturas_y_Complemen].[dbo].[admProductos] as apro LEFT OUTER JOIN [adPinturas_y_Complemen].[dbo].[admMovimientos] as amov ON apro.CIDPRODUCTO = amov.CIDPRODUCTO LEFT OUTER JOIN [adPinturas_y_Complemen].[dbo].[admDocumentos] as adoc ON amov.CIDDOCUMENTO = adoc.CIDDOCUMENTO INNER JOIN [adPinturas_y_Complemen].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adPinturas_y_Complemen].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPinturas_y_Complemen].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO  WHERE $sWhere and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
             5,
             3047,
             3049,
@@ -2363,7 +2260,7 @@ ventasOrdenadas As(
             3058,
             3111,
             3105)
-            GROUP BY apro.CCODIGOPRODUCTO,apro.CIDPRODUCTO,apro.CNOMBREPRODUCTO,amov.CUNIDADES,amov.CPRECIO,adoc.CRAZONSOCIAL,amov.CIDDOCUMENTO,adoc.CFECHA,adoc.CSERIEDOCUMENTO,agen.CNOMBREAGENTE,acon.CNOMBRECONCEPTO,amov.CPRECIO,amov.CUNIDADES,amov.CIMPUESTO1,adoc.CRAZONSOCIAL),
+            GROUP BY aclien.CIDAGENTEVENTA,apro.CCODIGOPRODUCTO,apro.CIDPRODUCTO,apro.CNOMBREPRODUCTO,amov.CUNIDADES,amov.CPRECIO,adoc.CRAZONSOCIAL,amov.CIDDOCUMENTO,adoc.CFECHA,adoc.CSERIEDOCUMENTO,agen.CNOMBREAGENTE,acon.CNOMBRECONCEPTO,amov.CPRECIO,amov.CUNIDADES,amov.CIMPUESTO1,adoc.CRAZONSOCIAL),
             
             ventasOrdenadas As(
                 SELECT
@@ -2374,12 +2271,12 @@ ventasOrdenadas As(
                 FROM ventasData  $condicional
                 
                 )
-                SELECT *,IsNull([2013],0) + IsNull([2014],0) + IsNull([2015],0) + IsNull([2016],0) + IsNull([2017],0) + IsNull([2018],0) + IsNull([2019],0) + IsNull([2020],0) + IsNull([2021],0) Totales FROM ventasOrdenadas PIVOT(SUM(CUNIDADES) FOR Año in([2013],[2014],[2015],[2016],[2017],[2018],[2019],[2020],[2021])) as pivotTable  order by CCODIGOPRODUCTO asc OFFSET $offset ROWS FETCH NEXT $per_page ROWS ONLY";
+                SELECT *,IsNull([2013],0) + IsNull([2014],0) + IsNull([2015],0) + IsNull([2016],0) + IsNull([2017],0) + IsNull([2018],0) + IsNull([2019],0) + IsNull([2020],0) + IsNull([2021],0) Totales FROM ventasOrdenadas PIVOT(SUM(CUNIDADES) FOR Año in([2013],[2014],[2015],[2016],[2017],[2018],[2019],[2020],[2021])) as pivotTable  order by $campoOrden $orden OFFSET $offset ROWS FETCH NEXT $per_page ROWS ONLY";
 
 
-        $query = $this->mysqli->query($sql);
+    $query = $this->mysqli->query($sql);
 
-        $sql1 = "WITH ventasData AS(SELECT 
+    $sql1 = "WITH ventasData AS(SELECT 
         apro.CCODIGOPRODUCTO,
         apro.CIDPRODUCTO,
         apro.CNOMBREPRODUCTO,
@@ -2388,19 +2285,7 @@ ventasOrdenadas As(
         adoc.CRAZONSOCIAL,
         amov.CIDDOCUMENTO,
         YEAR(adoc.CFECHA) As Año,
-        CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-        WHEN 'TR'
-        THEN 'PV TORRES'
-        WHEN 'RF'
-        THEN 'PV REFORMA'
-        WHEN 'SG'
-        THEN 'PV SANTIAGO'
-        WHEN 'SM'
-        THEN 'PV SAN MANUEL'
-        WHEN 'CP'
-        THEN 'PV CAPU'
-        ELSE
-        agen.CNOMBREAGENTE END As Agente,
+        $agenteList as Agente,
         CASE SUBSTRING(acon.CNOMBRECONCEPTO,1,10)
         WHEN 'DEVOLUCIÓN'
         THEN (SUM((amov.CTOTAL)-amov.CIMPUESTO1)*0) -SUM((amov.CTOTAL)-amov.CIMPUESTO1)
@@ -2412,7 +2297,7 @@ ventasOrdenadas As(
         SUM((amov.CTOTAL)-amov.CIMPUESTO1) END AS Total,
         $parametrosCanal,
         '1' As indicador
-        FROM [adPINTURAS2020SADEC].[dbo].[admProductos] as apro LEFT OUTER JOIN [adPINTURAS2020SADEC].[dbo].[admMovimientos] as amov ON apro.CIDPRODUCTO = amov.CIDPRODUCTO LEFT OUTER JOIN [adPINTURAS2020SADEC].[dbo].[admDocumentos] as adoc ON amov.CIDDOCUMENTO = adoc.CIDDOCUMENTO INNER JOIN [adPINTURAS2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPINTURAS2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere  and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO in(4,
+        FROM [adPINTURAS2020SADEC].[dbo].[admProductos] as apro LEFT OUTER JOIN [adPINTURAS2020SADEC].[dbo].[admMovimientos] as amov ON apro.CIDPRODUCTO = amov.CIDPRODUCTO LEFT OUTER JOIN [adPINTURAS2020SADEC].[dbo].[admDocumentos] as adoc ON amov.CIDDOCUMENTO = adoc.CIDDOCUMENTO INNER JOIN [adPINTURAS2020SADEC].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adPINTURAS2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPINTURAS2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere  and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO in(4,
 5,
 3001,
 3002,
@@ -2469,8 +2354,8 @@ ventasOrdenadas As(
 3189,
 3190,
 3191,
-3212)
-GROUP BY apro.CCODIGOPRODUCTO,apro.CIDPRODUCTO,apro.CNOMBREPRODUCTO,amov.CUNIDADES,amov.CPRECIO,adoc.CRAZONSOCIAL,amov.CIDDOCUMENTO,adoc.CFECHA,adoc.CSERIEDOCUMENTO,agen.CNOMBREAGENTE,acon.CNOMBRECONCEPTO,amov.CPRECIO,amov.CUNIDADES,amov.CIMPUESTO1,adoc.CRAZONSOCIAL
+3212,3233,3234)
+GROUP BY aclien.CIDAGENTEVENTA,apro.CCODIGOPRODUCTO,apro.CIDPRODUCTO,apro.CNOMBREPRODUCTO,amov.CUNIDADES,amov.CPRECIO,adoc.CRAZONSOCIAL,amov.CIDDOCUMENTO,adoc.CFECHA,adoc.CSERIEDOCUMENTO,agen.CNOMBREAGENTE,acon.CNOMBRECONCEPTO,amov.CPRECIO,amov.CUNIDADES,amov.CIMPUESTO1,adoc.CRAZONSOCIAL
 UNION
 SELECT 
         apro.CCODIGOPRODUCTO,
@@ -2482,19 +2367,7 @@ SELECT
         amov.CIDDOCUMENTO,
         YEAR(adoc.CFECHA) As Año,
         
-        CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-        WHEN 'TR'
-        THEN 'PV TORRES'
-        WHEN 'RF'
-        THEN 'PV REFORMA'
-        WHEN 'SG'
-        THEN 'PV SANTIAGO'
-        WHEN 'SM'
-        THEN 'PV SAN MANUEL'
-        WHEN 'CP'
-        THEN 'PV CAPU'
-        ELSE
-        agen.CNOMBREAGENTE END As Agente,
+        $agenteList as Agente,
         CASE SUBSTRING(acon.CNOMBRECONCEPTO,1,10)
         WHEN 'DEVOLUCIÓN'
         THEN (SUM((amov.CTOTAL)-amov.CIMPUESTO1)*0) -SUM((amov.CTOTAL)-amov.CIMPUESTO1)
@@ -2506,7 +2379,7 @@ SELECT
         SUM((amov.CTOTAL)-amov.CIMPUESTO1) END AS Total,
         $parametrosCanal,
         '1' As indicador
-        FROM [adFLEX2020SADEC].[dbo].[admProductos] as apro LEFT OUTER JOIN [adFLEX2020SADEC].[dbo].[admMovimientos] as amov ON apro.CIDPRODUCTO = amov.CIDPRODUCTO LEFT OUTER JOIN [adFLEX2020SADEC].[dbo].[admDocumentos] as adoc ON amov.CIDDOCUMENTO = adoc.CIDDOCUMENTO INNER JOIN [adFLEX2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adFLEX2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere   and adoc.CIDDOCUMENTODE IN(4,5,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
+        FROM [adFLEX2020SADEC].[dbo].[admProductos] as apro LEFT OUTER JOIN [adFLEX2020SADEC].[dbo].[admMovimientos] as amov ON apro.CIDPRODUCTO = amov.CIDPRODUCTO LEFT OUTER JOIN [adFLEX2020SADEC].[dbo].[admDocumentos] as adoc ON amov.CIDDOCUMENTO = adoc.CIDDOCUMENTO INNER JOIN [adFLEX2020SADEC].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adFLEX2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adFLEX2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere   and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
 5,
 3001,
 3048,
@@ -2516,8 +2389,8 @@ SELECT
 3004,
 3012,
 3052,
-3061)
-GROUP BY apro.CCODIGOPRODUCTO,apro.CIDPRODUCTO,apro.CNOMBREPRODUCTO,amov.CUNIDADES,amov.CPRECIO,adoc.CRAZONSOCIAL,amov.CIDDOCUMENTO,adoc.CFECHA,adoc.CSERIEDOCUMENTO,agen.CNOMBREAGENTE,acon.CNOMBRECONCEPTO,amov.CPRECIO,amov.CUNIDADES,amov.CIMPUESTO1,adoc.CRAZONSOCIAL
+3061,3053)
+GROUP BY aclien.CIDAGENTEVENTA,apro.CCODIGOPRODUCTO,apro.CIDPRODUCTO,apro.CNOMBREPRODUCTO,amov.CUNIDADES,amov.CPRECIO,adoc.CRAZONSOCIAL,amov.CIDDOCUMENTO,adoc.CFECHA,adoc.CSERIEDOCUMENTO,agen.CNOMBREAGENTE,acon.CNOMBRECONCEPTO,amov.CPRECIO,amov.CUNIDADES,amov.CIMPUESTO1,adoc.CRAZONSOCIAL
 UNION
 SELECT 
         apro.CCODIGOPRODUCTO,
@@ -2529,19 +2402,7 @@ SELECT
         amov.CIDDOCUMENTO,
         YEAR(adoc.CFECHA) As Año,
         
-        CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-        WHEN 'TR'
-        THEN 'PV TORRES'
-        WHEN 'RF'
-        THEN 'PV REFORMA'
-        WHEN 'SG'
-        THEN 'PV SANTIAGO'
-        WHEN 'SM'
-        THEN 'PV SAN MANUEL'
-        WHEN 'CP'
-        THEN 'PV CAPU'
-        ELSE
-        agen.CNOMBREAGENTE END As Agente,
+        $agenteList as Agente,
         CASE SUBSTRING(acon.CNOMBRECONCEPTO,1,10)
         WHEN 'DEVOLUCIÓN'
         THEN (SUM((amov.CTOTAL)-amov.CIMPUESTO1)*0) -SUM((amov.CTOTAL)-amov.CIMPUESTO1)
@@ -2553,7 +2414,7 @@ SELECT
         SUM((amov.CTOTAL)-amov.CIMPUESTO1) END AS Total,
         $parametrosCanal,
         '1' As indicador
-        FROM [adPinturas_y_Complemen].[dbo].[admProductos] as apro LEFT OUTER JOIN [adPinturas_y_Complemen].[dbo].[admMovimientos] as amov ON apro.CIDPRODUCTO = amov.CIDPRODUCTO LEFT OUTER JOIN [adPinturas_y_Complemen].[dbo].[admDocumentos] as adoc ON amov.CIDDOCUMENTO = adoc.CIDDOCUMENTO INNER JOIN [adPinturas_y_Complemen].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPinturas_y_Complemen].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO  WHERE $sWhere and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
+        FROM [adPinturas_y_Complemen].[dbo].[admProductos] as apro LEFT OUTER JOIN [adPinturas_y_Complemen].[dbo].[admMovimientos] as amov ON apro.CIDPRODUCTO = amov.CIDPRODUCTO LEFT OUTER JOIN [adPinturas_y_Complemen].[dbo].[admDocumentos] as adoc ON amov.CIDDOCUMENTO = adoc.CIDDOCUMENTO INNER JOIN [adPinturas_y_Complemen].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adPinturas_y_Complemen].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPinturas_y_Complemen].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO  WHERE $sWhere and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
 5,
 3047,
 3049,
@@ -2566,7 +2427,7 @@ SELECT
 3058,
 3111,
 3105)
-GROUP BY apro.CCODIGOPRODUCTO,apro.CIDPRODUCTO,apro.CNOMBREPRODUCTO,amov.CUNIDADES,amov.CPRECIO,adoc.CRAZONSOCIAL,amov.CIDDOCUMENTO,adoc.CFECHA,adoc.CSERIEDOCUMENTO,agen.CNOMBREAGENTE,acon.CNOMBRECONCEPTO,amov.CPRECIO,amov.CUNIDADES,amov.CIMPUESTO1,adoc.CRAZONSOCIAL),
+GROUP BY aclien.CIDAGENTEVENTA,apro.CCODIGOPRODUCTO,apro.CIDPRODUCTO,apro.CNOMBREPRODUCTO,amov.CUNIDADES,amov.CPRECIO,adoc.CRAZONSOCIAL,amov.CIDDOCUMENTO,adoc.CFECHA,adoc.CSERIEDOCUMENTO,agen.CNOMBREAGENTE,acon.CNOMBRECONCEPTO,amov.CPRECIO,amov.CUNIDADES,amov.CIMPUESTO1,adoc.CRAZONSOCIAL),
 
 ventasOrdenadas As(
     SELECT
@@ -2577,61 +2438,103 @@ ventasOrdenadas As(
     FROM ventasData  $condicional
     
     )
-    SELECT *,IsNull([2013],0) + IsNull([2014],0) + IsNull([2015],0) + IsNull([2016],0) + IsNull([2017],0) + IsNull([2018],0) + IsNull([2019],0) + IsNull([2020],0) + IsNull([2021],0) Totales FROM ventasOrdenadas PIVOT(SUM(CUNIDADES) FOR Año in([2013],[2014],[2015],[2016],[2017],[2018],[2019],[2020],[2021])) as pivotTable  order by CCODIGOPRODUCTO asc";
+    SELECT *,IsNull([2013],0) + IsNull([2014],0) + IsNull([2015],0) + IsNull([2016],0) + IsNull([2017],0) + IsNull([2018],0) + IsNull([2019],0) + IsNull([2020],0) + IsNull([2021],0) Totales FROM ventasOrdenadas PIVOT(SUM(CUNIDADES) FOR Año in([2013],[2014],[2015],[2016],[2017],[2018],[2019],[2020],[2021])) as pivotTable  order by $campoOrden $orden";
 
-        $nums_row = $this->countAll($sql1);
+    $nums_row = $this->countAll($sql1);
 
-        //Set counter
-        $this->setCounter($nums_row);
+    //Set counter
+    $this->setCounter($nums_row);
 
-        $query = $query->fetchAll();
-        return $query;
+    $query = $query->fetchAll();
+    return $query;
+  }
+  /***VENTAS PRODUCTOS LITREADO*/
+  public function getVentasLitreadoMonto($tables, $campos, $search)
+  {
+    global $parametrosCanal;
+    global $agenteList;
+
+    $offset = $search['offset'];
+    $per_page = $search['per_page'];
+
+    $estatus = $search['estatus'];
+    /***CODIGOS DE PRODUCTOS */
+    $codigos = explode(',', $search['producto']);
+    $codigoProducto = "";
+    for ($i = 0; $i < count($codigos); $i++) {
+      $codigoProducto .= "'" . $codigos[$i] . "', ";
     }
-    /***VENTAS PRODUCTOS LITREADO*/
-    public function getVentasLitreadoMonto($tables, $campos, $search)
-    {
-        global $parametrosCanal;
+    $codigoProducto = substr($codigoProducto, 0, -2);
+    /**NOMBRE CLIENTES */
+    $clientes = json_decode($search['query'], true);
+    $cliente = "";
+    for ($i = 0; $i < count($clientes); $i++) {
+      $cliente .= "'" . $clientes[$i] . "', ";
+    }
+    $cliente = substr($cliente, 0, -2);
+    /**AGENTES */
+    $agentes = explode(',', $search['agente']);
+    $agente = "";
 
-        $offset = $search['offset'];
-        $per_page = $search['per_page'];
+    for ($i = 0; $i < count($agentes); $i++) {
+      $agente .= "'" . $agentes[$i] . "', ";
+    }
+    $agente = substr($agente, 0, -2);
+    /***AGENTES */
+    /**CENTRO */
+    $centros = explode(',', $search['centro']);
+    $centro = "";
 
-        $estatus = $search['estatus'];
-        /***CODIGOS DE PRODUCTOS */
-        $codigos = explode(',', $search['producto']);
-        $codigoProducto = "";
-        for ($i = 0; $i < count($codigos); $i++) {
-            $codigoProducto .= "'" . $codigos[$i] . "', ";
-        }
-        $codigoProducto = substr($codigoProducto, 0, -2);
-        /**NOMBRE CLIENTES */
-        $clientes = explode(',', $search['query']);
-        $cliente = "";
-        for ($i = 0; $i < count($clientes); $i++) {
-            $cliente .= "'" . $clientes[$i] . "', ";
-        }
-        $cliente = substr($cliente, 0, -2);
+    for ($i = 0; $i < count($centros); $i++) {
+      $centro .= "'" . $centros[$i] . "', ";
+    }
+    $centro = substr($centro, 0, -2);
+    /***CENTRO */
+    /**CANAL */
+    $canals = explode(',', $search['canal']);
+    $canal = "";
 
+    for ($i = 0; $i < count($canals); $i++) {
+      $canal .= "'" . $canals[$i] . "', ";
+    }
+    $canal = substr($canal, 0, -2);
+    /***CANAL */
+    $orden = $search['orden'];
+    switch ($search["campo"]) {
+      case 'nombre':
+        $campoOrden = "CNOMBREPRODUCTO";
+        break;
+      case 'codigo':
+        $campoOrden = "CCODIGOPRODUCTO";
+        break;
+      case 'monto':
+        $campoOrden = "IsNull([2013],0) + IsNull([2014],0) + IsNull([2015],0) + IsNull([2016],0) + IsNull([2017],0) + IsNull([2018],0) + IsNull([2019],0) + IsNull([2020],0) + IsNull([2021],0)";
+        break;
+    }
 
-        $sWhere = " adoc.CCANCELADO  = '" . $estatus . "' ";
+    $sWhere = " adoc.CCANCELADO  = '" . $estatus . "' ";
 
-        if ($search["producto"] != "") {
-            $sWhere .= " and apro.CCODIGOPRODUCTO in(" . $codigoProducto . ") ";
-        }
-        if ($search["query"] != "") {
-            $sWhere .= " and adoc.CRAZONSOCIAL in(" . $cliente . ") ";
-        }
-        $condicional = "WHERE indicador = 1 and canalComercial IS NOT NULL and Agente != 'ING. MIGUEL GUTIERREZ A.'";
-        if ($search['canal'] != "") {
+    if ($search["producto"] != "") {
+      $sWhere .= " and apro.CCODIGOPRODUCTO in(" . $codigoProducto . ") ";
+    }
+    if ($search["query"] != "[]") {
+      $sWhere .= " and adoc.CRAZONSOCIAL in(" . $cliente . ") ";
+    }
+    $condicional = "WHERE indicador = 1  and canalComercial != 'PROPIAS'";
+    if ($search['canal'] != "") {
 
-            $condicional .= " and CanalComercial = '" . $search['canal'] . "' ";
-        }
+      $condicional .= " and canalComercial in(" . $canal . ") ";
+    }
+    if ($search['centro'] != "") {
 
-        if ($search['agente'] != "") {
+      $condicional .= " and centroTrabajo  in(" . $centro . ") ";
+    }
+    if ($search['agente'] != "") {
 
-            $condicional .= " and Agente = '" . $search['agente'] . "' ";
-        }
+      $condicional .= " and Agente in(" . $agente . ") ";
+    }
 
-        $sql = "WITH ventasData AS(SELECT 
+    $sql = "WITH ventasData AS(SELECT 
                      apro.CCODIGOPRODUCTO,
                      apro.CIDPRODUCTO,
                      apro.CNOMBREPRODUCTO,
@@ -2641,19 +2544,7 @@ ventasOrdenadas As(
                      amov.CIDDOCUMENTO,
                      YEAR(adoc.CFECHA) As Año,
                      DATEPART(week, adoc.CFECHA) AS SemanaAnio,
-                     CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-                     WHEN 'TR'
-                     THEN 'PV TORRES'
-                     WHEN 'RF'
-                     THEN 'PV REFORMA'
-                     WHEN 'SG'
-                     THEN 'PV SANTIAGO'
-                     WHEN 'SM'
-                     THEN 'PV SAN MANUEL'
-                     WHEN 'CP'
-                     THEN 'PV CAPU'
-                     ELSE
-                     agen.CNOMBREAGENTE END As Agente,
+                     $agenteList as Agente,
                      CASE SUBSTRING(acon.CNOMBRECONCEPTO,1,10)
                      WHEN 'DEVOLUCIÓN'
                      THEN (SUM((amov.CTOTAL)-amov.CIMPUESTO1)*0) -SUM((amov.CTOTAL)-amov.CIMPUESTO1)
@@ -2665,7 +2556,7 @@ ventasOrdenadas As(
                      SUM((amov.CTOTAL)-amov.CIMPUESTO1) END AS Total,
                      $parametrosCanal,
                      '1' As indicador
-                     FROM [adPINTURAS2020SADEC].[dbo].[admProductos] as apro LEFT OUTER JOIN [adPINTURAS2020SADEC].[dbo].[admMovimientos] as amov ON apro.CIDPRODUCTO = amov.CIDPRODUCTO LEFT OUTER JOIN [adPINTURAS2020SADEC].[dbo].[admDocumentos] as adoc ON amov.CIDDOCUMENTO = adoc.CIDDOCUMENTO INNER JOIN [adPINTURAS2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPINTURAS2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere and apro.CIDUNIDADBASE IN(11,15,27) and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO in(4,
+                     FROM [adPINTURAS2020SADEC].[dbo].[admProductos] as apro LEFT OUTER JOIN [adPINTURAS2020SADEC].[dbo].[admMovimientos] as amov ON apro.CIDPRODUCTO = amov.CIDPRODUCTO LEFT OUTER JOIN [adPINTURAS2020SADEC].[dbo].[admDocumentos] as adoc ON amov.CIDDOCUMENTO = adoc.CIDDOCUMENTO INNER JOIN [adPINTURAS2020SADEC].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adPINTURAS2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPINTURAS2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere and apro.CIDUNIDADBASE IN(11,15,27) and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO in(4,
              5,
              3001,
              3002,
@@ -2722,8 +2613,8 @@ ventasOrdenadas As(
              3189,
              3190,
              3191,
-             3212)
-             GROUP BY apro.CCODIGOPRODUCTO,apro.CIDPRODUCTO,apro.CNOMBREPRODUCTO,amov.CUNIDADES,amov.CPRECIO,adoc.CRAZONSOCIAL,amov.CIDDOCUMENTO,adoc.CFECHA,adoc.CSERIEDOCUMENTO,agen.CNOMBREAGENTE,acon.CNOMBRECONCEPTO,amov.CPRECIO,amov.CUNIDADES,amov.CIMPUESTO1,adoc.CRAZONSOCIAL
+             3212,3233,3234)
+             GROUP BY aclien.CIDAGENTEVENTA,apro.CCODIGOPRODUCTO,apro.CIDPRODUCTO,apro.CNOMBREPRODUCTO,amov.CUNIDADES,amov.CPRECIO,adoc.CRAZONSOCIAL,amov.CIDDOCUMENTO,adoc.CFECHA,adoc.CSERIEDOCUMENTO,agen.CNOMBREAGENTE,acon.CNOMBRECONCEPTO,amov.CPRECIO,amov.CUNIDADES,amov.CIMPUESTO1,adoc.CRAZONSOCIAL
              UNION
              SELECT 
                      apro.CCODIGOPRODUCTO,
@@ -2735,19 +2626,7 @@ ventasOrdenadas As(
                      amov.CIDDOCUMENTO,
                      YEAR(adoc.CFECHA) As Año,
                      DATEPART(week, adoc.CFECHA) AS SemanaAnio,
-                     CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-                     WHEN 'TR'
-                     THEN 'PV TORRES'
-                     WHEN 'RF'
-                     THEN 'PV REFORMA'
-                     WHEN 'SG'
-                     THEN 'PV SANTIAGO'
-                     WHEN 'SM'
-                     THEN 'PV SAN MANUEL'
-                     WHEN 'CP'
-                     THEN 'PV CAPU'
-                     ELSE
-                     agen.CNOMBREAGENTE END As Agente,
+                     $agenteList as Agente,
                      CASE SUBSTRING(acon.CNOMBRECONCEPTO,1,10)
                      WHEN 'DEVOLUCIÓN'
                      THEN (SUM((amov.CTOTAL)-amov.CIMPUESTO1)*0) -SUM((amov.CTOTAL)-amov.CIMPUESTO1)
@@ -2759,7 +2638,7 @@ ventasOrdenadas As(
                      SUM((amov.CTOTAL)-amov.CIMPUESTO1) END AS Total,
                      $parametrosCanal,
                      '1' As indicador
-                     FROM [adFLEX2020SADEC].[dbo].[admProductos] as apro LEFT OUTER JOIN [adFLEX2020SADEC].[dbo].[admMovimientos] as amov ON apro.CIDPRODUCTO = amov.CIDPRODUCTO LEFT OUTER JOIN [adFLEX2020SADEC].[dbo].[admDocumentos] as adoc ON amov.CIDDOCUMENTO = adoc.CIDDOCUMENTO INNER JOIN [adFLEX2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adFLEX2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere  and  apro.CIDUNIDADBASE NOT IN(0,1,2,3,4,5,7,8)  and adoc.CIDDOCUMENTODE IN(4,5,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
+                     FROM [adFLEX2020SADEC].[dbo].[admProductos] as apro LEFT OUTER JOIN [adFLEX2020SADEC].[dbo].[admMovimientos] as amov ON apro.CIDPRODUCTO = amov.CIDPRODUCTO LEFT OUTER JOIN [adFLEX2020SADEC].[dbo].[admDocumentos] as adoc ON amov.CIDDOCUMENTO = adoc.CIDDOCUMENTO INNER JOIN [adFLEX2020SADEC].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adFLEX2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adFLEX2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere  and  apro.CIDUNIDADBASE NOT IN(0,1,2,3,4,5,7,8)  and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
              5,
              3001,
              3048,
@@ -2769,8 +2648,8 @@ ventasOrdenadas As(
              3004,
              3012,
              3052,
-             3061)
-             GROUP BY apro.CCODIGOPRODUCTO,apro.CIDPRODUCTO,apro.CNOMBREPRODUCTO,amov.CUNIDADES,amov.CPRECIO,adoc.CRAZONSOCIAL,amov.CIDDOCUMENTO,adoc.CFECHA,adoc.CSERIEDOCUMENTO,agen.CNOMBREAGENTE,acon.CNOMBRECONCEPTO,amov.CPRECIO,amov.CUNIDADES,amov.CIMPUESTO1,adoc.CRAZONSOCIAL
+             3061,3053)
+             GROUP BY aclien.CIDAGENTEVENTA,apro.CCODIGOPRODUCTO,apro.CIDPRODUCTO,apro.CNOMBREPRODUCTO,amov.CUNIDADES,amov.CPRECIO,adoc.CRAZONSOCIAL,amov.CIDDOCUMENTO,adoc.CFECHA,adoc.CSERIEDOCUMENTO,agen.CNOMBREAGENTE,acon.CNOMBRECONCEPTO,amov.CPRECIO,amov.CUNIDADES,amov.CIMPUESTO1,adoc.CRAZONSOCIAL
              UNION
              SELECT 
                      apro.CCODIGOPRODUCTO,
@@ -2782,19 +2661,7 @@ ventasOrdenadas As(
                      amov.CIDDOCUMENTO,
                      YEAR(adoc.CFECHA) As Año,
                      DATEPART(week, adoc.CFECHA) AS SemanaAnio,
-                     CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-                     WHEN 'TR'
-                     THEN 'PV TORRES'
-                     WHEN 'RF'
-                     THEN 'PV REFORMA'
-                     WHEN 'SG'
-                     THEN 'PV SANTIAGO'
-                     WHEN 'SM'
-                     THEN 'PV SAN MANUEL'
-                     WHEN 'CP'
-                     THEN 'PV CAPU'
-                     ELSE
-                     agen.CNOMBREAGENTE END As Agente,
+                     $agenteList as Agente,
                      CASE SUBSTRING(acon.CNOMBRECONCEPTO,1,10)
                      WHEN 'DEVOLUCIÓN'
                      THEN (SUM((amov.CTOTAL)-amov.CIMPUESTO1)*0) -SUM((amov.CTOTAL)-amov.CIMPUESTO1)
@@ -2806,7 +2673,7 @@ ventasOrdenadas As(
                      SUM((amov.CTOTAL)-amov.CIMPUESTO1) END AS Total,
                      $parametrosCanal,
                      '1' As indicador
-                     FROM [adPinturas_y_Complemen].[dbo].[admProductos] as apro LEFT OUTER JOIN [adPinturas_y_Complemen].[dbo].[admMovimientos] as amov ON apro.CIDPRODUCTO = amov.CIDPRODUCTO LEFT OUTER JOIN [adPinturas_y_Complemen].[dbo].[admDocumentos] as adoc ON amov.CIDDOCUMENTO = adoc.CIDDOCUMENTO INNER JOIN [adPinturas_y_Complemen].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPinturas_y_Complemen].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO  WHERE $sWhere and apro.CIDUNIDADBASE IN(19,32,34,40) and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
+                     FROM [adPinturas_y_Complemen].[dbo].[admProductos] as apro LEFT OUTER JOIN [adPinturas_y_Complemen].[dbo].[admMovimientos] as amov ON apro.CIDPRODUCTO = amov.CIDPRODUCTO LEFT OUTER JOIN [adPinturas_y_Complemen].[dbo].[admDocumentos] as adoc ON amov.CIDDOCUMENTO = adoc.CIDDOCUMENTO INNER JOIN [adPinturas_y_Complemen].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adPinturas_y_Complemen].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPinturas_y_Complemen].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO  WHERE $sWhere and apro.CIDUNIDADBASE IN(19,32,34,40) and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
              5,
              3047,
              3049,
@@ -2819,7 +2686,7 @@ ventasOrdenadas As(
              3058,
              3111,
              3105)
-             GROUP BY apro.CCODIGOPRODUCTO,apro.CIDPRODUCTO,apro.CNOMBREPRODUCTO,amov.CUNIDADES,amov.CPRECIO,adoc.CRAZONSOCIAL,amov.CIDDOCUMENTO,adoc.CFECHA,adoc.CSERIEDOCUMENTO,agen.CNOMBREAGENTE,acon.CNOMBRECONCEPTO,amov.CPRECIO,amov.CUNIDADES,amov.CIMPUESTO1,adoc.CRAZONSOCIAL),
+             GROUP BY aclien.CIDAGENTEVENTA,apro.CCODIGOPRODUCTO,apro.CIDPRODUCTO,apro.CNOMBREPRODUCTO,amov.CUNIDADES,amov.CPRECIO,adoc.CRAZONSOCIAL,amov.CIDDOCUMENTO,adoc.CFECHA,adoc.CSERIEDOCUMENTO,agen.CNOMBREAGENTE,acon.CNOMBRECONCEPTO,amov.CPRECIO,amov.CUNIDADES,amov.CIMPUESTO1,adoc.CRAZONSOCIAL),
              
              ventasOrdenadas As(
                  SELECT
@@ -2830,12 +2697,12 @@ ventasOrdenadas As(
                  FROM ventasData  $condicional
                  
                  )
-                 SELECT *,IsNull([2013],0) + IsNull([2014],0) + IsNull([2015],0) + IsNull([2016],0) + IsNull([2017],0) + IsNull([2018],0) + IsNull([2019],0) + IsNull([2020],0) + IsNull([2021],0) Totales FROM ventasOrdenadas PIVOT(SUM(Total) FOR Año in([2013],[2014],[2015],[2016],[2017],[2018],[2019],[2020],[2021])) as pivotTable  order by CCODIGOPRODUCTO asc OFFSET $offset ROWS FETCH NEXT $per_page ROWS ONLY";
+                 SELECT *,IsNull([2013],0) + IsNull([2014],0) + IsNull([2015],0) + IsNull([2016],0) + IsNull([2017],0) + IsNull([2018],0) + IsNull([2019],0) + IsNull([2020],0) + IsNull([2021],0) Totales FROM ventasOrdenadas PIVOT(SUM(Total) FOR Año in([2013],[2014],[2015],[2016],[2017],[2018],[2019],[2020],[2021])) as pivotTable  order by $campoOrden $orden OFFSET $offset ROWS FETCH NEXT $per_page ROWS ONLY";
 
 
-        $query = $this->mysqli->query($sql);
+    $query = $this->mysqli->query($sql);
 
-        $sql1 = "WITH ventasData AS(SELECT 
+    $sql1 = "WITH ventasData AS(SELECT 
          apro.CCODIGOPRODUCTO,
          apro.CIDPRODUCTO,
          apro.CNOMBREPRODUCTO,
@@ -2845,19 +2712,7 @@ ventasOrdenadas As(
          amov.CIDDOCUMENTO,
          YEAR(adoc.CFECHA) As Año,
          DATEPART(week, adoc.CFECHA) AS SemanaAnio,
-         CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-         WHEN 'TR'
-         THEN 'PV TORRES'
-         WHEN 'RF'
-         THEN 'PV REFORMA'
-         WHEN 'SG'
-         THEN 'PV SANTIAGO'
-         WHEN 'SM'
-         THEN 'PV SAN MANUEL'
-         WHEN 'CP'
-         THEN 'PV CAPU'
-         ELSE
-         agen.CNOMBREAGENTE END As Agente,
+         $agenteList as Agente,
          CASE SUBSTRING(acon.CNOMBRECONCEPTO,1,10)
          WHEN 'DEVOLUCIÓN'
          THEN (SUM((amov.CTOTAL)-amov.CIMPUESTO1)*0) -SUM((amov.CTOTAL)-amov.CIMPUESTO1)
@@ -2869,7 +2724,7 @@ ventasOrdenadas As(
          SUM((amov.CTOTAL)-amov.CIMPUESTO1) END AS Total,
          $parametrosCanal,
          '1' As indicador
-         FROM [adPINTURAS2020SADEC].[dbo].[admProductos] as apro LEFT OUTER JOIN [adPINTURAS2020SADEC].[dbo].[admMovimientos] as amov ON apro.CIDPRODUCTO = amov.CIDPRODUCTO LEFT OUTER JOIN [adPINTURAS2020SADEC].[dbo].[admDocumentos] as adoc ON amov.CIDDOCUMENTO = adoc.CIDDOCUMENTO INNER JOIN [adPINTURAS2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPINTURAS2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere and apro.CIDUNIDADBASE IN(11,15,27) and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO in(4,
+         FROM [adPINTURAS2020SADEC].[dbo].[admProductos] as apro LEFT OUTER JOIN [adPINTURAS2020SADEC].[dbo].[admMovimientos] as amov ON apro.CIDPRODUCTO = amov.CIDPRODUCTO LEFT OUTER JOIN [adPINTURAS2020SADEC].[dbo].[admDocumentos] as adoc ON amov.CIDDOCUMENTO = adoc.CIDDOCUMENTO INNER JOIN [adPINTURAS2020SADEC].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adPINTURAS2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPINTURAS2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere and apro.CIDUNIDADBASE IN(11,15,27) and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO in(4,
  5,
  3001,
  3002,
@@ -2926,8 +2781,8 @@ ventasOrdenadas As(
  3189,
  3190,
  3191,
- 3212)
- GROUP BY apro.CCODIGOPRODUCTO,apro.CIDPRODUCTO,apro.CNOMBREPRODUCTO,amov.CUNIDADES,amov.CPRECIO,adoc.CRAZONSOCIAL,amov.CIDDOCUMENTO,adoc.CFECHA,adoc.CSERIEDOCUMENTO,agen.CNOMBREAGENTE,acon.CNOMBRECONCEPTO,amov.CPRECIO,amov.CUNIDADES,amov.CIMPUESTO1,adoc.CRAZONSOCIAL
+ 3212,3233,3234)
+ GROUP BY aclien.CIDAGENTEVENTA,apro.CCODIGOPRODUCTO,apro.CIDPRODUCTO,apro.CNOMBREPRODUCTO,amov.CUNIDADES,amov.CPRECIO,adoc.CRAZONSOCIAL,amov.CIDDOCUMENTO,adoc.CFECHA,adoc.CSERIEDOCUMENTO,agen.CNOMBREAGENTE,acon.CNOMBRECONCEPTO,amov.CPRECIO,amov.CUNIDADES,amov.CIMPUESTO1,adoc.CRAZONSOCIAL
  UNION
  SELECT 
          apro.CCODIGOPRODUCTO,
@@ -2939,19 +2794,7 @@ ventasOrdenadas As(
          amov.CIDDOCUMENTO,
          YEAR(adoc.CFECHA) As Año,
          DATEPART(week, adoc.CFECHA) AS SemanaAnio,
-         CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-         WHEN 'TR'
-         THEN 'PV TORRES'
-         WHEN 'RF'
-         THEN 'PV REFORMA'
-         WHEN 'SG'
-         THEN 'PV SANTIAGO'
-         WHEN 'SM'
-         THEN 'PV SAN MANUEL'
-         WHEN 'CP'
-         THEN 'PV CAPU'
-         ELSE
-         agen.CNOMBREAGENTE END As Agente,
+         $agenteList as Agente,
          CASE SUBSTRING(acon.CNOMBRECONCEPTO,1,10)
          WHEN 'DEVOLUCIÓN'
          THEN (SUM((amov.CTOTAL)-amov.CIMPUESTO1)*0) -SUM((amov.CTOTAL)-amov.CIMPUESTO1)
@@ -2963,7 +2806,7 @@ ventasOrdenadas As(
          SUM((amov.CTOTAL)-amov.CIMPUESTO1) END AS Total,
          $parametrosCanal,
          '1' As indicador
-         FROM [adFLEX2020SADEC].[dbo].[admProductos] as apro LEFT OUTER JOIN [adFLEX2020SADEC].[dbo].[admMovimientos] as amov ON apro.CIDPRODUCTO = amov.CIDPRODUCTO LEFT OUTER JOIN [adFLEX2020SADEC].[dbo].[admDocumentos] as adoc ON amov.CIDDOCUMENTO = adoc.CIDDOCUMENTO INNER JOIN [adFLEX2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adFLEX2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere  and  apro.CIDUNIDADBASE NOT IN(0,1,2,3,4,5,7,8)  and adoc.CIDDOCUMENTODE IN(4,5,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
+         FROM [adFLEX2020SADEC].[dbo].[admProductos] as apro LEFT OUTER JOIN [adFLEX2020SADEC].[dbo].[admMovimientos] as amov ON apro.CIDPRODUCTO = amov.CIDPRODUCTO LEFT OUTER JOIN [adFLEX2020SADEC].[dbo].[admDocumentos] as adoc ON amov.CIDDOCUMENTO = adoc.CIDDOCUMENTO INNER JOIN [adFLEX2020SADEC].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adFLEX2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adFLEX2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere  and  apro.CIDUNIDADBASE NOT IN(0,1,2,3,4,5,7,8)  and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
  5,
  3001,
  3048,
@@ -2973,8 +2816,8 @@ ventasOrdenadas As(
  3004,
  3012,
  3052,
- 3061)
- GROUP BY apro.CCODIGOPRODUCTO,apro.CIDPRODUCTO,apro.CNOMBREPRODUCTO,amov.CUNIDADES,amov.CPRECIO,adoc.CRAZONSOCIAL,amov.CIDDOCUMENTO,adoc.CFECHA,adoc.CSERIEDOCUMENTO,agen.CNOMBREAGENTE,acon.CNOMBRECONCEPTO,amov.CPRECIO,amov.CUNIDADES,amov.CIMPUESTO1,adoc.CRAZONSOCIAL
+ 3061,3053)
+ GROUP BY aclien.CIDAGENTEVENTA,apro.CCODIGOPRODUCTO,apro.CIDPRODUCTO,apro.CNOMBREPRODUCTO,amov.CUNIDADES,amov.CPRECIO,adoc.CRAZONSOCIAL,amov.CIDDOCUMENTO,adoc.CFECHA,adoc.CSERIEDOCUMENTO,agen.CNOMBREAGENTE,acon.CNOMBRECONCEPTO,amov.CPRECIO,amov.CUNIDADES,amov.CIMPUESTO1,adoc.CRAZONSOCIAL
  UNION
  SELECT 
          apro.CCODIGOPRODUCTO,
@@ -2986,19 +2829,7 @@ ventasOrdenadas As(
          amov.CIDDOCUMENTO,
          YEAR(adoc.CFECHA) As Año,
          DATEPART(week, adoc.CFECHA) AS SemanaAnio,
-         CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-         WHEN 'TR'
-         THEN 'PV TORRES'
-         WHEN 'RF'
-         THEN 'PV REFORMA'
-         WHEN 'SG'
-         THEN 'PV SANTIAGO'
-         WHEN 'SM'
-         THEN 'PV SAN MANUEL'
-         WHEN 'CP'
-         THEN 'PV CAPU'
-         ELSE
-         agen.CNOMBREAGENTE END As Agente,
+         $agenteList as Agente,
          CASE SUBSTRING(acon.CNOMBRECONCEPTO,1,10)
          WHEN 'DEVOLUCIÓN'
          THEN (SUM((amov.CTOTAL)-amov.CIMPUESTO1)*0) -SUM((amov.CTOTAL)-amov.CIMPUESTO1)
@@ -3010,7 +2841,7 @@ ventasOrdenadas As(
          SUM((amov.CTOTAL)-amov.CIMPUESTO1) END AS Total,
          $parametrosCanal,
          '1' As indicador
-         FROM [adPinturas_y_Complemen].[dbo].[admProductos] as apro LEFT OUTER JOIN [adPinturas_y_Complemen].[dbo].[admMovimientos] as amov ON apro.CIDPRODUCTO = amov.CIDPRODUCTO LEFT OUTER JOIN [adPinturas_y_Complemen].[dbo].[admDocumentos] as adoc ON amov.CIDDOCUMENTO = adoc.CIDDOCUMENTO INNER JOIN [adPinturas_y_Complemen].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPinturas_y_Complemen].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO  WHERE $sWhere and apro.CIDUNIDADBASE IN(19,32,34,40) and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
+         FROM [adPinturas_y_Complemen].[dbo].[admProductos] as apro LEFT OUTER JOIN [adPinturas_y_Complemen].[dbo].[admMovimientos] as amov ON apro.CIDPRODUCTO = amov.CIDPRODUCTO LEFT OUTER JOIN [adPinturas_y_Complemen].[dbo].[admDocumentos] as adoc ON amov.CIDDOCUMENTO = adoc.CIDDOCUMENTO INNER JOIN [adPinturas_y_Complemen].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adPinturas_y_Complemen].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPinturas_y_Complemen].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO  WHERE $sWhere and apro.CIDUNIDADBASE IN(19,32,34,40) and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
  5,
  3047,
  3049,
@@ -3023,7 +2854,7 @@ ventasOrdenadas As(
  3058,
  3111,
  3105)
- GROUP BY apro.CCODIGOPRODUCTO,apro.CIDPRODUCTO,apro.CNOMBREPRODUCTO,amov.CUNIDADES,amov.CPRECIO,adoc.CRAZONSOCIAL,amov.CIDDOCUMENTO,adoc.CFECHA,adoc.CSERIEDOCUMENTO,agen.CNOMBREAGENTE,acon.CNOMBRECONCEPTO,amov.CPRECIO,amov.CUNIDADES,amov.CIMPUESTO1,adoc.CRAZONSOCIAL),
+ GROUP BY aclien.CIDAGENTEVENTA,apro.CCODIGOPRODUCTO,apro.CIDPRODUCTO,apro.CNOMBREPRODUCTO,amov.CUNIDADES,amov.CPRECIO,adoc.CRAZONSOCIAL,amov.CIDDOCUMENTO,adoc.CFECHA,adoc.CSERIEDOCUMENTO,agen.CNOMBREAGENTE,acon.CNOMBRECONCEPTO,amov.CPRECIO,amov.CUNIDADES,amov.CIMPUESTO1,adoc.CRAZONSOCIAL),
  
  ventasOrdenadas As(
      SELECT
@@ -3034,62 +2865,105 @@ ventasOrdenadas As(
      FROM ventasData  $condicional
      
      )
-     SELECT *,IsNull([2013],0) + IsNull([2014],0) + IsNull([2015],0) + IsNull([2016],0) + IsNull([2017],0) + IsNull([2018],0) + IsNull([2019],0) + IsNull([2020],0) + IsNull([2021],0) Totales FROM ventasOrdenadas PIVOT(SUM(Total) FOR Año in([2013],[2014],[2015],[2016],[2017],[2018],[2019],[2020],[2021])) as pivotTable  order by CCODIGOPRODUCTO asc";
+     SELECT *,IsNull([2013],0) + IsNull([2014],0) + IsNull([2015],0) + IsNull([2016],0) + IsNull([2017],0) + IsNull([2018],0) + IsNull([2019],0) + IsNull([2020],0) + IsNull([2021],0) Totales FROM ventasOrdenadas PIVOT(SUM(Total) FOR Año in([2013],[2014],[2015],[2016],[2017],[2018],[2019],[2020],[2021])) as pivotTable  order by $campoOrden $orden ";
 
-        $nums_row = $this->countAll($sql1);
+    $nums_row = $this->countAll($sql1);
 
-        //Set counter
-        $this->setCounter($nums_row);
+    //Set counter
+    $this->setCounter($nums_row);
 
-        $query = $query->fetchAll();
-        return $query;
+    $query = $query->fetchAll();
+    return $query;
+  }
+  public function getVentasLitreadoUnidades($tables, $campos, $search)
+  {
+    global $parametrosCanal;
+    global $agenteList;
+
+    $offset = $search['offset'];
+    $per_page = $search['per_page'];
+
+    $estatus = $search['estatus'];
+    /***CODIGOS DE PRODUCTOS */
+    $codigos = explode(',', $search['producto']);
+    $codigoProducto = "";
+    for ($i = 0; $i < count($codigos); $i++) {
+      $codigoProducto .= "'" . $codigos[$i] . "', ";
     }
-    public function getVentasLitreadoUnidades($tables, $campos, $search)
-    {
-        global $parametrosCanal;
+    $codigoProducto = substr($codigoProducto, 0, -2);
+    /**NOMBRE CLIENTES */
+    $clientes = json_decode($search['query'], true);
+    $cliente = "";
+    for ($i = 0; $i < count($clientes); $i++) {
+      $cliente .= "'" . $clientes[$i] . "', ";
+    }
+    $cliente = substr($cliente, 0, -2);
+    /**AGENTES */
+    $agentes = explode(',', $search['agente']);
+    $agente = "";
 
-        $offset = $search['offset'];
-        $per_page = $search['per_page'];
+    for ($i = 0; $i < count($agentes); $i++) {
+      $agente .= "'" . $agentes[$i] . "', ";
+    }
+    $agente = substr($agente, 0, -2);
+    /***AGENTES */
+    /**CENTRO */
+    $centros = explode(',', $search['centro']);
+    $centro = "";
 
-        $estatus = $search['estatus'];
-        /***CODIGOS DE PRODUCTOS */
-        $codigos = explode(',', $search['producto']);
-        $codigoProducto = "";
-        for ($i = 0; $i < count($codigos); $i++) {
-            $codigoProducto .= "'" . $codigos[$i] . "', ";
-        }
-        $codigoProducto = substr($codigoProducto, 0, -2);
-        /**NOMBRE CLIENTES */
-        $clientes = explode(',', $search['query']);
-        $cliente = "";
-        for ($i = 0; $i < count($clientes); $i++) {
-            $cliente .= "'" . $clientes[$i] . "', ";
-        }
-        $cliente = substr($cliente, 0, -2);
+    for ($i = 0; $i < count($centros); $i++) {
+      $centro .= "'" . $centros[$i] . "', ";
+    }
+    $centro = substr($centro, 0, -2);
+    /***CENTRO */
+    /**CANAL */
+    $canals = explode(',', $search['canal']);
+    $canal = "";
 
+    for ($i = 0; $i < count($canals); $i++) {
+      $canal .= "'" . $canals[$i] . "', ";
+    }
+    $canal = substr($canal, 0, -2);
+    /***CANAL */
+    $orden = $search['orden'];
+    switch ($search["campo"]) {
+      case 'nombre':
+        $campoOrden = "CNOMBREPRODUCTO";
+        break;
+      case 'codigo':
+        $campoOrden = "CCODIGOPRODUCTO";
+        break;
+      case 'monto':
+        $campoOrden = "IsNull([2013],0) + IsNull([2014],0) + IsNull([2015],0) + IsNull([2016],0) + IsNull([2017],0) + IsNull([2018],0) + IsNull([2019],0) + IsNull([2020],0) + IsNull([2021],0)";
+        break;
+    }
 
-        $sWhere = " adoc.CCANCELADO  = '" . $estatus . "' ";
+    $sWhere = " adoc.CCANCELADO  = '" . $estatus . "' ";
 
-        if ($search["producto"] != "") {
-            $sWhere .= " and apro.CCODIGOPRODUCTO in(" . $codigoProducto . ") ";
-        }
-        if ($search["query"] != "") {
-            $sWhere .= " and adoc.CRAZONSOCIAL in(" . $cliente . ") ";
-        }
-        $condicional = "WHERE indicador = 1 and canalComercial IS NOT NULL and Agente != 'ING. MIGUEL GUTIERREZ A.'";
-        if ($search['canal'] != "") {
+    if ($search["producto"] != "") {
+      $sWhere .= " and apro.CCODIGOPRODUCTO in(" . $codigoProducto . ") ";
+    }
+    if ($search["query"] != "[]") {
+      $sWhere .= " and adoc.CRAZONSOCIAL in(" . $cliente . ") ";
+    }
+    $condicional = "WHERE indicador = 1  and canalComercial != 'PROPIAS'";
+    if ($search['canal'] != "") {
 
-            $condicional .= " and CanalComercial = '" . $search['canal'] . "' ";
-        }
+      $condicional .= " and canalComercial in(" . $canal . ") ";
+    }
+    if ($search['centro'] != "") {
 
-        if ($search['agente'] != "") {
+      $condicional .= " and centroTrabajo  in(" . $centro . ") ";
+    }
+    if ($search['agente'] != "") {
 
-            $condicional .= " and Agente = '" . $search['agente'] . "' ";
-        }
+      $condicional .= " and Agente in(" . $agente . ") ";
+    }
 
-        $sql = "WITH ventasData AS(SELECT 
+    $sql = "WITH ventasData AS(SELECT 
          apro.CCODIGOPRODUCTO,
          apro.CIDPRODUCTO,
+         amov.CNUMEROMOVIMIENTO,
          apro.CNOMBREPRODUCTO,
          amov.CUNIDADES,
          amov.CPRECIO,
@@ -3097,19 +2971,7 @@ ventasOrdenadas As(
          amov.CIDDOCUMENTO,
          YEAR(adoc.CFECHA) As Año,
          DATEPART(week, adoc.CFECHA) AS SemanaAnio,
-         CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-         WHEN 'TR'
-         THEN 'PV TORRES'
-         WHEN 'RF'
-         THEN 'PV REFORMA'
-         WHEN 'SG'
-         THEN 'PV SANTIAGO'
-         WHEN 'SM'
-         THEN 'PV SAN MANUEL'
-         WHEN 'CP'
-         THEN 'PV CAPU'
-         ELSE
-         agen.CNOMBREAGENTE END As Agente,
+         $agenteList as Agente,
          CASE SUBSTRING(acon.CNOMBRECONCEPTO,1,10)
          WHEN 'DEVOLUCIÓN'
          THEN (SUM((amov.CTOTAL)-amov.CIMPUESTO1)*0) -SUM((amov.CTOTAL)-amov.CIMPUESTO1)
@@ -3121,7 +2983,7 @@ ventasOrdenadas As(
          SUM((amov.CTOTAL)-amov.CIMPUESTO1) END AS Total,
          $parametrosCanal,
          '1' As indicador
-         FROM [adPINTURAS2020SADEC].[dbo].[admProductos] as apro LEFT OUTER JOIN [adPINTURAS2020SADEC].[dbo].[admMovimientos] as amov ON apro.CIDPRODUCTO = amov.CIDPRODUCTO LEFT OUTER JOIN [adPINTURAS2020SADEC].[dbo].[admDocumentos] as adoc ON amov.CIDDOCUMENTO = adoc.CIDDOCUMENTO INNER JOIN [adPINTURAS2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPINTURAS2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere and apro.CIDUNIDADBASE IN(11,15,27) and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO in(4,
+         FROM [adPINTURAS2020SADEC].[dbo].[admProductos] as apro LEFT OUTER JOIN [adPINTURAS2020SADEC].[dbo].[admMovimientos] as amov ON apro.CIDPRODUCTO = amov.CIDPRODUCTO LEFT OUTER JOIN [adPINTURAS2020SADEC].[dbo].[admDocumentos] as adoc ON amov.CIDDOCUMENTO = adoc.CIDDOCUMENTO INNER JOIN [adPINTURAS2020SADEC].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adPINTURAS2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPINTURAS2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere and apro.CIDUNIDADBASE IN(11,15,27) and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO in(4,
  5,
  3001,
  3002,
@@ -3178,12 +3040,13 @@ ventasOrdenadas As(
  3189,
  3190,
  3191,
- 3212)
- GROUP BY apro.CCODIGOPRODUCTO,apro.CIDPRODUCTO,apro.CNOMBREPRODUCTO,amov.CUNIDADES,amov.CPRECIO,adoc.CRAZONSOCIAL,amov.CIDDOCUMENTO,adoc.CFECHA,adoc.CSERIEDOCUMENTO,agen.CNOMBREAGENTE,acon.CNOMBRECONCEPTO,amov.CPRECIO,amov.CUNIDADES,amov.CIMPUESTO1,adoc.CRAZONSOCIAL
+ 3212,3233,3234)
+ GROUP BY aclien.CIDAGENTEVENTA,apro.CCODIGOPRODUCTO,apro.CIDPRODUCTO,apro.CNOMBREPRODUCTO,amov.CNUMEROMOVIMIENTO,amov.CUNIDADES,amov.CPRECIO,adoc.CRAZONSOCIAL,amov.CIDDOCUMENTO,adoc.CFECHA,adoc.CSERIEDOCUMENTO,agen.CNOMBREAGENTE,acon.CNOMBRECONCEPTO,amov.CPRECIO,amov.CUNIDADES,amov.CIMPUESTO1,adoc.CRAZONSOCIAL
  UNION
  SELECT 
          apro.CCODIGOPRODUCTO,
          apro.CIDPRODUCTO,
+         amov.CNUMEROMOVIMIENTO,
          apro.CNOMBREPRODUCTO,
          amov.CUNIDADES,
          amov.CPRECIO,
@@ -3191,19 +3054,7 @@ ventasOrdenadas As(
          amov.CIDDOCUMENTO,
          YEAR(adoc.CFECHA) As Año,
          DATEPART(week, adoc.CFECHA) AS SemanaAnio,
-         CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-         WHEN 'TR'
-         THEN 'PV TORRES'
-         WHEN 'RF'
-         THEN 'PV REFORMA'
-         WHEN 'SG'
-         THEN 'PV SANTIAGO'
-         WHEN 'SM'
-         THEN 'PV SAN MANUEL'
-         WHEN 'CP'
-         THEN 'PV CAPU'
-         ELSE
-         agen.CNOMBREAGENTE END As Agente,
+         $agenteList as Agente,
          CASE SUBSTRING(acon.CNOMBRECONCEPTO,1,10)
          WHEN 'DEVOLUCIÓN'
          THEN (SUM((amov.CTOTAL)-amov.CIMPUESTO1)*0) -SUM((amov.CTOTAL)-amov.CIMPUESTO1)
@@ -3215,7 +3066,7 @@ ventasOrdenadas As(
          SUM((amov.CTOTAL)-amov.CIMPUESTO1) END AS Total,
          $parametrosCanal,
          '1' As indicador
-         FROM [adFLEX2020SADEC].[dbo].[admProductos] as apro LEFT OUTER JOIN [adFLEX2020SADEC].[dbo].[admMovimientos] as amov ON apro.CIDPRODUCTO = amov.CIDPRODUCTO LEFT OUTER JOIN [adFLEX2020SADEC].[dbo].[admDocumentos] as adoc ON amov.CIDDOCUMENTO = adoc.CIDDOCUMENTO INNER JOIN [adFLEX2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adFLEX2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere  and  apro.CIDUNIDADBASE NOT IN(0,1,2,3,4,5,7,8)  and adoc.CIDDOCUMENTODE IN(4,5,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
+         FROM [adFLEX2020SADEC].[dbo].[admProductos] as apro LEFT OUTER JOIN [adFLEX2020SADEC].[dbo].[admMovimientos] as amov ON apro.CIDPRODUCTO = amov.CIDPRODUCTO LEFT OUTER JOIN [adFLEX2020SADEC].[dbo].[admDocumentos] as adoc ON amov.CIDDOCUMENTO = adoc.CIDDOCUMENTO INNER JOIN [adFLEX2020SADEC].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adFLEX2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adFLEX2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere  and  apro.CIDUNIDADBASE NOT IN(0,1,2,3,4,5,7,8)  and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
  5,
  3001,
  3048,
@@ -3225,12 +3076,13 @@ ventasOrdenadas As(
  3004,
  3012,
  3052,
- 3061)
- GROUP BY apro.CCODIGOPRODUCTO,apro.CIDPRODUCTO,apro.CNOMBREPRODUCTO,amov.CUNIDADES,amov.CPRECIO,adoc.CRAZONSOCIAL,amov.CIDDOCUMENTO,adoc.CFECHA,adoc.CSERIEDOCUMENTO,agen.CNOMBREAGENTE,acon.CNOMBRECONCEPTO,amov.CPRECIO,amov.CUNIDADES,amov.CIMPUESTO1,adoc.CRAZONSOCIAL
+ 3061,3053)
+ GROUP BY aclien.CIDAGENTEVENTA,apro.CCODIGOPRODUCTO,apro.CIDPRODUCTO,apro.CNOMBREPRODUCTO,amov.CNUMEROMOVIMIENTO,amov.CUNIDADES,amov.CPRECIO,adoc.CRAZONSOCIAL,amov.CIDDOCUMENTO,adoc.CFECHA,adoc.CSERIEDOCUMENTO,agen.CNOMBREAGENTE,acon.CNOMBRECONCEPTO,amov.CPRECIO,amov.CUNIDADES,amov.CIMPUESTO1,adoc.CRAZONSOCIAL
  UNION
  SELECT 
          apro.CCODIGOPRODUCTO,
          apro.CIDPRODUCTO,
+         amov.CNUMEROMOVIMIENTO,
          apro.CNOMBREPRODUCTO,
          amov.CUNIDADES,
          amov.CPRECIO,
@@ -3238,19 +3090,7 @@ ventasOrdenadas As(
          amov.CIDDOCUMENTO,
          YEAR(adoc.CFECHA) As Año,
          DATEPART(week, adoc.CFECHA) AS SemanaAnio,
-         CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-         WHEN 'TR'
-         THEN 'PV TORRES'
-         WHEN 'RF'
-         THEN 'PV REFORMA'
-         WHEN 'SG'
-         THEN 'PV SANTIAGO'
-         WHEN 'SM'
-         THEN 'PV SAN MANUEL'
-         WHEN 'CP'
-         THEN 'PV CAPU'
-         ELSE
-         agen.CNOMBREAGENTE END As Agente,
+         $agenteList as Agente,
          CASE SUBSTRING(acon.CNOMBRECONCEPTO,1,10)
          WHEN 'DEVOLUCIÓN'
          THEN (SUM((amov.CTOTAL)-amov.CIMPUESTO1)*0) -SUM((amov.CTOTAL)-amov.CIMPUESTO1)
@@ -3262,7 +3102,7 @@ ventasOrdenadas As(
          SUM((amov.CTOTAL)-amov.CIMPUESTO1) END AS Total,
          $parametrosCanal,
          '1' As indicador
-         FROM [adPinturas_y_Complemen].[dbo].[admProductos] as apro LEFT OUTER JOIN [adPinturas_y_Complemen].[dbo].[admMovimientos] as amov ON apro.CIDPRODUCTO = amov.CIDPRODUCTO LEFT OUTER JOIN [adPinturas_y_Complemen].[dbo].[admDocumentos] as adoc ON amov.CIDDOCUMENTO = adoc.CIDDOCUMENTO INNER JOIN [adPinturas_y_Complemen].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPinturas_y_Complemen].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO  WHERE $sWhere and apro.CIDUNIDADBASE IN(19,32,34,40) and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
+         FROM [adPinturas_y_Complemen].[dbo].[admProductos] as apro LEFT OUTER JOIN [adPinturas_y_Complemen].[dbo].[admMovimientos] as amov ON apro.CIDPRODUCTO = amov.CIDPRODUCTO LEFT OUTER JOIN [adPinturas_y_Complemen].[dbo].[admDocumentos] as adoc ON amov.CIDDOCUMENTO = adoc.CIDDOCUMENTO INNER JOIN [adPinturas_y_Complemen].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adPinturas_y_Complemen].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPinturas_y_Complemen].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO  WHERE $sWhere and apro.CIDUNIDADBASE IN(19,32,34,40) and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
  5,
  3047,
  3049,
@@ -3275,7 +3115,7 @@ ventasOrdenadas As(
  3058,
  3111,
  3105)
- GROUP BY apro.CCODIGOPRODUCTO,apro.CIDPRODUCTO,apro.CNOMBREPRODUCTO,amov.CUNIDADES,amov.CPRECIO,adoc.CRAZONSOCIAL,amov.CIDDOCUMENTO,adoc.CFECHA,adoc.CSERIEDOCUMENTO,agen.CNOMBREAGENTE,acon.CNOMBRECONCEPTO,amov.CPRECIO,amov.CUNIDADES,amov.CIMPUESTO1,adoc.CRAZONSOCIAL),
+ GROUP BY aclien.CIDAGENTEVENTA,apro.CCODIGOPRODUCTO,apro.CIDPRODUCTO,apro.CNOMBREPRODUCTO,amov.CNUMEROMOVIMIENTO,amov.CUNIDADES,amov.CPRECIO,adoc.CRAZONSOCIAL,amov.CIDDOCUMENTO,adoc.CFECHA,adoc.CSERIEDOCUMENTO,agen.CNOMBREAGENTE,acon.CNOMBRECONCEPTO,amov.CPRECIO,amov.CUNIDADES,amov.CIMPUESTO1,adoc.CRAZONSOCIAL),
  
  ventasOrdenadas As(
      SELECT
@@ -3286,14 +3126,15 @@ ventasOrdenadas As(
      FROM ventasData  $condicional
      
      )
-     SELECT *,IsNull([2013],0) + IsNull([2014],0) + IsNull([2015],0) + IsNull([2016],0) + IsNull([2017],0) + IsNull([2018],0) + IsNull([2019],0) + IsNull([2020],0) + IsNull([2021],0) Totales FROM ventasOrdenadas PIVOT(SUM(CUNIDADES) FOR Año in([2013],[2014],[2015],[2016],[2017],[2018],[2019],[2020],[2021])) as pivotTable  order by CCODIGOPRODUCTO asc OFFSET $offset ROWS FETCH NEXT $per_page ROWS ONLY";
+     SELECT *,IsNull([2013],0) + IsNull([2014],0) + IsNull([2015],0) + IsNull([2016],0) + IsNull([2017],0) + IsNull([2018],0) + IsNull([2019],0) + IsNull([2020],0) + IsNull([2021],0) Totales FROM ventasOrdenadas PIVOT(SUM(CUNIDADES) FOR Año in([2013],[2014],[2015],[2016],[2017],[2018],[2019],[2020],[2021])) as pivotTable  order by $campoOrden $orden OFFSET $offset ROWS FETCH NEXT $per_page ROWS ONLY";
 
 
-        $query = $this->mysqli->query($sql);
+    $query = $this->mysqli->query($sql);
 
-        $sql1 = "WITH ventasData AS(SELECT 
+    $sql1 = "WITH ventasData AS(SELECT 
  apro.CCODIGOPRODUCTO,
  apro.CIDPRODUCTO,
+ amov.CNUMEROMOVIMIENTO,
  apro.CNOMBREPRODUCTO,
  amov.CUNIDADES,
  amov.CPRECIO,
@@ -3301,19 +3142,7 @@ ventasOrdenadas As(
  amov.CIDDOCUMENTO,
  YEAR(adoc.CFECHA) As Año,
  DATEPART(week, adoc.CFECHA) AS SemanaAnio,
- CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
- WHEN 'TR'
- THEN 'PV TORRES'
- WHEN 'RF'
- THEN 'PV REFORMA'
- WHEN 'SG'
- THEN 'PV SANTIAGO'
- WHEN 'SM'
- THEN 'PV SAN MANUEL'
- WHEN 'CP'
- THEN 'PV CAPU'
- ELSE
- agen.CNOMBREAGENTE END As Agente,
+ $agenteList as Agente,
  CASE SUBSTRING(acon.CNOMBRECONCEPTO,1,10)
  WHEN 'DEVOLUCIÓN'
  THEN (SUM((amov.CTOTAL)-amov.CIMPUESTO1)*0) -SUM((amov.CTOTAL)-amov.CIMPUESTO1)
@@ -3325,7 +3154,7 @@ ventasOrdenadas As(
  SUM((amov.CTOTAL)-amov.CIMPUESTO1) END AS Total,
  $parametrosCanal,
  '1' As indicador
- FROM [adPINTURAS2020SADEC].[dbo].[admProductos] as apro LEFT OUTER JOIN [adPINTURAS2020SADEC].[dbo].[admMovimientos] as amov ON apro.CIDPRODUCTO = amov.CIDPRODUCTO LEFT OUTER JOIN [adPINTURAS2020SADEC].[dbo].[admDocumentos] as adoc ON amov.CIDDOCUMENTO = adoc.CIDDOCUMENTO INNER JOIN [adPINTURAS2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPINTURAS2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere and apro.CIDUNIDADBASE IN(11,15,27) and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO in(4,
+ FROM [adPINTURAS2020SADEC].[dbo].[admProductos] as apro LEFT OUTER JOIN [adPINTURAS2020SADEC].[dbo].[admMovimientos] as amov ON apro.CIDPRODUCTO = amov.CIDPRODUCTO LEFT OUTER JOIN [adPINTURAS2020SADEC].[dbo].[admDocumentos] as adoc ON amov.CIDDOCUMENTO = adoc.CIDDOCUMENTO INNER JOIN [adPINTURAS2020SADEC].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adPINTURAS2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPINTURAS2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere and apro.CIDUNIDADBASE IN(11,15,27) and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO in(4,
  5,
  3001,
  3002,
@@ -3382,12 +3211,13 @@ ventasOrdenadas As(
  3189,
  3190,
  3191,
- 3212)
- GROUP BY apro.CCODIGOPRODUCTO,apro.CIDPRODUCTO,apro.CNOMBREPRODUCTO,amov.CUNIDADES,amov.CPRECIO,adoc.CRAZONSOCIAL,amov.CIDDOCUMENTO,adoc.CFECHA,adoc.CSERIEDOCUMENTO,agen.CNOMBREAGENTE,acon.CNOMBRECONCEPTO,amov.CPRECIO,amov.CUNIDADES,amov.CIMPUESTO1,adoc.CRAZONSOCIAL
+ 3212,3233,3234)
+ GROUP BY aclien.CIDAGENTEVENTA,apro.CCODIGOPRODUCTO,apro.CIDPRODUCTO,apro.CNOMBREPRODUCTO,amov.CNUMEROMOVIMIENTO,amov.CUNIDADES,amov.CPRECIO,adoc.CRAZONSOCIAL,amov.CIDDOCUMENTO,adoc.CFECHA,adoc.CSERIEDOCUMENTO,agen.CNOMBREAGENTE,acon.CNOMBRECONCEPTO,amov.CPRECIO,amov.CUNIDADES,amov.CIMPUESTO1,adoc.CRAZONSOCIAL
  UNION
  SELECT 
  apro.CCODIGOPRODUCTO,
  apro.CIDPRODUCTO,
+ amov.CNUMEROMOVIMIENTO,
  apro.CNOMBREPRODUCTO,
  amov.CUNIDADES,
  amov.CPRECIO,
@@ -3395,19 +3225,7 @@ ventasOrdenadas As(
  amov.CIDDOCUMENTO,
  YEAR(adoc.CFECHA) As Año,
  DATEPART(week, adoc.CFECHA) AS SemanaAnio,
- CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
- WHEN 'TR'
- THEN 'PV TORRES'
- WHEN 'RF'
- THEN 'PV REFORMA'
- WHEN 'SG'
- THEN 'PV SANTIAGO'
- WHEN 'SM'
- THEN 'PV SAN MANUEL'
- WHEN 'CP'
- THEN 'PV CAPU'
- ELSE
- agen.CNOMBREAGENTE END As Agente,
+ $agenteList as Agente,
  CASE SUBSTRING(acon.CNOMBRECONCEPTO,1,10)
  WHEN 'DEVOLUCIÓN'
  THEN (SUM((amov.CTOTAL)-amov.CIMPUESTO1)*0) -SUM((amov.CTOTAL)-amov.CIMPUESTO1)
@@ -3419,7 +3237,7 @@ ventasOrdenadas As(
  SUM((amov.CTOTAL)-amov.CIMPUESTO1) END AS Total,
  $parametrosCanal,
  '1' As indicador
- FROM [adFLEX2020SADEC].[dbo].[admProductos] as apro LEFT OUTER JOIN [adFLEX2020SADEC].[dbo].[admMovimientos] as amov ON apro.CIDPRODUCTO = amov.CIDPRODUCTO LEFT OUTER JOIN [adFLEX2020SADEC].[dbo].[admDocumentos] as adoc ON amov.CIDDOCUMENTO = adoc.CIDDOCUMENTO INNER JOIN [adFLEX2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adFLEX2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere  and  apro.CIDUNIDADBASE NOT IN(0,1,2,3,4,5,7,8)  and adoc.CIDDOCUMENTODE IN(4,5,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
+ FROM [adFLEX2020SADEC].[dbo].[admProductos] as apro LEFT OUTER JOIN [adFLEX2020SADEC].[dbo].[admMovimientos] as amov ON apro.CIDPRODUCTO = amov.CIDPRODUCTO LEFT OUTER JOIN [adFLEX2020SADEC].[dbo].[admDocumentos] as adoc ON amov.CIDDOCUMENTO = adoc.CIDDOCUMENTO INNER JOIN [adFLEX2020SADEC].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adFLEX2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adFLEX2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere  and  apro.CIDUNIDADBASE NOT IN(0,1,2,3,4,5,7,8)  and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
  5,
  3001,
  3048,
@@ -3429,12 +3247,13 @@ ventasOrdenadas As(
  3004,
  3012,
  3052,
- 3061)
- GROUP BY apro.CCODIGOPRODUCTO,apro.CIDPRODUCTO,apro.CNOMBREPRODUCTO,amov.CUNIDADES,amov.CPRECIO,adoc.CRAZONSOCIAL,amov.CIDDOCUMENTO,adoc.CFECHA,adoc.CSERIEDOCUMENTO,agen.CNOMBREAGENTE,acon.CNOMBRECONCEPTO,amov.CPRECIO,amov.CUNIDADES,amov.CIMPUESTO1,adoc.CRAZONSOCIAL
+ 3061,3053)
+ GROUP BY aclien.CIDAGENTEVENTA,apro.CCODIGOPRODUCTO,apro.CIDPRODUCTO,apro.CNOMBREPRODUCTO,amov.CNUMEROMOVIMIENTO,amov.CUNIDADES,amov.CPRECIO,adoc.CRAZONSOCIAL,amov.CIDDOCUMENTO,adoc.CFECHA,adoc.CSERIEDOCUMENTO,agen.CNOMBREAGENTE,acon.CNOMBRECONCEPTO,amov.CPRECIO,amov.CUNIDADES,amov.CIMPUESTO1,adoc.CRAZONSOCIAL
  UNION
  SELECT 
  apro.CCODIGOPRODUCTO,
  apro.CIDPRODUCTO,
+ amov.CNUMEROMOVIMIENTO,
  apro.CNOMBREPRODUCTO,
  amov.CUNIDADES,
  amov.CPRECIO,
@@ -3442,19 +3261,7 @@ ventasOrdenadas As(
  amov.CIDDOCUMENTO,
  YEAR(adoc.CFECHA) As Año,
  DATEPART(week, adoc.CFECHA) AS SemanaAnio,
- CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
- WHEN 'TR'
- THEN 'PV TORRES'
- WHEN 'RF'
- THEN 'PV REFORMA'
- WHEN 'SG'
- THEN 'PV SANTIAGO'
- WHEN 'SM'
- THEN 'PV SAN MANUEL'
- WHEN 'CP'
- THEN 'PV CAPU'
- ELSE
- agen.CNOMBREAGENTE END As Agente,
+ $agenteList as Agente,
  CASE SUBSTRING(acon.CNOMBRECONCEPTO,1,10)
  WHEN 'DEVOLUCIÓN'
  THEN (SUM((amov.CTOTAL)-amov.CIMPUESTO1)*0) -SUM((amov.CTOTAL)-amov.CIMPUESTO1)
@@ -3466,7 +3273,7 @@ ventasOrdenadas As(
  SUM((amov.CTOTAL)-amov.CIMPUESTO1) END AS Total,
  $parametrosCanal,
  '1' As indicador
- FROM [adPinturas_y_Complemen].[dbo].[admProductos] as apro LEFT OUTER JOIN [adPinturas_y_Complemen].[dbo].[admMovimientos] as amov ON apro.CIDPRODUCTO = amov.CIDPRODUCTO LEFT OUTER JOIN [adPinturas_y_Complemen].[dbo].[admDocumentos] as adoc ON amov.CIDDOCUMENTO = adoc.CIDDOCUMENTO INNER JOIN [adPinturas_y_Complemen].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPinturas_y_Complemen].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO  WHERE $sWhere and apro.CIDUNIDADBASE IN(19,32,34,40) and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
+ FROM [adPinturas_y_Complemen].[dbo].[admProductos] as apro LEFT OUTER JOIN [adPinturas_y_Complemen].[dbo].[admMovimientos] as amov ON apro.CIDPRODUCTO = amov.CIDPRODUCTO LEFT OUTER JOIN [adPinturas_y_Complemen].[dbo].[admDocumentos] as adoc ON amov.CIDDOCUMENTO = adoc.CIDDOCUMENTO INNER JOIN [adPinturas_y_Complemen].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adPinturas_y_Complemen].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPinturas_y_Complemen].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO  WHERE $sWhere and apro.CIDUNIDADBASE IN(19,32,34,40) and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
  5,
  3047,
  3049,
@@ -3479,7 +3286,7 @@ ventasOrdenadas As(
  3058,
  3111,
  3105)
- GROUP BY apro.CCODIGOPRODUCTO,apro.CIDPRODUCTO,apro.CNOMBREPRODUCTO,amov.CUNIDADES,amov.CPRECIO,adoc.CRAZONSOCIAL,amov.CIDDOCUMENTO,adoc.CFECHA,adoc.CSERIEDOCUMENTO,agen.CNOMBREAGENTE,acon.CNOMBRECONCEPTO,amov.CPRECIO,amov.CUNIDADES,amov.CIMPUESTO1,adoc.CRAZONSOCIAL),
+ GROUP BY aclien.CIDAGENTEVENTA,apro.CCODIGOPRODUCTO,apro.CIDPRODUCTO,apro.CNOMBREPRODUCTO,amov.CNUMEROMOVIMIENTO,amov.CUNIDADES,amov.CPRECIO,adoc.CRAZONSOCIAL,amov.CIDDOCUMENTO,adoc.CFECHA,adoc.CSERIEDOCUMENTO,agen.CNOMBREAGENTE,acon.CNOMBRECONCEPTO,amov.CPRECIO,amov.CUNIDADES,amov.CIMPUESTO1,adoc.CRAZONSOCIAL),
  
  ventasOrdenadas As(
  SELECT
@@ -3490,48 +3297,100 @@ ventasOrdenadas As(
  FROM ventasData  $condicional
  
  )
- SELECT *,IsNull([2013],0) + IsNull([2014],0) + IsNull([2015],0) + IsNull([2016],0) + IsNull([2017],0) + IsNull([2018],0) + IsNull([2019],0) + IsNull([2020],0) + IsNull([2021],0) Totales FROM ventasOrdenadas PIVOT(SUM(CUNIDADES) FOR Año in([2013],[2014],[2015],[2016],[2017],[2018],[2019],[2020],[2021])) as pivotTable  order by CCODIGOPRODUCTO asc";
+ SELECT *,IsNull([2013],0) + IsNull([2014],0) + IsNull([2015],0) + IsNull([2016],0) + IsNull([2017],0) + IsNull([2018],0) + IsNull([2019],0) + IsNull([2020],0) + IsNull([2021],0) Totales FROM ventasOrdenadas PIVOT(SUM(CUNIDADES) FOR Año in([2013],[2014],[2015],[2016],[2017],[2018],[2019],[2020],[2021])) as pivotTable  order by $campoOrden $orden ";
 
-        $nums_row = $this->countAll($sql1);
+    $nums_row = $this->countAll($sql1);
 
-        //Set counter
-        $this->setCounter($nums_row);
+    //Set counter
+    $this->setCounter($nums_row);
 
-        $query = $query->fetchAll();
-        return $query;
+    $query = $query->fetchAll();
+    return $query;
+  }
+  public function getVentasMarca($tables, $campos, $search)
+  {
+    global $parametrosCanal;
+    global $agenteList;
+
+    $offset = $search['offset'];
+    $per_page = $search['per_page'];
+    $estatus = $search['estatus'];
+    $clientes = json_decode($search['query'], true);
+    $cliente = "";
+    for ($i = 0; $i < count($clientes); $i++) {
+      $cliente .= "'" . $clientes[$i] . "', ";
     }
-    public function getVentasMarca($tables, $campos, $search)
-    {
-        global $parametrosCanal;
+    $cliente = substr($cliente, 0, -2);
+    /**AGENTES */
+    $agentes = explode(',', $search['agente']);
+    $agente = "";
 
-        $offset = $search['offset'];
-        $per_page = $search['per_page'];
-        $estatus = $search['estatus'];
-        $clientes = explode(',', $search['query']);
-        $cliente = "";
-        for ($i = 0; $i < count($clientes); $i++) {
-            $cliente .= "'" . $clientes[$i] . "', ";
-        }
-        $cliente = substr($cliente, 0, -2);
+    for ($i = 0; $i < count($agentes); $i++) {
+      $agente .= "'" . $agentes[$i] . "', ";
+    }
+    $agente = substr($agente, 0, -2);
+    /***AGENTES */
+    /**CENTRO */
+    $centros = explode(',', $search['centro']);
+    $centro = "";
 
+    for ($i = 0; $i < count($centros); $i++) {
+      $centro .= "'" . $centros[$i] . "', ";
+    }
+    $centro = substr($centro, 0, -2);
+    /***CENTRO */
+    /**CANAL */
+    $canals = explode(',', $search['canal']);
+    $canal = "";
 
-        $sWhere = " adoc.CCANCELADO  = '" . $estatus . "' ";
+    for ($i = 0; $i < count($canals); $i++) {
+      $canal .= "'" . $canals[$i] . "', ";
+    }
+    $canal = substr($canal, 0, -2);
+    /***CANAL */
+    /**MARCA */
+    $marcas = explode(',', $search['marca']);
+    $marca = "";
 
-        if ($search["query"] != "") {
-            $sWhere .= " and adoc.CRAZONSOCIAL in(" . $cliente . ") ";
-        }
-        $condicional = "WHERE indicador = 1 ";
+    for ($i = 0; $i < count($marcas); $i++) {
+      $marca .= "'" . $marcas[$i] . "', ";
+    }
+    $marca = substr($marca, 0, -2);
+    /***MARCA */
+    $orden = $search['orden'];
+    switch ($search["campo"]) {
+      case 'marca':
+        $campoOrden = "Marca";
+        break;
+      case 'monto':
+        $campoOrden = "IsNull([2013],0) + IsNull([2014],0) + IsNull([2015],0) + IsNull([2016],0) + IsNull([2017],0) + IsNull([2018],0) + IsNull([2019],0) + IsNull([2020],0) + IsNull([2021],0)";
+        break;
+    }
 
-        if ($search['canal'] != "") {
+    $sWhere = " adoc.CCANCELADO  = '" . $estatus . "' ";
 
-            $condicional .= " and CanalComercial = '" . $search['canal'] . "' ";
-        }
-        if ($search['agente'] != "") {
+    if ($search["query"] != "[]") {
+      $sWhere .= " and adoc.CRAZONSOCIAL in(" . $cliente . ") ";
+    }
+    $condicional = "WHERE indicador = 1  and canalComercial != 'PROPIAS'";
 
-            $condicional .= " and Agente = '" . $search['agente'] . "' ";
-        }
+    if ($search['canal'] != "") {
 
-        $sql = "WITH ventasMarca as (SELECT 
+      $condicional .= " and canalComercial in(" . $canal . ") ";
+    }
+    if ($search['centro'] != "") {
+
+      $condicional .= " and centroTrabajo  in(" . $centro . ") ";
+    }
+    if ($search['agente'] != "") {
+
+      $condicional .= " and Agente in(" . $agente . ") ";
+    }
+    if ($search["marca"] != "") {
+      $sWhere .= " and acla.CVALORCLASIFICACION in(" . $marca . ") ";
+    }
+
+    $sql = "WITH ventasMarca as (SELECT 
         adoc.CSERIEDOCUMENTO,
         apro.CIDPRODUCTO,
         adoc.CFOLIO,
@@ -3540,19 +3399,7 @@ ventasOrdenadas As(
         adoc.CRAZONSOCIAL,
         acla.CVALORCLASIFICACION as Marca,
         YEAR(adoc.CFECHA) As Año,
-         CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-         WHEN 'TR'
-         THEN 'PV TORRES'
-         WHEN 'RF'
-         THEN 'PV REFORMA'
-         WHEN 'SG'
-         THEN 'PV SANTIAGO'
-         WHEN 'SM'
-         THEN 'PV SAN MANUEL'
-         WHEN 'CP'
-         THEN 'PV CAPU'
-         ELSE
-         agen.CNOMBREAGENTE END As Agente,
+        $agenteList as Agente,
          CASE SUBSTRING(acon.CNOMBRECONCEPTO,1,10)
          WHEN 'DEVOLUCIÓN'
          THEN (SUM((amov.CTOTAL)-amov.CIMPUESTO1)*0) -SUM((amov.CTOTAL)-amov.CIMPUESTO1)
@@ -3564,7 +3411,7 @@ ventasOrdenadas As(
         SUM((amov.CTOTAL)-amov.CIMPUESTO1) END AS Total,
         $parametrosCanal,
         '1' As indicador
-        FROM [adPINTURAS2020SADEC].[dbo].[admProductos] as apro LEFT OUTER JOIN [adPINTURAS2020SADEC].[dbo].[admMovimientos] as amov ON apro.CIDPRODUCTO = amov.CIDPRODUCTO LEFT OUTER JOIN [adPINTURAS2020SADEC].[dbo].[admDocumentos] as adoc ON amov.CIDDOCUMENTO = adoc.CIDDOCUMENTO LEFT OUTER JOIN  [adPINTURAS2020SADEC].[dbo].[admClasificacionesValores] as acla ON apro.CIDVALORCLASIFICACION1 = acla.CIDVALORCLASIFICACION LEFT OUTER JOIN [adPINTURAS2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO INNER JOIN [adPINTURAS2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE WHERE $sWhere and amov.CIDDOCUMENTODE IN(4,5,7,13) and acon.CIDCONCEPTODOCUMENTO in(4,
+        FROM [adPINTURAS2020SADEC].[dbo].[admProductos] as apro LEFT OUTER JOIN [adPINTURAS2020SADEC].[dbo].[admMovimientos] as amov ON apro.CIDPRODUCTO = amov.CIDPRODUCTO LEFT OUTER JOIN [adPINTURAS2020SADEC].[dbo].[admDocumentos] as adoc ON amov.CIDDOCUMENTO = adoc.CIDDOCUMENTO INNER JOIN [adPINTURAS2020SADEC].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR LEFT OUTER JOIN  [adPINTURAS2020SADEC].[dbo].[admClasificacionesValores] as acla ON apro.CIDVALORCLASIFICACION1 = acla.CIDVALORCLASIFICACION LEFT OUTER JOIN [adPINTURAS2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO INNER JOIN [adPINTURAS2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE WHERE $sWhere and amov.CIDDOCUMENTODE IN(4,5,7,13) and acon.CIDCONCEPTODOCUMENTO in(4,
   5,
   3001,
   3002,
@@ -3621,8 +3468,8 @@ ventasOrdenadas As(
   3189,
   3190,
   3191,
-  3212) and adoc.CCANCELADO = 0 
-    GROUP BY 
+  3212,3233,3234) and adoc.CCANCELADO = 0 
+    GROUP BY aclien.CIDAGENTEVENTA,
                       adoc.CSERIEDOCUMENTO,
                       adoc.CFOLIO,
                       apro.CIDPRODUCTO,
@@ -3642,19 +3489,7 @@ ventasOrdenadas As(
                         adoc.CRAZONSOCIAL,
                         acla.CVALORCLASIFICACION as Marca,
                         YEAR(adoc.CFECHA) As Año,
-                        CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-                        WHEN 'TR'
-                        THEN 'PV TORRES'
-                        WHEN 'RF'
-                        THEN 'PV REFORMA'
-                        WHEN 'SG'
-                        THEN 'PV SANTIAGO'
-                        WHEN 'SM'
-                        THEN 'PV SAN MANUEL'
-                        WHEN 'CP'
-                        THEN 'PV CAPU'
-                        ELSE
-                        agen.CNOMBREAGENTE END As Agente,
+                        $agenteList as Agente,
                         CASE SUBSTRING(acon.CNOMBRECONCEPTO,1,10)
                         WHEN 'DEVOLUCIÓN'
                         THEN (SUM((amov.CTOTAL)-amov.CIMPUESTO1)*0) -SUM((amov.CTOTAL)-amov.CIMPUESTO1)
@@ -3666,7 +3501,7 @@ ventasOrdenadas As(
                         SUM((amov.CTOTAL)-amov.CIMPUESTO1) END AS Total,
                         $parametrosCanal,
                         '1' As indicador
-                        FROM [adFLEX2020SADEC].[dbo].[admProductos] as apro LEFT OUTER JOIN [adFLEX2020SADEC].[dbo].[admMovimientos] as amov ON apro.CIDPRODUCTO = amov.CIDPRODUCTO LEFT OUTER JOIN [adFLEX2020SADEC].[dbo].[admDocumentos] as adoc ON amov.CIDDOCUMENTO = adoc.CIDDOCUMENTO LEFT OUTER JOIN  [adFLEX2020SADEC].[dbo].[admClasificacionesValores] as acla ON apro.CIDVALORCLASIFICACION1 = acla.CIDVALORCLASIFICACION LEFT OUTER JOIN [adFLEX2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO INNER JOIN [adFLEX2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE WHERE $sWhere and amov.CIDDOCUMENTODE IN(4,5,13) and acon.CIDCONCEPTODOCUMENTO IN(4,
+                        FROM [adFLEX2020SADEC].[dbo].[admProductos] as apro LEFT OUTER JOIN [adFLEX2020SADEC].[dbo].[admMovimientos] as amov ON apro.CIDPRODUCTO = amov.CIDPRODUCTO LEFT OUTER JOIN [adFLEX2020SADEC].[dbo].[admDocumentos] as adoc ON amov.CIDDOCUMENTO = adoc.CIDDOCUMENTO INNER JOIN [adFLEX2020SADEC].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR LEFT OUTER JOIN  [adFLEX2020SADEC].[dbo].[admClasificacionesValores] as acla ON apro.CIDVALORCLASIFICACION1 = acla.CIDVALORCLASIFICACION LEFT OUTER JOIN [adFLEX2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO INNER JOIN [adFLEX2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE WHERE $sWhere and amov.CIDDOCUMENTODE IN(4,5,13) and acon.CIDCONCEPTODOCUMENTO IN(4,
   5,
   3001,
   3048,
@@ -3676,8 +3511,8 @@ ventasOrdenadas As(
   3004,
   3012,
   3052,
-  3061) and adoc.CCANCELADO = 0 and apro.CIDVALORCLASIFICACION1 = 10 
-    GROUP BY 
+  3061,3053) and adoc.CCANCELADO = 0 and apro.CIDVALORCLASIFICACION1 = 10 
+    GROUP BY aclien.CIDAGENTEVENTA,
                       adoc.CSERIEDOCUMENTO,
                       adoc.CFOLIO,
                       apro.CIDPRODUCTO,
@@ -3697,19 +3532,7 @@ ventasOrdenadas As(
                         adoc.CRAZONSOCIAL,
                         acla.CVALORCLASIFICACION as Marca,
                         YEAR(adoc.CFECHA) As Año,
-                        CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-                        WHEN 'TR'
-                        THEN 'PV TORRES'
-                        WHEN 'RF'
-                        THEN 'PV REFORMA'
-                        WHEN 'SG'
-                        THEN 'PV SANTIAGO'
-                        WHEN 'SM'
-                        THEN 'PV SAN MANUEL'
-                        WHEN 'CP'
-                        THEN 'PV CAPU'
-                        ELSE
-                        agen.CNOMBREAGENTE END As Agente,
+                        $agenteList as Agente,
                         CASE SUBSTRING(acon.CNOMBRECONCEPTO,1,10)
                         WHEN 'DEVOLUCIÓN'
                         THEN (SUM((amov.CTOTAL)-amov.CIMPUESTO1)*0) -SUM((amov.CTOTAL)-amov.CIMPUESTO1)
@@ -3721,7 +3544,7 @@ ventasOrdenadas As(
                         SUM((amov.CTOTAL)-amov.CIMPUESTO1) END AS Total,
                         $parametrosCanal,
                         '1' As indicador
-                        FROM [adPinturas_y_Complemen].[dbo].[admProductos] as apro LEFT OUTER JOIN [adPinturas_y_Complemen].[dbo].[admMovimientos] as amov ON apro.CIDPRODUCTO = amov.CIDPRODUCTO LEFT OUTER JOIN [adPinturas_y_Complemen].[dbo].[admDocumentos] as adoc ON amov.CIDDOCUMENTO = adoc.CIDDOCUMENTO LEFT OUTER JOIN  [adPinturas_y_Complemen].[dbo].[admClasificacionesValores] as acla ON apro.CIDVALORCLASIFICACION1 = acla.CIDVALORCLASIFICACION LEFT OUTER JOIN [adPinturas_y_Complemen].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO INNER JOIN [adPinturas_y_Complemen].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE WHERE $sWhere and amov.CIDDOCUMENTODE IN(4,5,7,13) and acon.CIDCONCEPTODOCUMENTO IN(4,
+                        FROM [adPinturas_y_Complemen].[dbo].[admProductos] as apro LEFT OUTER JOIN [adPinturas_y_Complemen].[dbo].[admMovimientos] as amov ON apro.CIDPRODUCTO = amov.CIDPRODUCTO LEFT OUTER JOIN [adPinturas_y_Complemen].[dbo].[admDocumentos] as adoc ON amov.CIDDOCUMENTO = adoc.CIDDOCUMENTO INNER JOIN [adPinturas_y_Complemen].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR LEFT OUTER JOIN  [adPinturas_y_Complemen].[dbo].[admClasificacionesValores] as acla ON apro.CIDVALORCLASIFICACION1 = acla.CIDVALORCLASIFICACION LEFT OUTER JOIN [adPinturas_y_Complemen].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO INNER JOIN [adPinturas_y_Complemen].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE WHERE $sWhere and amov.CIDDOCUMENTODE IN(4,5,7,13) and acon.CIDCONCEPTODOCUMENTO IN(4,
   5,
   3047,
   3049,
@@ -3734,7 +3557,7 @@ ventasOrdenadas As(
   3058,
   3111,
   3105) and adoc.CCANCELADO = 0 
-    GROUP BY 
+    GROUP BY aclien.CIDAGENTEVENTA,
                       adoc.CSERIEDOCUMENTO,
                       adoc.CFOLIO,
                       apro.CIDPRODUCTO,
@@ -3754,12 +3577,12 @@ ventasOrdenadas As(
           FROM ventasMarca $condicional
     
     )
-    SELECT *,IsNull([2013],0) + IsNull([2014],0) + IsNull([2015],0) + IsNull([2016],0) + IsNull([2017],0) + IsNull([2018],0) + IsNull([2019],0) + IsNull([2020],0) + IsNull([2021],0) Totales FROM VentasOrdenadasMarca PIVOT(SUM(Total) FOR Año in([2013],[2014],[2015],[2016],[2017],[2018],[2019],[2020],[2021])) as pivotTable  order by Marca asc OFFSET $offset ROWS FETCH NEXT $per_page ROWS ONLY";
+    SELECT *,IsNull([2013],0) + IsNull([2014],0) + IsNull([2015],0) + IsNull([2016],0) + IsNull([2017],0) + IsNull([2018],0) + IsNull([2019],0) + IsNull([2020],0) + IsNull([2021],0) Totales FROM VentasOrdenadasMarca PIVOT(SUM(Total) FOR Año in([2013],[2014],[2015],[2016],[2017],[2018],[2019],[2020],[2021])) as pivotTable  order by $campoOrden $orden OFFSET $offset ROWS FETCH NEXT $per_page ROWS ONLY";
 
 
-        $query = $this->mysqli->query($sql);
+    $query = $this->mysqli->query($sql);
 
-        $sql1 = "WITH ventasMarca as (SELECT 
+    $sql1 = "WITH ventasMarca as (SELECT 
         adoc.CSERIEDOCUMENTO,
         apro.CIDPRODUCTO,
         adoc.CFOLIO,
@@ -3768,19 +3591,7 @@ ventasOrdenadas As(
         adoc.CRAZONSOCIAL,
         acla.CVALORCLASIFICACION as Marca,
         YEAR(adoc.CFECHA) As Año,
-         CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-         WHEN 'TR'
-         THEN 'PV TORRES'
-         WHEN 'RF'
-         THEN 'PV REFORMA'
-         WHEN 'SG'
-         THEN 'PV SANTIAGO'
-         WHEN 'SM'
-         THEN 'PV SAN MANUEL'
-         WHEN 'CP'
-         THEN 'PV CAPU'
-         ELSE
-         agen.CNOMBREAGENTE END As Agente,
+        $agenteList as Agente,
          CASE SUBSTRING(acon.CNOMBRECONCEPTO,1,10)
          WHEN 'DEVOLUCIÓN'
          THEN (SUM((amov.CTOTAL)-amov.CIMPUESTO1)*0) -SUM((amov.CTOTAL)-amov.CIMPUESTO1)
@@ -3792,7 +3603,7 @@ ventasOrdenadas As(
         SUM((amov.CTOTAL)-amov.CIMPUESTO1) END AS Total,
         $parametrosCanal,
         '1' As indicador
-        FROM [adPINTURAS2020SADEC].[dbo].[admProductos] as apro LEFT OUTER JOIN [adPINTURAS2020SADEC].[dbo].[admMovimientos] as amov ON apro.CIDPRODUCTO = amov.CIDPRODUCTO LEFT OUTER JOIN [adPINTURAS2020SADEC].[dbo].[admDocumentos] as adoc ON amov.CIDDOCUMENTO = adoc.CIDDOCUMENTO LEFT OUTER JOIN  [adPINTURAS2020SADEC].[dbo].[admClasificacionesValores] as acla ON apro.CIDVALORCLASIFICACION1 = acla.CIDVALORCLASIFICACION LEFT OUTER JOIN [adPINTURAS2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO INNER JOIN [adPINTURAS2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE WHERE $sWhere and amov.CIDDOCUMENTODE IN(4,5,7,13) and acon.CIDCONCEPTODOCUMENTO in(4,
+        FROM [adPINTURAS2020SADEC].[dbo].[admProductos] as apro LEFT OUTER JOIN [adPINTURAS2020SADEC].[dbo].[admMovimientos] as amov ON apro.CIDPRODUCTO = amov.CIDPRODUCTO LEFT OUTER JOIN [adPINTURAS2020SADEC].[dbo].[admDocumentos] as adoc ON amov.CIDDOCUMENTO = adoc.CIDDOCUMENTO INNER JOIN [adPINTURAS2020SADEC].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR LEFT OUTER JOIN  [adPINTURAS2020SADEC].[dbo].[admClasificacionesValores] as acla ON apro.CIDVALORCLASIFICACION1 = acla.CIDVALORCLASIFICACION LEFT OUTER JOIN [adPINTURAS2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO INNER JOIN [adPINTURAS2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE WHERE $sWhere and amov.CIDDOCUMENTODE IN(4,5,7,13) and acon.CIDCONCEPTODOCUMENTO in(4,
   5,
   3001,
   3002,
@@ -3849,8 +3660,8 @@ ventasOrdenadas As(
   3189,
   3190,
   3191,
-  3212) and adoc.CCANCELADO = 0 
-    GROUP BY 
+  3212,3233,3234) and adoc.CCANCELADO = 0 
+    GROUP BY aclien.CIDAGENTEVENTA,
                       adoc.CSERIEDOCUMENTO,
                       adoc.CFOLIO,
                       apro.CIDPRODUCTO,
@@ -3870,19 +3681,7 @@ ventasOrdenadas As(
                         adoc.CRAZONSOCIAL,
                         acla.CVALORCLASIFICACION as Marca,
                         YEAR(adoc.CFECHA) As Año,
-                        CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-                        WHEN 'TR'
-                        THEN 'PV TORRES'
-                        WHEN 'RF'
-                        THEN 'PV REFORMA'
-                        WHEN 'SG'
-                        THEN 'PV SANTIAGO'
-                        WHEN 'SM'
-                        THEN 'PV SAN MANUEL'
-                        WHEN 'CP'
-                        THEN 'PV CAPU'
-                        ELSE
-                        agen.CNOMBREAGENTE END As Agente,
+                        $agenteList as Agente,
                         CASE SUBSTRING(acon.CNOMBRECONCEPTO,1,10)
                         WHEN 'DEVOLUCIÓN'
                         THEN (SUM((amov.CTOTAL)-amov.CIMPUESTO1)*0) -SUM((amov.CTOTAL)-amov.CIMPUESTO1)
@@ -3894,7 +3693,7 @@ ventasOrdenadas As(
                         SUM((amov.CTOTAL)-amov.CIMPUESTO1) END AS Total,
                         $parametrosCanal,
                         '1' As indicador
-                        FROM [adFLEX2020SADEC].[dbo].[admProductos] as apro LEFT OUTER JOIN [adFLEX2020SADEC].[dbo].[admMovimientos] as amov ON apro.CIDPRODUCTO = amov.CIDPRODUCTO LEFT OUTER JOIN [adFLEX2020SADEC].[dbo].[admDocumentos] as adoc ON amov.CIDDOCUMENTO = adoc.CIDDOCUMENTO LEFT OUTER JOIN  [adFLEX2020SADEC].[dbo].[admClasificacionesValores] as acla ON apro.CIDVALORCLASIFICACION1 = acla.CIDVALORCLASIFICACION LEFT OUTER JOIN [adFLEX2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO INNER JOIN [adFLEX2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE WHERE $sWhere and amov.CIDDOCUMENTODE IN(4,5,13) and acon.CIDCONCEPTODOCUMENTO IN(4,
+                        FROM [adFLEX2020SADEC].[dbo].[admProductos] as apro LEFT OUTER JOIN [adFLEX2020SADEC].[dbo].[admMovimientos] as amov ON apro.CIDPRODUCTO = amov.CIDPRODUCTO LEFT OUTER JOIN [adFLEX2020SADEC].[dbo].[admDocumentos] as adoc ON amov.CIDDOCUMENTO = adoc.CIDDOCUMENTO INNER JOIN [adFLEX2020SADEC].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR LEFT OUTER JOIN  [adFLEX2020SADEC].[dbo].[admClasificacionesValores] as acla ON apro.CIDVALORCLASIFICACION1 = acla.CIDVALORCLASIFICACION LEFT OUTER JOIN [adFLEX2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO INNER JOIN [adFLEX2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE WHERE $sWhere and amov.CIDDOCUMENTODE IN(4,5,13) and acon.CIDCONCEPTODOCUMENTO IN(4,
   5,
   3001,
   3048,
@@ -3904,8 +3703,8 @@ ventasOrdenadas As(
   3004,
   3012,
   3052,
-  3061) and adoc.CCANCELADO = 0 and apro.CIDVALORCLASIFICACION1 = 10 
-    GROUP BY 
+  3061,3053) and adoc.CCANCELADO = 0 and apro.CIDVALORCLASIFICACION1 = 10 
+    GROUP BY aclien.CIDAGENTEVENTA,
                       adoc.CSERIEDOCUMENTO,
                       adoc.CFOLIO,
                       apro.CIDPRODUCTO,
@@ -3925,19 +3724,7 @@ ventasOrdenadas As(
                         adoc.CRAZONSOCIAL,
                         acla.CVALORCLASIFICACION as Marca,
                         YEAR(adoc.CFECHA) As Año,
-                        CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-                        WHEN 'TR'
-                        THEN 'PV TORRES'
-                        WHEN 'RF'
-                        THEN 'PV REFORMA'
-                        WHEN 'SG'
-                        THEN 'PV SANTIAGO'
-                        WHEN 'SM'
-                        THEN 'PV SAN MANUEL'
-                        WHEN 'CP'
-                        THEN 'PV CAPU'
-                        ELSE
-                        agen.CNOMBREAGENTE END As Agente,
+                        $agenteList as Agente,
                         CASE SUBSTRING(acon.CNOMBRECONCEPTO,1,10)
                         WHEN 'DEVOLUCIÓN'
                         THEN (SUM((amov.CTOTAL)-amov.CIMPUESTO1)*0) -SUM((amov.CTOTAL)-amov.CIMPUESTO1)
@@ -3949,7 +3736,7 @@ ventasOrdenadas As(
                         SUM((amov.CTOTAL)-amov.CIMPUESTO1) END AS Total,
                         $parametrosCanal,
                         '1' As indicador
-                        FROM [adPinturas_y_Complemen].[dbo].[admProductos] as apro LEFT OUTER JOIN [adPinturas_y_Complemen].[dbo].[admMovimientos] as amov ON apro.CIDPRODUCTO = amov.CIDPRODUCTO LEFT OUTER JOIN [adPinturas_y_Complemen].[dbo].[admDocumentos] as adoc ON amov.CIDDOCUMENTO = adoc.CIDDOCUMENTO LEFT OUTER JOIN  [adPinturas_y_Complemen].[dbo].[admClasificacionesValores] as acla ON apro.CIDVALORCLASIFICACION1 = acla.CIDVALORCLASIFICACION LEFT OUTER JOIN [adPinturas_y_Complemen].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO INNER JOIN [adPinturas_y_Complemen].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE WHERE $sWhere and amov.CIDDOCUMENTODE IN(4,5,7,13) and acon.CIDCONCEPTODOCUMENTO IN(4,
+                        FROM [adPinturas_y_Complemen].[dbo].[admProductos] as apro LEFT OUTER JOIN [adPinturas_y_Complemen].[dbo].[admMovimientos] as amov ON apro.CIDPRODUCTO = amov.CIDPRODUCTO LEFT OUTER JOIN [adPinturas_y_Complemen].[dbo].[admDocumentos] as adoc ON amov.CIDDOCUMENTO = adoc.CIDDOCUMENTO INNER JOIN [adPinturas_y_Complemen].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR LEFT OUTER JOIN  [adPinturas_y_Complemen].[dbo].[admClasificacionesValores] as acla ON apro.CIDVALORCLASIFICACION1 = acla.CIDVALORCLASIFICACION LEFT OUTER JOIN [adPinturas_y_Complemen].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO INNER JOIN [adPinturas_y_Complemen].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE WHERE $sWhere and amov.CIDDOCUMENTODE IN(4,5,7,13) and acon.CIDCONCEPTODOCUMENTO IN(4,
   5,
   3047,
   3049,
@@ -3962,7 +3749,7 @@ ventasOrdenadas As(
   3058,
   3111,
   3105) and adoc.CCANCELADO = 0 
-    GROUP BY 
+    GROUP BY aclien.CIDAGENTEVENTA,
                       adoc.CSERIEDOCUMENTO,
                       adoc.CFOLIO,
                       apro.CIDPRODUCTO,
@@ -3982,43 +3769,35 @@ ventasOrdenadas As(
           FROM ventasMarca $condicional
     
     )
-    SELECT *,IsNull([2013],0) + IsNull([2014],0) + IsNull([2015],0) + IsNull([2016],0) + IsNull([2017],0) + IsNull([2018],0) + IsNull([2019],0) + IsNull([2020],0) + IsNull([2021],0) Totales FROM VentasOrdenadasMarca PIVOT(SUM(Total) FOR Año in([2013],[2014],[2015],[2016],[2017],[2018],[2019],[2020],[2021])) as pivotTable  order by Marca asc";
+    SELECT *,IsNull([2013],0) + IsNull([2014],0) + IsNull([2015],0) + IsNull([2016],0) + IsNull([2017],0) + IsNull([2018],0) + IsNull([2019],0) + IsNull([2020],0) + IsNull([2021],0) Totales FROM VentasOrdenadasMarca PIVOT(SUM(Total) FOR Año in([2013],[2014],[2015],[2016],[2017],[2018],[2019],[2020],[2021])) as pivotTable  order by $campoOrden $orden";
 
-        $nums_row = $this->countAll($sql1);
+    $nums_row = $this->countAll($sql1);
 
-        //Set counter
-        $this->setCounter($nums_row);
+    //Set counter
+    $this->setCounter($nums_row);
 
-        $query = $query->fetchAll();
-        return $query;
-    }
-    public function getVentasYearToDay($tables, $campos, $search)
-    {
-        global $parametrosCanal;
-        $offset = $search['offset'];
-        $per_page = $search['per_page'];
-        $estatus = $search['estatus'];
+    $query = $query->fetchAll();
+    return $query;
+  }
+  public function getVentasYearToDay($tables, $campos, $search)
+  {
+    global $parametrosCanal;
+    global $agenteList;
+    $offset = $search['offset'];
+    $per_page = $search['per_page'];
+    $estatus = $search['estatus'];
+    $fecha_actual = date("Y-m-d");
+    $hoy = date("Y-m-d", strtotime($fecha_actual . "- 1 days"));
+    $anterior = date("Y-m-d", strtotime($fecha_actual . "- 1 year -1 days"));
 
-        $sWhere = " adoc.CCANCELADO  = '" . $estatus . "' and adoc.CFECHA >= '2020-01-01' and adoc.CFECHA <= '2020-09-06' and YEAR(adoc.CFECHA) = '2020'";
-        $sWhere2 = " adoc.CCANCELADO  = '" . $estatus . "' and adoc.CFECHA >= '2021-01-01' and adoc.CFECHA <= '2021-09-06' and YEAR(adoc.CFECHA) = '2021'";
-        $sql = "WITH ventasData AS(SELECT 
+    $sWhere = " adoc.CCANCELADO  = '" . $estatus . "' and adoc.CFECHA >= '2020-01-01' and adoc.CFECHA <= '" . $anterior . "' and YEAR(adoc.CFECHA) = '2020'";
+    $sWhere2 = " adoc.CCANCELADO  = '" . $estatus . "' and adoc.CFECHA >= '2021-01-01' and adoc.CFECHA <= '" . $hoy . "' and YEAR(adoc.CFECHA) = '2021'";
+    $sql = "WITH ventasData AS(SELECT 
         adoc.CSERIEDOCUMENTO,
         adoc.CFOLIO,
         adoc.CRAZONSOCIAL As NombreCliente,
         YEAR(adoc.CFECHA) As Año,
-         CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-         WHEN 'TR'
-         THEN 'PV TORRES'
-         WHEN 'RF'
-         THEN 'PV REFORMA'
-         WHEN 'SG'
-         THEN 'PV SANTIAGO'
-         WHEN 'SM'
-         THEN 'PV SAN MANUEL'
-         WHEN 'CP'
-         THEN 'PV CAPU'
-         ELSE
-         agen.CNOMBREAGENTE END As Agente,
+        $agenteList as Agente,
          adoc.CNETO As Importe,
          adoc.CDESCUENTOMOV As Descuento,
          adoc.CIMPUESTO1 As IVA,
@@ -4034,7 +3813,7 @@ ventasOrdenadas As(
          SUM(adoc.CTOTAL-adoc.CIMPUESTO1) END AS Total,
          $parametrosCanal,
          '1' As indicador
-  FROM [adPINTURAS2020SADEC].[dbo].[admDocumentos] as adoc INNER JOIN [adPINTURAS2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPINTURAS2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere  and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO in(4,
+  FROM [adPINTURAS2020SADEC].[dbo].[admDocumentos] as adoc INNER JOIN [adPINTURAS2020SADEC].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adPINTURAS2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPINTURAS2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere  and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO in(4,
 5,
 3001,
 3002,
@@ -4091,27 +3870,15 @@ ventasOrdenadas As(
 3189,
 3190,
 3191,
-3212)
-  GROUP BY adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO
+3212,3233,3234)
+  GROUP BY aclien.CIDAGENTEVENTA,adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO
   UNION
   SELECT 
         adoc.CSERIEDOCUMENTO,
         adoc.CFOLIO,
         adoc.CRAZONSOCIAL As NombreCliente,
         YEAR(adoc.CFECHA) As Año,
-         CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-         WHEN 'TR'
-         THEN 'PV TORRES'
-         WHEN 'RF'
-         THEN 'PV REFORMA'
-         WHEN 'SG'
-         THEN 'PV SANTIAGO'
-         WHEN 'SM'
-         THEN 'PV SAN MANUEL'
-         WHEN 'CP'
-         THEN 'PV CAPU'
-         ELSE
-         agen.CNOMBREAGENTE END As Agente,
+        $agenteList as Agente,
          adoc.CNETO As Importe,
          adoc.CDESCUENTOMOV As Descuento,
          adoc.CIMPUESTO1 As IVA,
@@ -4127,7 +3894,7 @@ ventasOrdenadas As(
          SUM(adoc.CTOTAL-adoc.CIMPUESTO1) END AS Total,
          $parametrosCanal,
          '1' As indicador
-  FROM [adFLEX2020SADEC].[dbo].[admDocumentos] as adoc INNER JOIN [adFLEX2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adFLEX2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere   and adoc.CIDDOCUMENTODE IN(4,5,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
+  FROM [adFLEX2020SADEC].[dbo].[admDocumentos] as adoc INNER JOIN [adFLEX2020SADEC].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adFLEX2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adFLEX2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere   and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
 5,
 3001,
 3048,
@@ -4137,27 +3904,15 @@ ventasOrdenadas As(
 3004,
 3012,
 3052,
-3061)
-  GROUP BY adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO
+3061,3053)
+  GROUP BY aclien.CIDAGENTEVENTA,adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO
   UNION
   SELECT 
         adoc.CSERIEDOCUMENTO,
         adoc.CFOLIO,
         adoc.CRAZONSOCIAL As NombreCliente,
         YEAR(adoc.CFECHA) As Año,
-         CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-         WHEN 'TR'
-         THEN 'PV TORRES'
-         WHEN 'RF'
-         THEN 'PV REFORMA'
-         WHEN 'SG'
-         THEN 'PV SANTIAGO'
-         WHEN 'SM'
-         THEN 'PV SAN MANUEL'
-         WHEN 'CP'
-         THEN 'PV CAPU'
-         ELSE
-         agen.CNOMBREAGENTE END As Agente,
+        $agenteList as Agente,
          adoc.CNETO As Importe,
          adoc.CDESCUENTOMOV As Descuento,
          adoc.CIMPUESTO1 As IVA,
@@ -4173,7 +3928,7 @@ ventasOrdenadas As(
          SUM(adoc.CTOTAL-adoc.CIMPUESTO1) END AS Total,
          $parametrosCanal,
          '1' As indicador
-  FROM [adPinturas_y_Complemen].[dbo].[admDocumentos] as adoc INNER JOIN [adPinturas_y_Complemen].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPinturas_y_Complemen].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
+  FROM [adPinturas_y_Complemen].[dbo].[admDocumentos] as adoc INNER JOIN [adPinturas_y_Complemen].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adPinturas_y_Complemen].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPinturas_y_Complemen].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
 5,
 3047,
 3049,
@@ -4186,26 +3941,14 @@ ventasOrdenadas As(
 3058,
 3111,
 3105)
-  GROUP BY adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO
+  GROUP BY aclien.CIDAGENTEVENTA,adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO
   UNION
   SELECT 
         adoc.CSERIEDOCUMENTO,
         adoc.CFOLIO,
         adoc.CRAZONSOCIAL As NombreCliente,
         YEAR(adoc.CFECHA) As Año,
-         CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-         WHEN 'TR'
-         THEN 'PV TORRES'
-         WHEN 'RF'
-         THEN 'PV REFORMA'
-         WHEN 'SG'
-         THEN 'PV SANTIAGO'
-         WHEN 'SM'
-         THEN 'PV SAN MANUEL'
-         WHEN 'CP'
-         THEN 'PV CAPU'
-         ELSE
-         agen.CNOMBREAGENTE END As Agente,
+        $agenteList as Agente,
          adoc.CNETO As Importe,
          adoc.CDESCUENTOMOV As Descuento,
          adoc.CIMPUESTO1 As IVA,
@@ -4221,7 +3964,7 @@ ventasOrdenadas As(
          SUM(adoc.CTOTAL-adoc.CIMPUESTO1) END AS Total,
          $parametrosCanal,
          '1' As indicador
-  FROM [adPINTURAS2020SADEC].[dbo].[admDocumentos] as adoc INNER JOIN [adPINTURAS2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPINTURAS2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere2  and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO in(4,
+  FROM [adPINTURAS2020SADEC].[dbo].[admDocumentos] as adoc INNER JOIN [adPINTURAS2020SADEC].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adPINTURAS2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPINTURAS2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere2  and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO in(4,
 5,
 3001,
 3002,
@@ -4278,27 +4021,15 @@ ventasOrdenadas As(
 3189,
 3190,
 3191,
-3212)
-  GROUP BY adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO
+3212,3233,3234)
+  GROUP BY aclien.CIDAGENTEVENTA,adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO
   UNION
   SELECT 
         adoc.CSERIEDOCUMENTO,
         adoc.CFOLIO,
         adoc.CRAZONSOCIAL As NombreCliente,
         YEAR(adoc.CFECHA) As Año,
-         CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-         WHEN 'TR'
-         THEN 'PV TORRES'
-         WHEN 'RF'
-         THEN 'PV REFORMA'
-         WHEN 'SG'
-         THEN 'PV SANTIAGO'
-         WHEN 'SM'
-         THEN 'PV SAN MANUEL'
-         WHEN 'CP'
-         THEN 'PV CAPU'
-         ELSE
-         agen.CNOMBREAGENTE END As Agente,
+        $agenteList as Agente,
          adoc.CNETO As Importe,
          adoc.CDESCUENTOMOV As Descuento,
          adoc.CIMPUESTO1 As IVA,
@@ -4314,7 +4045,7 @@ ventasOrdenadas As(
          SUM(adoc.CTOTAL-adoc.CIMPUESTO1) END AS Total,
          $parametrosCanal,
          '1' As indicador
-  FROM [adFLEX2020SADEC].[dbo].[admDocumentos] as adoc INNER JOIN [adFLEX2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adFLEX2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere2   and adoc.CIDDOCUMENTODE IN(4,5,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
+  FROM [adFLEX2020SADEC].[dbo].[admDocumentos] as adoc INNER JOIN [adFLEX2020SADEC].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adFLEX2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adFLEX2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere2   and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
 5,
 3001,
 3048,
@@ -4324,27 +4055,15 @@ ventasOrdenadas As(
 3004,
 3012,
 3052,
-3061)
-  GROUP BY adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO
+3061,3053)
+  GROUP BY aclien.CIDAGENTEVENTA,adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO
   UNION
   SELECT 
         adoc.CSERIEDOCUMENTO,
         adoc.CFOLIO,
         adoc.CRAZONSOCIAL As NombreCliente,
         YEAR(adoc.CFECHA) As Año,
-         CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-         WHEN 'TR'
-         THEN 'PV TORRES'
-         WHEN 'RF'
-         THEN 'PV REFORMA'
-         WHEN 'SG'
-         THEN 'PV SANTIAGO'
-         WHEN 'SM'
-         THEN 'PV SAN MANUEL'
-         WHEN 'CP'
-         THEN 'PV CAPU'
-         ELSE
-         agen.CNOMBREAGENTE END As Agente,
+        $agenteList as Agente,
          adoc.CNETO As Importe,
          adoc.CDESCUENTOMOV As Descuento,
          adoc.CIMPUESTO1 As IVA,
@@ -4360,7 +4079,7 @@ ventasOrdenadas As(
          SUM(adoc.CTOTAL-adoc.CIMPUESTO1) END AS Total,
          $parametrosCanal,
          '1' As indicador
-  FROM [adPinturas_y_Complemen].[dbo].[admDocumentos] as adoc INNER JOIN [adPinturas_y_Complemen].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPinturas_y_Complemen].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere2 and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
+  FROM [adPinturas_y_Complemen].[dbo].[admDocumentos] as adoc INNER JOIN [adPinturas_y_Complemen].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adPinturas_y_Complemen].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPinturas_y_Complemen].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere2 and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
 5,
 3047,
 3049,
@@ -4373,39 +4092,27 @@ ventasOrdenadas As(
 3058,
 3111,
 3105)
-  GROUP BY adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO),
+  GROUP BY aclien.CIDAGENTEVENTA,adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO),
 
 ventasOrdenadas As(
     SELECT
         canalComercial,
         Total,
         Año
-    FROM ventasData WHERE canalComercial IS NOT NULL and canalComercial != '' AND canalComercial NOT IN('PROPIAS','SIN ASIGNAR') 
+    FROM ventasData WHERE  canalComercial NOT IN('PROPIAS') 
     
     )
     SELECT *,([2021]/[2020]-100/100)*100  AS Crecimiento FROM ventasOrdenadas PIVOT(SUM(Total) FOR Año in([2020],[2021])) as pivotTable  order by canalComercial asc OFFSET $offset ROWS FETCH NEXT $per_page ROWS ONLY";
 
 
-        $query = $this->mysqli->query($sql);
+    $query = $this->mysqli->query($sql);
 
-        $sql1 = "WITH ventasData AS(SELECT 
+    $sql1 = "WITH ventasData AS(SELECT 
         adoc.CSERIEDOCUMENTO,
         adoc.CFOLIO,
         adoc.CRAZONSOCIAL As NombreCliente,
         YEAR(adoc.CFECHA) As Año,
-         CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-         WHEN 'TR'
-         THEN 'PV TORRES'
-         WHEN 'RF'
-         THEN 'PV REFORMA'
-         WHEN 'SG'
-         THEN 'PV SANTIAGO'
-         WHEN 'SM'
-         THEN 'PV SAN MANUEL'
-         WHEN 'CP'
-         THEN 'PV CAPU'
-         ELSE
-         agen.CNOMBREAGENTE END As Agente,
+        $agenteList as Agente,
          adoc.CNETO As Importe,
          adoc.CDESCUENTOMOV As Descuento,
          adoc.CIMPUESTO1 As IVA,
@@ -4421,7 +4128,7 @@ ventasOrdenadas As(
          SUM(adoc.CTOTAL-adoc.CIMPUESTO1) END AS Total,
          $parametrosCanal,
          '1' As indicador
-  FROM [adPINTURAS2020SADEC].[dbo].[admDocumentos] as adoc INNER JOIN [adPINTURAS2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPINTURAS2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere  and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO in(4,
+  FROM [adPINTURAS2020SADEC].[dbo].[admDocumentos] as adoc INNER JOIN [adPINTURAS2020SADEC].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adPINTURAS2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPINTURAS2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere  and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO in(4,
 5,
 3001,
 3002,
@@ -4478,27 +4185,15 @@ ventasOrdenadas As(
 3189,
 3190,
 3191,
-3212)
-  GROUP BY adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO
+3212,3233,3234)
+  GROUP BY aclien.CIDAGENTEVENTA,adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO
   UNION
   SELECT 
         adoc.CSERIEDOCUMENTO,
         adoc.CFOLIO,
         adoc.CRAZONSOCIAL As NombreCliente,
         YEAR(adoc.CFECHA) As Año,
-         CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-         WHEN 'TR'
-         THEN 'PV TORRES'
-         WHEN 'RF'
-         THEN 'PV REFORMA'
-         WHEN 'SG'
-         THEN 'PV SANTIAGO'
-         WHEN 'SM'
-         THEN 'PV SAN MANUEL'
-         WHEN 'CP'
-         THEN 'PV CAPU'
-         ELSE
-         agen.CNOMBREAGENTE END As Agente,
+        $agenteList as Agente,
          adoc.CNETO As Importe,
          adoc.CDESCUENTOMOV As Descuento,
          adoc.CIMPUESTO1 As IVA,
@@ -4514,7 +4209,7 @@ ventasOrdenadas As(
          SUM(adoc.CTOTAL-adoc.CIMPUESTO1) END AS Total,
          $parametrosCanal,
          '1' As indicador
-  FROM [adFLEX2020SADEC].[dbo].[admDocumentos] as adoc INNER JOIN [adFLEX2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adFLEX2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere   and adoc.CIDDOCUMENTODE IN(4,5,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
+  FROM [adFLEX2020SADEC].[dbo].[admDocumentos] as adoc INNER JOIN [adFLEX2020SADEC].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adFLEX2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adFLEX2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere   and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
 5,
 3001,
 3048,
@@ -4524,27 +4219,15 @@ ventasOrdenadas As(
 3004,
 3012,
 3052,
-3061)
-  GROUP BY adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO
+3061,3053)
+  GROUP BY aclien.CIDAGENTEVENTA,adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO
   UNION
   SELECT 
         adoc.CSERIEDOCUMENTO,
         adoc.CFOLIO,
         adoc.CRAZONSOCIAL As NombreCliente,
         YEAR(adoc.CFECHA) As Año,
-         CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-         WHEN 'TR'
-         THEN 'PV TORRES'
-         WHEN 'RF'
-         THEN 'PV REFORMA'
-         WHEN 'SG'
-         THEN 'PV SANTIAGO'
-         WHEN 'SM'
-         THEN 'PV SAN MANUEL'
-         WHEN 'CP'
-         THEN 'PV CAPU'
-         ELSE
-         agen.CNOMBREAGENTE END As Agente,
+        $agenteList as Agente,
          adoc.CNETO As Importe,
          adoc.CDESCUENTOMOV As Descuento,
          adoc.CIMPUESTO1 As IVA,
@@ -4560,7 +4243,7 @@ ventasOrdenadas As(
          SUM(adoc.CTOTAL-adoc.CIMPUESTO1) END AS Total,
          $parametrosCanal,
          '1' As indicador
-  FROM [adPinturas_y_Complemen].[dbo].[admDocumentos] as adoc INNER JOIN [adPinturas_y_Complemen].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPinturas_y_Complemen].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
+  FROM [adPinturas_y_Complemen].[dbo].[admDocumentos] as adoc INNER JOIN [adPinturas_y_Complemen].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adPinturas_y_Complemen].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPinturas_y_Complemen].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
 5,
 3047,
 3049,
@@ -4573,26 +4256,14 @@ ventasOrdenadas As(
 3058,
 3111,
 3105)
-  GROUP BY adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO
+  GROUP BY aclien.CIDAGENTEVENTA,adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO
   UNION
   SELECT 
         adoc.CSERIEDOCUMENTO,
         adoc.CFOLIO,
         adoc.CRAZONSOCIAL As NombreCliente,
         YEAR(adoc.CFECHA) As Año,
-         CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-         WHEN 'TR'
-         THEN 'PV TORRES'
-         WHEN 'RF'
-         THEN 'PV REFORMA'
-         WHEN 'SG'
-         THEN 'PV SANTIAGO'
-         WHEN 'SM'
-         THEN 'PV SAN MANUEL'
-         WHEN 'CP'
-         THEN 'PV CAPU'
-         ELSE
-         agen.CNOMBREAGENTE END As Agente,
+        $agenteList as Agente,
          adoc.CNETO As Importe,
          adoc.CDESCUENTOMOV As Descuento,
          adoc.CIMPUESTO1 As IVA,
@@ -4608,7 +4279,7 @@ ventasOrdenadas As(
          SUM(adoc.CTOTAL-adoc.CIMPUESTO1) END AS Total,
          $parametrosCanal,
          '1' As indicador
-  FROM [adPINTURAS2020SADEC].[dbo].[admDocumentos] as adoc INNER JOIN [adPINTURAS2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPINTURAS2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere2  and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO in(4,
+  FROM [adPINTURAS2020SADEC].[dbo].[admDocumentos] as adoc INNER JOIN [adPINTURAS2020SADEC].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adPINTURAS2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPINTURAS2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere2  and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO in(4,
 5,
 3001,
 3002,
@@ -4665,27 +4336,15 @@ ventasOrdenadas As(
 3189,
 3190,
 3191,
-3212)
-  GROUP BY adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO
+3212,3233,3234)
+  GROUP BY aclien.CIDAGENTEVENTA,adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO
   UNION
   SELECT 
         adoc.CSERIEDOCUMENTO,
         adoc.CFOLIO,
         adoc.CRAZONSOCIAL As NombreCliente,
         YEAR(adoc.CFECHA) As Año,
-         CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-         WHEN 'TR'
-         THEN 'PV TORRES'
-         WHEN 'RF'
-         THEN 'PV REFORMA'
-         WHEN 'SG'
-         THEN 'PV SANTIAGO'
-         WHEN 'SM'
-         THEN 'PV SAN MANUEL'
-         WHEN 'CP'
-         THEN 'PV CAPU'
-         ELSE
-         agen.CNOMBREAGENTE END As Agente,
+        $agenteList as Agente,
          adoc.CNETO As Importe,
          adoc.CDESCUENTOMOV As Descuento,
          adoc.CIMPUESTO1 As IVA,
@@ -4701,7 +4360,7 @@ ventasOrdenadas As(
          SUM(adoc.CTOTAL-adoc.CIMPUESTO1) END AS Total,
          $parametrosCanal,
          '1' As indicador
-  FROM [adFLEX2020SADEC].[dbo].[admDocumentos] as adoc INNER JOIN [adFLEX2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adFLEX2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere2   and adoc.CIDDOCUMENTODE IN(4,5,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
+  FROM [adFLEX2020SADEC].[dbo].[admDocumentos] as adoc INNER JOIN [adFLEX2020SADEC].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adFLEX2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adFLEX2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere2   and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
 5,
 3001,
 3048,
@@ -4711,27 +4370,15 @@ ventasOrdenadas As(
 3004,
 3012,
 3052,
-3061)
-  GROUP BY adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO
+3061,3053)
+  GROUP BY aclien.CIDAGENTEVENTA,adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO
   UNION
   SELECT 
         adoc.CSERIEDOCUMENTO,
         adoc.CFOLIO,
         adoc.CRAZONSOCIAL As NombreCliente,
         YEAR(adoc.CFECHA) As Año,
-         CASE SUBSTRING(adoc.CSERIEDOCUMENTO,3,4)
-         WHEN 'TR'
-         THEN 'PV TORRES'
-         WHEN 'RF'
-         THEN 'PV REFORMA'
-         WHEN 'SG'
-         THEN 'PV SANTIAGO'
-         WHEN 'SM'
-         THEN 'PV SAN MANUEL'
-         WHEN 'CP'
-         THEN 'PV CAPU'
-         ELSE
-         agen.CNOMBREAGENTE END As Agente,
+        $agenteList as Agente,
          adoc.CNETO As Importe,
          adoc.CDESCUENTOMOV As Descuento,
          adoc.CIMPUESTO1 As IVA,
@@ -4747,7 +4394,7 @@ ventasOrdenadas As(
          SUM(adoc.CTOTAL-adoc.CIMPUESTO1) END AS Total,
          $parametrosCanal,
          '1' As indicador
-  FROM [adPinturas_y_Complemen].[dbo].[admDocumentos] as adoc INNER JOIN [adPinturas_y_Complemen].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPinturas_y_Complemen].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere2 and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
+  FROM [adPinturas_y_Complemen].[dbo].[admDocumentos] as adoc INNER JOIN [adPinturas_y_Complemen].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adPinturas_y_Complemen].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPinturas_y_Complemen].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere2 and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
 5,
 3047,
 3049,
@@ -4760,32 +4407,1349 @@ ventasOrdenadas As(
 3058,
 3111,
 3105)
-  GROUP BY adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO),
+  GROUP BY aclien.CIDAGENTEVENTA,adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO),
 
 ventasOrdenadas As(
     SELECT
         canalComercial,
         Total,
         Año
-    FROM ventasData WHERE canalComercial IS NOT NULL and canalComercial != '' AND canalComercial NOT IN('PROPIAS','SIN ASIGNAR') 
+    FROM ventasData WHERE  canalComercial NOT IN('PROPIAS') 
     
     )
     SELECT *,([2021]/[2020]-100/100)*100   AS Crecimiento FROM ventasOrdenadas PIVOT(SUM(Total) FOR Año in([2020],[2021])) as pivotTable  order by canalComercial asc ";
 
-        $nums_row = $this->countAll($sql1);
+    $nums_row = $this->countAll($sql1);
 
-        //Set counter
-        $this->setCounter($nums_row);
+    //Set counter
+    $this->setCounter($nums_row);
 
-        $query = $query->fetchAll();
-        return $query;
+    $query = $query->fetchAll();
+    return $query;
+  }
+  public function getVentasYearToWeek($tables, $campos, $search)
+  {
+    global $parametrosCanal;
+    global $agenteList;
+    $offset = $search['offset'];
+    $per_page = $search['per_page'];
+    $estatus = $search['estatus'];
+    $arreglo = array();
+    $arreglo2 = array();
+    $arreglo3 = array();
+    $arreglo4 = array();
+    $week = date('W');
+    $year = 2020;
+    for ($day = 1; $day < 7; $day++) {
+      $diaElegido = date('Y-m-d', strtotime($year . "W" . ($week) . $day));
+      array_push($arreglo, $diaElegido);
+      $dia = date('d', strtotime($year . "W" . ($week) . $day));
+      $mes = date('m', strtotime($year . "W" . ($week) . $day));
+      $año = date('Y', strtotime($year . "W" . ($week) . $day));
+      $fecha = $año . "-" . (int)$mes . "-" . (int)$dia;
+      array_push($arreglo3, $fecha);
     }
-    function setCounter($counter)
-    {
-        $this->counter = $counter;
+    for ($i = 2; $i < 8; $i++) {
+
+      $diaElegido2 = date('Y-m-d', strtotime('01/01 +' . ($week - 1) . ' weeks first day +' . $i . ' day'));
+      array_push($arreglo2, $diaElegido2);
+      $dia2 = date('d', strtotime('01/01 +' . ($week - 1) . ' weeks first day +' . $i . ' day'));
+      $mes2 = date('m', strtotime('01/01 +' . ($week - 1) . ' weeks first day +' . $i . ' day'));
+      $año2 = date('Y', strtotime('01/01 +' . ($week - 1) . ' weeks first day +' . $i . ' day'));
+      $fecha2 = $año2 . "-" . (int)$mes2 . "-" . (int)$dia2;
+      array_push($arreglo4, $fecha2);
     }
-    function getCounter()
-    {
-        return $this->counter;
-    }
+
+
+    $sWhere = " adoc.CCANCELADO  = '" . $estatus . "' and adoc.CFECHA >= '" . $arreglo[0] . "' and adoc.CFECHA <= '" . $arreglo[5] . "' and YEAR(adoc.CFECHA) = '2020'";
+    $sWhere2 = " adoc.CCANCELADO  = '" . $estatus . "' and adoc.CFECHA >= '" . $arreglo2[0] . "' and adoc.CFECHA <= '" . $arreglo2[5] . "' and YEAR(adoc.CFECHA) = '2021'";
+    $sql = "WITH ventasData AS(SELECT 
+        adoc.CSERIEDOCUMENTO,
+        adoc.CFOLIO,
+        adoc.CRAZONSOCIAL As NombreCliente,
+        CONCAT(YEAR(adoc.CFECHA),'-',MONTH(adoc.CFECHA), '-', DAY(adoc.CFECHA)) As Dia,
+        $agenteList as Agente,
+         adoc.CNETO As Importe,
+         adoc.CDESCUENTOMOV As Descuento,
+         adoc.CIMPUESTO1 As IVA,
+         adoc.CTOTAL As Totals,
+         CASE SUBSTRING(acon.CNOMBRECONCEPTO,1,10)
+         WHEN 'DEVOLUCIÓN'
+         THEN (SUM(adoc.CTOTAL-adoc.CIMPUESTO1)*0) -SUM(adoc.CTOTAL-adoc.CIMPUESTO1)
+         WHEN 'NOTA DE CR'
+         THEN (SUM(adoc.CTOTAL-adoc.CIMPUESTO1)*0) -SUM(adoc.CTOTAL-adoc.CIMPUESTO1)
+         WHEN 'DOCUMENTO '
+         THEN SUM(adoc.CTOTAL)
+         ELSE
+         SUM(adoc.CTOTAL-adoc.CIMPUESTO1) END AS Total,
+         $parametrosCanal,
+         '1' As indicador
+  FROM [adPINTURAS2020SADEC].[dbo].[admDocumentos] as adoc INNER JOIN [adPINTURAS2020SADEC].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adPINTURAS2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPINTURAS2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere  and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO in(4,
+5,
+3001,
+3002,
+3003,
+3023,
+3030,
+3076,
+3096,
+3108,
+3115,
+3128,
+3148,
+3172,
+3173,
+3174,
+3175,
+3176,
+3177,
+3178,
+3179,
+3180,
+3181,
+8,
+3016,
+3125,
+3194,
+3195,
+3196,
+3215,
+3207,
+3139,
+3207,
+3208,
+3229,
+6,
+3013,
+3014,
+3015,
+3024,
+3060,
+3078,
+3094,
+3106,
+3116,
+3126,
+3146,
+3182,
+3183,
+3184,
+3185,
+3186,
+3187,
+3188,
+3189,
+3190,
+3191,
+3212,3233,3234)
+  GROUP BY aclien.CIDAGENTEVENTA,adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO
+  UNION
+  SELECT 
+        adoc.CSERIEDOCUMENTO,
+        adoc.CFOLIO,
+        adoc.CRAZONSOCIAL As NombreCliente,
+        CONCAT(YEAR(adoc.CFECHA),'-',MONTH(adoc.CFECHA), '-', DAY(adoc.CFECHA)) As Dia,
+        $agenteList as Agente,
+         adoc.CNETO As Importe,
+         adoc.CDESCUENTOMOV As Descuento,
+         adoc.CIMPUESTO1 As IVA,
+         adoc.CTOTAL As Totals,
+         CASE SUBSTRING(acon.CNOMBRECONCEPTO,1,10)
+         WHEN 'DEVOLUCIÓN'
+         THEN (SUM(adoc.CTOTAL-adoc.CIMPUESTO1)*0) -SUM(adoc.CTOTAL-adoc.CIMPUESTO1)
+         WHEN 'NOTA DE CR'
+         THEN (SUM(adoc.CTOTAL-adoc.CIMPUESTO1)*0) -SUM(adoc.CTOTAL-adoc.CIMPUESTO1)
+         WHEN 'DOCUMENTO '
+         THEN SUM(adoc.CTOTAL)
+         ELSE
+         SUM(adoc.CTOTAL-adoc.CIMPUESTO1) END AS Total,
+         $parametrosCanal,
+         '1' As indicador
+  FROM [adFLEX2020SADEC].[dbo].[admDocumentos] as adoc INNER JOIN [adFLEX2020SADEC].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adFLEX2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adFLEX2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere   and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
+5,
+3001,
+3048,
+14,
+3056,
+6,
+3004,
+3012,
+3052,
+3061,3053)
+  GROUP BY aclien.CIDAGENTEVENTA,adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO
+  UNION
+  SELECT 
+        adoc.CSERIEDOCUMENTO,
+        adoc.CFOLIO,
+        adoc.CRAZONSOCIAL As NombreCliente,
+        CONCAT(YEAR(adoc.CFECHA),'-',MONTH(adoc.CFECHA), '-', DAY(adoc.CFECHA)) As Dia,
+        $agenteList as Agente,
+         adoc.CNETO As Importe,
+         adoc.CDESCUENTOMOV As Descuento,
+         adoc.CIMPUESTO1 As IVA,
+         adoc.CTOTAL As Totals,
+         CASE SUBSTRING(acon.CNOMBRECONCEPTO,1,10)
+         WHEN 'DEVOLUCIÓN'
+         THEN (SUM(adoc.CTOTAL-adoc.CIMPUESTO1)*0) -SUM(adoc.CTOTAL-adoc.CIMPUESTO1)
+         WHEN 'NOTA DE CR'
+         THEN (SUM(adoc.CTOTAL-adoc.CIMPUESTO1)*0) -SUM(adoc.CTOTAL-adoc.CIMPUESTO1)
+         WHEN 'DOCUMENTO '
+         THEN SUM(adoc.CTOTAL)
+         ELSE
+         SUM(adoc.CTOTAL-adoc.CIMPUESTO1) END AS Total,
+         $parametrosCanal,
+         '1' As indicador
+  FROM [adPinturas_y_Complemen].[dbo].[admDocumentos] as adoc INNER JOIN [adPinturas_y_Complemen].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adPinturas_y_Complemen].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPinturas_y_Complemen].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
+5,
+3047,
+3049,
+3050,
+3051,
+3106,
+8,
+3056,
+3057,
+3058,
+3111,
+3105)
+  GROUP BY aclien.CIDAGENTEVENTA,adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO
+  UNION
+  SELECT 
+        adoc.CSERIEDOCUMENTO,
+        adoc.CFOLIO,
+        adoc.CRAZONSOCIAL As NombreCliente,
+        CONCAT(YEAR(adoc.CFECHA),'-',MONTH(adoc.CFECHA), '-', DAY(adoc.CFECHA)) As Dia,
+        $agenteList as Agente,
+         adoc.CNETO As Importe,
+         adoc.CDESCUENTOMOV As Descuento,
+         adoc.CIMPUESTO1 As IVA,
+         adoc.CTOTAL As Totals,
+         CASE SUBSTRING(acon.CNOMBRECONCEPTO,1,10)
+         WHEN 'DEVOLUCIÓN'
+         THEN (SUM(adoc.CTOTAL-adoc.CIMPUESTO1)*0) -SUM(adoc.CTOTAL-adoc.CIMPUESTO1)
+         WHEN 'NOTA DE CR'
+         THEN (SUM(adoc.CTOTAL-adoc.CIMPUESTO1)*0) -SUM(adoc.CTOTAL-adoc.CIMPUESTO1)
+         WHEN 'DOCUMENTO '
+         THEN SUM(adoc.CTOTAL)
+         ELSE
+         SUM(adoc.CTOTAL-adoc.CIMPUESTO1) END AS Total,
+         $parametrosCanal,
+         '1' As indicador
+  FROM [adPINTURAS2020SADEC].[dbo].[admDocumentos] as adoc INNER JOIN [adPINTURAS2020SADEC].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adPINTURAS2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPINTURAS2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere2  and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO in(4,
+5,
+3001,
+3002,
+3003,
+3023,
+3030,
+3076,
+3096,
+3108,
+3115,
+3128,
+3148,
+3172,
+3173,
+3174,
+3175,
+3176,
+3177,
+3178,
+3179,
+3180,
+3181,
+8,
+3016,
+3125,
+3194,
+3195,
+3196,
+3215,
+3207,
+3139,
+3207,
+3208,
+3229,
+6,
+3013,
+3014,
+3015,
+3024,
+3060,
+3078,
+3094,
+3106,
+3116,
+3126,
+3146,
+3182,
+3183,
+3184,
+3185,
+3186,
+3187,
+3188,
+3189,
+3190,
+3191,
+3212,3233,3234)
+  GROUP BY aclien.CIDAGENTEVENTA,adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO
+  UNION
+  SELECT 
+        adoc.CSERIEDOCUMENTO,
+        adoc.CFOLIO,
+        adoc.CRAZONSOCIAL As NombreCliente,
+        CONCAT(YEAR(adoc.CFECHA),'-',MONTH(adoc.CFECHA), '-', DAY(adoc.CFECHA)) As Dia,
+        $agenteList as Agente,
+         adoc.CNETO As Importe,
+         adoc.CDESCUENTOMOV As Descuento,
+         adoc.CIMPUESTO1 As IVA,
+         adoc.CTOTAL As Totals,
+         CASE SUBSTRING(acon.CNOMBRECONCEPTO,1,10)
+         WHEN 'DEVOLUCIÓN'
+         THEN (SUM(adoc.CTOTAL-adoc.CIMPUESTO1)*0) -SUM(adoc.CTOTAL-adoc.CIMPUESTO1)
+         WHEN 'NOTA DE CR'
+         THEN (SUM(adoc.CTOTAL-adoc.CIMPUESTO1)*0) -SUM(adoc.CTOTAL-adoc.CIMPUESTO1)
+         WHEN 'DOCUMENTO '
+         THEN SUM(adoc.CTOTAL)
+         ELSE
+         SUM(adoc.CTOTAL-adoc.CIMPUESTO1) END AS Total,
+         $parametrosCanal,
+         '1' As indicador
+  FROM [adFLEX2020SADEC].[dbo].[admDocumentos] as adoc INNER JOIN [adFLEX2020SADEC].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adFLEX2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adFLEX2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere2   and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
+5,
+3001,
+3048,
+14,
+3056,
+6,
+3004,
+3012,
+3052,
+3061,3053)
+  GROUP BY aclien.CIDAGENTEVENTA,adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO
+  UNION
+  SELECT 
+        adoc.CSERIEDOCUMENTO,
+        adoc.CFOLIO,
+        adoc.CRAZONSOCIAL As NombreCliente,
+        CONCAT(YEAR(adoc.CFECHA),'-',MONTH(adoc.CFECHA), '-', DAY(adoc.CFECHA)) As Dia,
+        $agenteList as Agente,
+         adoc.CNETO As Importe,
+         adoc.CDESCUENTOMOV As Descuento,
+         adoc.CIMPUESTO1 As IVA,
+         adoc.CTOTAL As Totals,
+         CASE SUBSTRING(acon.CNOMBRECONCEPTO,1,10)
+         WHEN 'DEVOLUCIÓN'
+         THEN (SUM(adoc.CTOTAL-adoc.CIMPUESTO1)*0) -SUM(adoc.CTOTAL-adoc.CIMPUESTO1)
+         WHEN 'NOTA DE CR'
+         THEN (SUM(adoc.CTOTAL-adoc.CIMPUESTO1)*0) -SUM(adoc.CTOTAL-adoc.CIMPUESTO1)
+         WHEN 'DOCUMENTO '
+         THEN SUM(adoc.CTOTAL)
+         ELSE
+         SUM(adoc.CTOTAL-adoc.CIMPUESTO1) END AS Total,
+         $parametrosCanal,
+         '1' As indicador
+  FROM [adPinturas_y_Complemen].[dbo].[admDocumentos] as adoc INNER JOIN [adPinturas_y_Complemen].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adPinturas_y_Complemen].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPinturas_y_Complemen].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere2 and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
+5,
+3047,
+3049,
+3050,
+3051,
+3106,
+8,
+3056,
+3057,
+3058,
+3111,
+3105)
+  GROUP BY aclien.CIDAGENTEVENTA,adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO),
+
+ventasOrdenadas As(
+    SELECT
+        canalComercial,
+        Total,
+        CAST(Dia as NVARCHAR(100)) as Day
+    FROM ventasData WHERE  canalComercial NOT IN('PROPIAS') 
+    
+    )
+    SELECT *,((NULLIF(ISNULL((IsNull([$arreglo4[0]],0)+IsNull([$arreglo4[1]],0)+IsNull([$arreglo4[2]],0)+IsNull([$arreglo4[3]],0)+IsNull([$arreglo4[4]],0)+IsNull([$arreglo4[5]],0)),0),0)/NULLIF(ISNULL((IsNull([$arreglo3[0]],0)+IsNull([$arreglo3[1]],0)+IsNull([$arreglo3[2]],0)+IsNull([$arreglo3[3]],0)+IsNull([$arreglo3[4]],0)+IsNull([$arreglo3[5]],0)),0),0))-100/100)*100 AS Crecimiento FROM ventasOrdenadas PIVOT(SUM(Total) FOR Day in([$arreglo3[0]],[$arreglo3[1]],[$arreglo3[2]],[$arreglo3[3]],[$arreglo3[4]],[$arreglo3[5]],[$arreglo4[0]],[$arreglo4[1]],[$arreglo4[2]],[$arreglo4[3]],[$arreglo4[4]],[$arreglo4[5]])) as pivotTable order by canalComercial asc OFFSET $offset ROWS FETCH NEXT $per_page ROWS ONLY";
+
+
+    $query = $this->mysqli->query($sql);
+
+    $sql1 = "WITH ventasData AS(SELECT 
+        adoc.CSERIEDOCUMENTO,
+        adoc.CFOLIO,
+        adoc.CRAZONSOCIAL As NombreCliente,
+        CONCAT(YEAR(adoc.CFECHA),'-',MONTH(adoc.CFECHA), '-', DAY(adoc.CFECHA)) As Dia,
+        $agenteList as Agente,
+         adoc.CNETO As Importe,
+         adoc.CDESCUENTOMOV As Descuento,
+         adoc.CIMPUESTO1 As IVA,
+         adoc.CTOTAL As Totals,
+         CASE SUBSTRING(acon.CNOMBRECONCEPTO,1,10)
+         WHEN 'DEVOLUCIÓN'
+         THEN (SUM(adoc.CTOTAL-adoc.CIMPUESTO1)*0) -SUM(adoc.CTOTAL-adoc.CIMPUESTO1)
+         WHEN 'NOTA DE CR'
+         THEN (SUM(adoc.CTOTAL-adoc.CIMPUESTO1)*0) -SUM(adoc.CTOTAL-adoc.CIMPUESTO1)
+         WHEN 'DOCUMENTO '
+         THEN SUM(adoc.CTOTAL)
+         ELSE
+         SUM(adoc.CTOTAL-adoc.CIMPUESTO1) END AS Total,
+         $parametrosCanal,
+         '1' As indicador
+  FROM [adPINTURAS2020SADEC].[dbo].[admDocumentos] as adoc INNER JOIN [adPINTURAS2020SADEC].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adPINTURAS2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPINTURAS2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere  and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO in(4,
+5,
+3001,
+3002,
+3003,
+3023,
+3030,
+3076,
+3096,
+3108,
+3115,
+3128,
+3148,
+3172,
+3173,
+3174,
+3175,
+3176,
+3177,
+3178,
+3179,
+3180,
+3181,
+8,
+3016,
+3125,
+3194,
+3195,
+3196,
+3215,
+3207,
+3139,
+3207,
+3208,
+3229,
+6,
+3013,
+3014,
+3015,
+3024,
+3060,
+3078,
+3094,
+3106,
+3116,
+3126,
+3146,
+3182,
+3183,
+3184,
+3185,
+3186,
+3187,
+3188,
+3189,
+3190,
+3191,
+3212,3233,3234)
+  GROUP BY aclien.CIDAGENTEVENTA,adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO
+  UNION
+  SELECT 
+        adoc.CSERIEDOCUMENTO,
+        adoc.CFOLIO,
+        adoc.CRAZONSOCIAL As NombreCliente,
+        CONCAT(YEAR(adoc.CFECHA),'-',MONTH(adoc.CFECHA), '-', DAY(adoc.CFECHA)) As Dia,
+        $agenteList as Agente,
+         adoc.CNETO As Importe,
+         adoc.CDESCUENTOMOV As Descuento,
+         adoc.CIMPUESTO1 As IVA,
+         adoc.CTOTAL As Totals,
+         CASE SUBSTRING(acon.CNOMBRECONCEPTO,1,10)
+         WHEN 'DEVOLUCIÓN'
+         THEN (SUM(adoc.CTOTAL-adoc.CIMPUESTO1)*0) -SUM(adoc.CTOTAL-adoc.CIMPUESTO1)
+         WHEN 'NOTA DE CR'
+         THEN (SUM(adoc.CTOTAL-adoc.CIMPUESTO1)*0) -SUM(adoc.CTOTAL-adoc.CIMPUESTO1)
+         WHEN 'DOCUMENTO '
+         THEN SUM(adoc.CTOTAL)
+         ELSE
+         SUM(adoc.CTOTAL-adoc.CIMPUESTO1) END AS Total,
+         $parametrosCanal,
+         '1' As indicador
+  FROM [adFLEX2020SADEC].[dbo].[admDocumentos] as adoc INNER JOIN [adFLEX2020SADEC].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adFLEX2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adFLEX2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere   and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
+5,
+3001,
+3048,
+14,
+3056,
+6,
+3004,
+3012,
+3052,
+3061,3053)
+  GROUP BY aclien.CIDAGENTEVENTA,adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO
+  UNION
+  SELECT 
+        adoc.CSERIEDOCUMENTO,
+        adoc.CFOLIO,
+        adoc.CRAZONSOCIAL As NombreCliente,
+        CONCAT(YEAR(adoc.CFECHA),'-',MONTH(adoc.CFECHA), '-', DAY(adoc.CFECHA)) As Dia,
+        $agenteList as Agente,
+         adoc.CNETO As Importe,
+         adoc.CDESCUENTOMOV As Descuento,
+         adoc.CIMPUESTO1 As IVA,
+         adoc.CTOTAL As Totals,
+         CASE SUBSTRING(acon.CNOMBRECONCEPTO,1,10)
+         WHEN 'DEVOLUCIÓN'
+         THEN (SUM(adoc.CTOTAL-adoc.CIMPUESTO1)*0) -SUM(adoc.CTOTAL-adoc.CIMPUESTO1)
+         WHEN 'NOTA DE CR'
+         THEN (SUM(adoc.CTOTAL-adoc.CIMPUESTO1)*0) -SUM(adoc.CTOTAL-adoc.CIMPUESTO1)
+         WHEN 'DOCUMENTO '
+         THEN SUM(adoc.CTOTAL)
+         ELSE
+         SUM(adoc.CTOTAL-adoc.CIMPUESTO1) END AS Total,
+         $parametrosCanal,
+         '1' As indicador
+  FROM [adPinturas_y_Complemen].[dbo].[admDocumentos] as adoc INNER JOIN [adPinturas_y_Complemen].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adPinturas_y_Complemen].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPinturas_y_Complemen].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
+5,
+3047,
+3049,
+3050,
+3051,
+3106,
+8,
+3056,
+3057,
+3058,
+3111,
+3105)
+  GROUP BY aclien.CIDAGENTEVENTA,adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO
+  UNION
+  SELECT 
+        adoc.CSERIEDOCUMENTO,
+        adoc.CFOLIO,
+        adoc.CRAZONSOCIAL As NombreCliente,
+        CONCAT(YEAR(adoc.CFECHA),'-',MONTH(adoc.CFECHA), '-', DAY(adoc.CFECHA)) As Dia,
+        $agenteList as Agente,
+         adoc.CNETO As Importe,
+         adoc.CDESCUENTOMOV As Descuento,
+         adoc.CIMPUESTO1 As IVA,
+         adoc.CTOTAL As Totals,
+         CASE SUBSTRING(acon.CNOMBRECONCEPTO,1,10)
+         WHEN 'DEVOLUCIÓN'
+         THEN (SUM(adoc.CTOTAL-adoc.CIMPUESTO1)*0) -SUM(adoc.CTOTAL-adoc.CIMPUESTO1)
+         WHEN 'NOTA DE CR'
+         THEN (SUM(adoc.CTOTAL-adoc.CIMPUESTO1)*0) -SUM(adoc.CTOTAL-adoc.CIMPUESTO1)
+         WHEN 'DOCUMENTO '
+         THEN SUM(adoc.CTOTAL)
+         ELSE
+         SUM(adoc.CTOTAL-adoc.CIMPUESTO1) END AS Total,
+         $parametrosCanal,
+         '1' As indicador
+  FROM [adPINTURAS2020SADEC].[dbo].[admDocumentos] as adoc INNER JOIN [adPINTURAS2020SADEC].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adPINTURAS2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPINTURAS2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere2  and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO in(4,
+5,
+3001,
+3002,
+3003,
+3023,
+3030,
+3076,
+3096,
+3108,
+3115,
+3128,
+3148,
+3172,
+3173,
+3174,
+3175,
+3176,
+3177,
+3178,
+3179,
+3180,
+3181,
+8,
+3016,
+3125,
+3194,
+3195,
+3196,
+3215,
+3207,
+3139,
+3207,
+3208,
+3229,
+6,
+3013,
+3014,
+3015,
+3024,
+3060,
+3078,
+3094,
+3106,
+3116,
+3126,
+3146,
+3182,
+3183,
+3184,
+3185,
+3186,
+3187,
+3188,
+3189,
+3190,
+3191,
+3212,3233,3234)
+  GROUP BY aclien.CIDAGENTEVENTA,adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO
+  UNION
+  SELECT 
+        adoc.CSERIEDOCUMENTO,
+        adoc.CFOLIO,
+        adoc.CRAZONSOCIAL As NombreCliente,
+        CONCAT(YEAR(adoc.CFECHA),'-',MONTH(adoc.CFECHA), '-', DAY(adoc.CFECHA)) As Dia,
+        $agenteList as Agente,
+         adoc.CNETO As Importe,
+         adoc.CDESCUENTOMOV As Descuento,
+         adoc.CIMPUESTO1 As IVA,
+         adoc.CTOTAL As Totals,
+         CASE SUBSTRING(acon.CNOMBRECONCEPTO,1,10)
+         WHEN 'DEVOLUCIÓN'
+         THEN (SUM(adoc.CTOTAL-adoc.CIMPUESTO1)*0) -SUM(adoc.CTOTAL-adoc.CIMPUESTO1)
+         WHEN 'NOTA DE CR'
+         THEN (SUM(adoc.CTOTAL-adoc.CIMPUESTO1)*0) -SUM(adoc.CTOTAL-adoc.CIMPUESTO1)
+         WHEN 'DOCUMENTO '
+         THEN SUM(adoc.CTOTAL)
+         ELSE
+         SUM(adoc.CTOTAL-adoc.CIMPUESTO1) END AS Total,
+         $parametrosCanal,
+         '1' As indicador
+  FROM [adFLEX2020SADEC].[dbo].[admDocumentos] as adoc INNER JOIN [adFLEX2020SADEC].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adFLEX2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adFLEX2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere2   and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
+5,
+3001,
+3048,
+14,
+3056,
+6,
+3004,
+3012,
+3052,
+3061,3053)
+  GROUP BY aclien.CIDAGENTEVENTA,adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO
+  UNION
+  SELECT 
+        adoc.CSERIEDOCUMENTO,
+        adoc.CFOLIO,
+        adoc.CRAZONSOCIAL As NombreCliente,
+        CONCAT(YEAR(adoc.CFECHA),'-',MONTH(adoc.CFECHA), '-', DAY(adoc.CFECHA)) As Dia,
+        $agenteList as Agente,
+         adoc.CNETO As Importe,
+         adoc.CDESCUENTOMOV As Descuento,
+         adoc.CIMPUESTO1 As IVA,
+         adoc.CTOTAL As Totals,
+         CASE SUBSTRING(acon.CNOMBRECONCEPTO,1,10)
+         WHEN 'DEVOLUCIÓN'
+         THEN (SUM(adoc.CTOTAL-adoc.CIMPUESTO1)*0) -SUM(adoc.CTOTAL-adoc.CIMPUESTO1)
+         WHEN 'NOTA DE CR'
+         THEN (SUM(adoc.CTOTAL-adoc.CIMPUESTO1)*0) -SUM(adoc.CTOTAL-adoc.CIMPUESTO1)
+         WHEN 'DOCUMENTO '
+         THEN SUM(adoc.CTOTAL)
+         ELSE
+         SUM(adoc.CTOTAL-adoc.CIMPUESTO1) END AS Total,
+         $parametrosCanal,
+         '1' As indicador
+  FROM [adPinturas_y_Complemen].[dbo].[admDocumentos] as adoc INNER JOIN [adPinturas_y_Complemen].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adPinturas_y_Complemen].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPinturas_y_Complemen].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere2 and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
+5,
+3047,
+3049,
+3050,
+3051,
+3106,
+8,
+3056,
+3057,
+3058,
+3111,
+3105)
+  GROUP BY aclien.CIDAGENTEVENTA,adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO),
+
+ventasOrdenadas As(
+    SELECT
+        canalComercial,
+        Total,
+        CAST(Dia as NVARCHAR(100)) as Day
+    FROM ventasData WHERE  canalComercial NOT IN('PROPIAS') 
+    
+    )
+    SELECT *,((NULLIF(ISNULL((IsNull([$arreglo4[0]],0)+IsNull([$arreglo4[1]],0)+IsNull([$arreglo4[2]],0)+IsNull([$arreglo4[3]],0)+IsNull([$arreglo4[4]],0)+IsNull([$arreglo4[5]],0)),0),0)/NULLIF(ISNULL((IsNull([$arreglo3[0]],0)+IsNull([$arreglo3[1]],0)+IsNull([$arreglo3[2]],0)+IsNull([$arreglo3[3]],0)+IsNull([$arreglo3[4]],0)+IsNull([$arreglo3[5]],0)),0),0))-100/100)*100 AS Crecimiento FROM ventasOrdenadas PIVOT(SUM(Total) FOR Day in([$arreglo3[0]],[$arreglo3[1]],[$arreglo3[2]],[$arreglo3[3]],[$arreglo3[4]],[$arreglo3[5]],[$arreglo4[0]],[$arreglo4[1]],[$arreglo4[2]],[$arreglo4[3]],[$arreglo4[4]],[$arreglo4[5]])) as pivotTable order by canalComercial asc";
+
+    $nums_row = $this->countAll($sql1);
+
+    //Set counter
+    $this->setCounter($nums_row);
+
+    $query = $query->fetchAll();
+    return $query;
+  }
+  public function getVentasYearToMonth($tables, $campos, $search)
+  {
+    global $parametrosCanal;
+    global $agenteList;
+    $offset = $search['offset'];
+    $per_page = $search['per_page'];
+    $estatus = $search['estatus'];
+
+
+    $sWhere = " adoc.CCANCELADO  = '" . $estatus . "'  and YEAR(adoc.CFECHA) = '2020'";
+    $sWhere2 = " adoc.CCANCELADO  = '" . $estatus . "'  and YEAR(adoc.CFECHA) = '2021'";
+    $sql = "WITH ventasData AS(SELECT 
+        adoc.CSERIEDOCUMENTO,
+        adoc.CFOLIO,
+        adoc.CRAZONSOCIAL As NombreCliente,
+        CONCAT(YEAR(adoc.CFECHA),'-',MONTH(adoc.CFECHA)) As Mes,
+        $agenteList as Agente,
+         adoc.CNETO As Importe,
+         adoc.CDESCUENTOMOV As Descuento,
+         adoc.CIMPUESTO1 As IVA,
+         adoc.CTOTAL As Totals,
+         CASE SUBSTRING(acon.CNOMBRECONCEPTO,1,10)
+         WHEN 'DEVOLUCIÓN'
+         THEN (SUM(adoc.CTOTAL-adoc.CIMPUESTO1)*0) -SUM(adoc.CTOTAL-adoc.CIMPUESTO1)
+         WHEN 'NOTA DE CR'
+         THEN (SUM(adoc.CTOTAL-adoc.CIMPUESTO1)*0) -SUM(adoc.CTOTAL-adoc.CIMPUESTO1)
+         WHEN 'DOCUMENTO '
+         THEN SUM(adoc.CTOTAL)
+         ELSE
+         SUM(adoc.CTOTAL-adoc.CIMPUESTO1) END AS Total,
+         $parametrosCanal,
+         '1' As indicador
+  FROM [adPINTURAS2020SADEC].[dbo].[admDocumentos] as adoc INNER JOIN [adPINTURAS2020SADEC].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adPINTURAS2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPINTURAS2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere  and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO in(4,
+5,
+3001,
+3002,
+3003,
+3023,
+3030,
+3076,
+3096,
+3108,
+3115,
+3128,
+3148,
+3172,
+3173,
+3174,
+3175,
+3176,
+3177,
+3178,
+3179,
+3180,
+3181,
+8,
+3016,
+3125,
+3194,
+3195,
+3196,
+3215,
+3207,
+3139,
+3207,
+3208,
+3229,
+6,
+3013,
+3014,
+3015,
+3024,
+3060,
+3078,
+3094,
+3106,
+3116,
+3126,
+3146,
+3182,
+3183,
+3184,
+3185,
+3186,
+3187,
+3188,
+3189,
+3190,
+3191,
+3212,3233,3234)
+  GROUP BY aclien.CIDAGENTEVENTA,adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO
+  UNION
+  SELECT 
+        adoc.CSERIEDOCUMENTO,
+        adoc.CFOLIO,
+        adoc.CRAZONSOCIAL As NombreCliente,
+        CONCAT(YEAR(adoc.CFECHA),'-',MONTH(adoc.CFECHA)) As Mes,
+        $agenteList as Agente,
+         adoc.CNETO As Importe,
+         adoc.CDESCUENTOMOV As Descuento,
+         adoc.CIMPUESTO1 As IVA,
+         adoc.CTOTAL As Totals,
+         CASE SUBSTRING(acon.CNOMBRECONCEPTO,1,10)
+         WHEN 'DEVOLUCIÓN'
+         THEN (SUM(adoc.CTOTAL-adoc.CIMPUESTO1)*0) -SUM(adoc.CTOTAL-adoc.CIMPUESTO1)
+         WHEN 'NOTA DE CR'
+         THEN (SUM(adoc.CTOTAL-adoc.CIMPUESTO1)*0) -SUM(adoc.CTOTAL-adoc.CIMPUESTO1)
+         WHEN 'DOCUMENTO '
+         THEN SUM(adoc.CTOTAL)
+         ELSE
+         SUM(adoc.CTOTAL-adoc.CIMPUESTO1) END AS Total,
+         $parametrosCanal,
+         '1' As indicador
+  FROM [adFLEX2020SADEC].[dbo].[admDocumentos] as adoc INNER JOIN [adFLEX2020SADEC].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adFLEX2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adFLEX2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere   and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
+5,
+3001,
+3048,
+14,
+3056,
+6,
+3004,
+3012,
+3052,
+3061,3053)
+  GROUP BY aclien.CIDAGENTEVENTA,adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO
+  UNION
+  SELECT 
+        adoc.CSERIEDOCUMENTO,
+        adoc.CFOLIO,
+        adoc.CRAZONSOCIAL As NombreCliente,
+        CONCAT(YEAR(adoc.CFECHA),'-',MONTH(adoc.CFECHA)) As Mes,
+        $agenteList as Agente,
+         adoc.CNETO As Importe,
+         adoc.CDESCUENTOMOV As Descuento,
+         adoc.CIMPUESTO1 As IVA,
+         adoc.CTOTAL As Totals,
+         CASE SUBSTRING(acon.CNOMBRECONCEPTO,1,10)
+         WHEN 'DEVOLUCIÓN'
+         THEN (SUM(adoc.CTOTAL-adoc.CIMPUESTO1)*0) -SUM(adoc.CTOTAL-adoc.CIMPUESTO1)
+         WHEN 'NOTA DE CR'
+         THEN (SUM(adoc.CTOTAL-adoc.CIMPUESTO1)*0) -SUM(adoc.CTOTAL-adoc.CIMPUESTO1)
+         WHEN 'DOCUMENTO '
+         THEN SUM(adoc.CTOTAL)
+         ELSE
+         SUM(adoc.CTOTAL-adoc.CIMPUESTO1) END AS Total,
+         $parametrosCanal,
+         '1' As indicador
+  FROM [adPinturas_y_Complemen].[dbo].[admDocumentos] as adoc INNER JOIN [adPinturas_y_Complemen].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adPinturas_y_Complemen].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPinturas_y_Complemen].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
+5,
+3047,
+3049,
+3050,
+3051,
+3106,
+8,
+3056,
+3057,
+3058,
+3111,
+3105)
+  GROUP BY aclien.CIDAGENTEVENTA,adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO
+  UNION
+  SELECT 
+        adoc.CSERIEDOCUMENTO,
+        adoc.CFOLIO,
+        adoc.CRAZONSOCIAL As NombreCliente,
+        CONCAT(YEAR(adoc.CFECHA),'-',MONTH(adoc.CFECHA)) As Mes,
+        $agenteList as Agente,
+         adoc.CNETO As Importe,
+         adoc.CDESCUENTOMOV As Descuento,
+         adoc.CIMPUESTO1 As IVA,
+         adoc.CTOTAL As Totals,
+         CASE SUBSTRING(acon.CNOMBRECONCEPTO,1,10)
+         WHEN 'DEVOLUCIÓN'
+         THEN (SUM(adoc.CTOTAL-adoc.CIMPUESTO1)*0) -SUM(adoc.CTOTAL-adoc.CIMPUESTO1)
+         WHEN 'NOTA DE CR'
+         THEN (SUM(adoc.CTOTAL-adoc.CIMPUESTO1)*0) -SUM(adoc.CTOTAL-adoc.CIMPUESTO1)
+         WHEN 'DOCUMENTO '
+         THEN SUM(adoc.CTOTAL)
+         ELSE
+         SUM(adoc.CTOTAL-adoc.CIMPUESTO1) END AS Total,
+         $parametrosCanal,
+         '1' As indicador
+  FROM [adPINTURAS2020SADEC].[dbo].[admDocumentos] as adoc INNER JOIN [adPINTURAS2020SADEC].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adPINTURAS2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPINTURAS2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere2  and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO in(4,
+5,
+3001,
+3002,
+3003,
+3023,
+3030,
+3076,
+3096,
+3108,
+3115,
+3128,
+3148,
+3172,
+3173,
+3174,
+3175,
+3176,
+3177,
+3178,
+3179,
+3180,
+3181,
+8,
+3016,
+3125,
+3194,
+3195,
+3196,
+3215,
+3207,
+3139,
+3207,
+3208,
+3229,
+6,
+3013,
+3014,
+3015,
+3024,
+3060,
+3078,
+3094,
+3106,
+3116,
+3126,
+3146,
+3182,
+3183,
+3184,
+3185,
+3186,
+3187,
+3188,
+3189,
+3190,
+3191,
+3212,3233,3234)
+  GROUP BY aclien.CIDAGENTEVENTA,adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO
+  UNION
+  SELECT 
+        adoc.CSERIEDOCUMENTO,
+        adoc.CFOLIO,
+        adoc.CRAZONSOCIAL As NombreCliente,
+        CONCAT(YEAR(adoc.CFECHA),'-',MONTH(adoc.CFECHA)) As Mes,
+        $agenteList as Agente,
+         adoc.CNETO As Importe,
+         adoc.CDESCUENTOMOV As Descuento,
+         adoc.CIMPUESTO1 As IVA,
+         adoc.CTOTAL As Totals,
+         CASE SUBSTRING(acon.CNOMBRECONCEPTO,1,10)
+         WHEN 'DEVOLUCIÓN'
+         THEN (SUM(adoc.CTOTAL-adoc.CIMPUESTO1)*0) -SUM(adoc.CTOTAL-adoc.CIMPUESTO1)
+         WHEN 'NOTA DE CR'
+         THEN (SUM(adoc.CTOTAL-adoc.CIMPUESTO1)*0) -SUM(adoc.CTOTAL-adoc.CIMPUESTO1)
+         WHEN 'DOCUMENTO '
+         THEN SUM(adoc.CTOTAL)
+         ELSE
+         SUM(adoc.CTOTAL-adoc.CIMPUESTO1) END AS Total,
+         $parametrosCanal,
+         '1' As indicador
+  FROM [adFLEX2020SADEC].[dbo].[admDocumentos] as adoc INNER JOIN [adFLEX2020SADEC].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adFLEX2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adFLEX2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere2   and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
+5,
+3001,
+3048,
+14,
+3056,
+6,
+3004,
+3012,
+3052,
+3061,3053)
+  GROUP BY aclien.CIDAGENTEVENTA,adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO
+  UNION
+  SELECT 
+        adoc.CSERIEDOCUMENTO,
+        adoc.CFOLIO,
+        adoc.CRAZONSOCIAL As NombreCliente,
+        CONCAT(YEAR(adoc.CFECHA),'-',MONTH(adoc.CFECHA)) As Mes,
+        $agenteList as Agente,
+         adoc.CNETO As Importe,
+         adoc.CDESCUENTOMOV As Descuento,
+         adoc.CIMPUESTO1 As IVA,
+         adoc.CTOTAL As Totals,
+         CASE SUBSTRING(acon.CNOMBRECONCEPTO,1,10)
+         WHEN 'DEVOLUCIÓN'
+         THEN (SUM(adoc.CTOTAL-adoc.CIMPUESTO1)*0) -SUM(adoc.CTOTAL-adoc.CIMPUESTO1)
+         WHEN 'NOTA DE CR'
+         THEN (SUM(adoc.CTOTAL-adoc.CIMPUESTO1)*0) -SUM(adoc.CTOTAL-adoc.CIMPUESTO1)
+         WHEN 'DOCUMENTO '
+         THEN SUM(adoc.CTOTAL)
+         ELSE
+         SUM(adoc.CTOTAL-adoc.CIMPUESTO1) END AS Total,
+         $parametrosCanal,
+         '1' As indicador
+  FROM [adPinturas_y_Complemen].[dbo].[admDocumentos] as adoc INNER JOIN [adPinturas_y_Complemen].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adPinturas_y_Complemen].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPinturas_y_Complemen].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere2 and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
+5,
+3047,
+3049,
+3050,
+3051,
+3106,
+8,
+3056,
+3057,
+3058,
+3111,
+3105)
+  GROUP BY aclien.CIDAGENTEVENTA,adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO),
+
+ventasOrdenadas As(
+    SELECT
+        canalComercial,
+        Total,
+        CAST(Mes as NVARCHAR(100)) as Mont
+    FROM ventasData WHERE  canalComercial NOT IN('PROPIAS') 
+    
+    )
+    SELECT *,((NULLIF(ISNULL((IsNull([2021-1],0)+IsNull([2021-2],0)+IsNull([2021-3],0)+IsNull([2021-4],0)+IsNull([2021-5],0)+IsNull([2021-6],0)+IsNull([2021-7],0)+IsNull([2021-8],0)+IsNull([2021-9],0)+IsNull([2021-10],0)+IsNull([2021-11],0)+IsNull([2021-12],0)),0),0)/NULLIF(ISNULL((IsNull([2020-1],0)+IsNull([2020-2],0)+IsNull([2020-3],0)+IsNull([2020-4],0)+IsNull([2020-5],0)+IsNull([2020-6],0)+IsNull([2020-7],0)+IsNull([2020-8],0)+IsNull([2020-9],0)+IsNull([2020-10],0)+IsNull([2020-11],0)+IsNull([2020-12],0)),0),0))-100/100)*100 AS Crecimiento FROM ventasOrdenadas PIVOT(SUM(Total) FOR Mont in([2020-1],[2021-1],[2020-2],[2021-2],[2020-3],[2021-3],[2020-4],[2021-4],[2020-5],[2021-5],[2020-6],[2021-6],[2020-7],[2021-7],[2020-8],[2021-8],[2020-9],[2021-9],[2020-10],[2021-10],[2020-11],[2021-11],[2020-12],[2021-12])) as pivotTable order by canalComercial asc OFFSET $offset ROWS FETCH NEXT $per_page ROWS ONLY";
+
+
+    $query = $this->mysqli->query($sql);
+
+    $sql1 = "WITH ventasData AS(SELECT 
+        adoc.CSERIEDOCUMENTO,
+        adoc.CFOLIO,
+        adoc.CRAZONSOCIAL As NombreCliente,
+        CONCAT(YEAR(adoc.CFECHA),'-',MONTH(adoc.CFECHA)) As Mes,
+        $agenteList as Agente,
+         adoc.CNETO As Importe,
+         adoc.CDESCUENTOMOV As Descuento,
+         adoc.CIMPUESTO1 As IVA,
+         adoc.CTOTAL As Totals,
+         CASE SUBSTRING(acon.CNOMBRECONCEPTO,1,10)
+         WHEN 'DEVOLUCIÓN'
+         THEN (SUM(adoc.CTOTAL-adoc.CIMPUESTO1)*0) -SUM(adoc.CTOTAL-adoc.CIMPUESTO1)
+         WHEN 'NOTA DE CR'
+         THEN (SUM(adoc.CTOTAL-adoc.CIMPUESTO1)*0) -SUM(adoc.CTOTAL-adoc.CIMPUESTO1)
+         WHEN 'DOCUMENTO '
+         THEN SUM(adoc.CTOTAL)
+         ELSE
+         SUM(adoc.CTOTAL-adoc.CIMPUESTO1) END AS Total,
+         $parametrosCanal,
+         '1' As indicador
+  FROM [adPINTURAS2020SADEC].[dbo].[admDocumentos] as adoc INNER JOIN [adPINTURAS2020SADEC].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adPINTURAS2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPINTURAS2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere  and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO in(4,
+5,
+3001,
+3002,
+3003,
+3023,
+3030,
+3076,
+3096,
+3108,
+3115,
+3128,
+3148,
+3172,
+3173,
+3174,
+3175,
+3176,
+3177,
+3178,
+3179,
+3180,
+3181,
+8,
+3016,
+3125,
+3194,
+3195,
+3196,
+3215,
+3207,
+3139,
+3207,
+3208,
+3229,
+6,
+3013,
+3014,
+3015,
+3024,
+3060,
+3078,
+3094,
+3106,
+3116,
+3126,
+3146,
+3182,
+3183,
+3184,
+3185,
+3186,
+3187,
+3188,
+3189,
+3190,
+3191,
+3212,3233,3234)
+  GROUP BY aclien.CIDAGENTEVENTA,adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO
+  UNION
+  SELECT 
+        adoc.CSERIEDOCUMENTO,
+        adoc.CFOLIO,
+        adoc.CRAZONSOCIAL As NombreCliente,
+        CONCAT(YEAR(adoc.CFECHA),'-',MONTH(adoc.CFECHA)) As Mes,
+        $agenteList as Agente,
+         adoc.CNETO As Importe,
+         adoc.CDESCUENTOMOV As Descuento,
+         adoc.CIMPUESTO1 As IVA,
+         adoc.CTOTAL As Totals,
+         CASE SUBSTRING(acon.CNOMBRECONCEPTO,1,10)
+         WHEN 'DEVOLUCIÓN'
+         THEN (SUM(adoc.CTOTAL-adoc.CIMPUESTO1)*0) -SUM(adoc.CTOTAL-adoc.CIMPUESTO1)
+         WHEN 'NOTA DE CR'
+         THEN (SUM(adoc.CTOTAL-adoc.CIMPUESTO1)*0) -SUM(adoc.CTOTAL-adoc.CIMPUESTO1)
+         WHEN 'DOCUMENTO '
+         THEN SUM(adoc.CTOTAL)
+         ELSE
+         SUM(adoc.CTOTAL-adoc.CIMPUESTO1) END AS Total,
+         $parametrosCanal,
+         '1' As indicador
+  FROM [adFLEX2020SADEC].[dbo].[admDocumentos] as adoc INNER JOIN [adFLEX2020SADEC].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adFLEX2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adFLEX2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere   and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
+5,
+3001,
+3048,
+14,
+3056,
+6,
+3004,
+3012,
+3052,
+3061,3053)
+  GROUP BY aclien.CIDAGENTEVENTA,adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO
+  UNION
+  SELECT 
+        adoc.CSERIEDOCUMENTO,
+        adoc.CFOLIO,
+        adoc.CRAZONSOCIAL As NombreCliente,
+        CONCAT(YEAR(adoc.CFECHA),'-',MONTH(adoc.CFECHA)) As Mes,
+        $agenteList as Agente,
+         adoc.CNETO As Importe,
+         adoc.CDESCUENTOMOV As Descuento,
+         adoc.CIMPUESTO1 As IVA,
+         adoc.CTOTAL As Totals,
+         CASE SUBSTRING(acon.CNOMBRECONCEPTO,1,10)
+         WHEN 'DEVOLUCIÓN'
+         THEN (SUM(adoc.CTOTAL-adoc.CIMPUESTO1)*0) -SUM(adoc.CTOTAL-adoc.CIMPUESTO1)
+         WHEN 'NOTA DE CR'
+         THEN (SUM(adoc.CTOTAL-adoc.CIMPUESTO1)*0) -SUM(adoc.CTOTAL-adoc.CIMPUESTO1)
+         WHEN 'DOCUMENTO '
+         THEN SUM(adoc.CTOTAL)
+         ELSE
+         SUM(adoc.CTOTAL-adoc.CIMPUESTO1) END AS Total,
+         $parametrosCanal,
+         '1' As indicador
+  FROM [adPinturas_y_Complemen].[dbo].[admDocumentos] as adoc INNER JOIN [adPinturas_y_Complemen].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adPinturas_y_Complemen].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPinturas_y_Complemen].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
+5,
+3047,
+3049,
+3050,
+3051,
+3106,
+8,
+3056,
+3057,
+3058,
+3111,
+3105)
+  GROUP BY aclien.CIDAGENTEVENTA,adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO
+  UNION
+  SELECT 
+        adoc.CSERIEDOCUMENTO,
+        adoc.CFOLIO,
+        adoc.CRAZONSOCIAL As NombreCliente,
+        CONCAT(YEAR(adoc.CFECHA),'-',MONTH(adoc.CFECHA)) As Mes,
+        $agenteList as Agente,
+         adoc.CNETO As Importe,
+         adoc.CDESCUENTOMOV As Descuento,
+         adoc.CIMPUESTO1 As IVA,
+         adoc.CTOTAL As Totals,
+         CASE SUBSTRING(acon.CNOMBRECONCEPTO,1,10)
+         WHEN 'DEVOLUCIÓN'
+         THEN (SUM(adoc.CTOTAL-adoc.CIMPUESTO1)*0) -SUM(adoc.CTOTAL-adoc.CIMPUESTO1)
+         WHEN 'NOTA DE CR'
+         THEN (SUM(adoc.CTOTAL-adoc.CIMPUESTO1)*0) -SUM(adoc.CTOTAL-adoc.CIMPUESTO1)
+         WHEN 'DOCUMENTO '
+         THEN SUM(adoc.CTOTAL)
+         ELSE
+         SUM(adoc.CTOTAL-adoc.CIMPUESTO1) END AS Total,
+         $parametrosCanal,
+         '1' As indicador
+  FROM [adPINTURAS2020SADEC].[dbo].[admDocumentos] as adoc INNER JOIN [adPINTURAS2020SADEC].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adPINTURAS2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPINTURAS2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere2  and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO in(4,
+5,
+3001,
+3002,
+3003,
+3023,
+3030,
+3076,
+3096,
+3108,
+3115,
+3128,
+3148,
+3172,
+3173,
+3174,
+3175,
+3176,
+3177,
+3178,
+3179,
+3180,
+3181,
+8,
+3016,
+3125,
+3194,
+3195,
+3196,
+3215,
+3207,
+3139,
+3207,
+3208,
+3229,
+6,
+3013,
+3014,
+3015,
+3024,
+3060,
+3078,
+3094,
+3106,
+3116,
+3126,
+3146,
+3182,
+3183,
+3184,
+3185,
+3186,
+3187,
+3188,
+3189,
+3190,
+3191,
+3212,3233,3234)
+  GROUP BY aclien.CIDAGENTEVENTA,adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO
+  UNION
+  SELECT 
+        adoc.CSERIEDOCUMENTO,
+        adoc.CFOLIO,
+        adoc.CRAZONSOCIAL As NombreCliente,
+        CONCAT(YEAR(adoc.CFECHA),'-',MONTH(adoc.CFECHA)) As Mes,
+        $agenteList as Agente,
+         adoc.CNETO As Importe,
+         adoc.CDESCUENTOMOV As Descuento,
+         adoc.CIMPUESTO1 As IVA,
+         adoc.CTOTAL As Totals,
+         CASE SUBSTRING(acon.CNOMBRECONCEPTO,1,10)
+         WHEN 'DEVOLUCIÓN'
+         THEN (SUM(adoc.CTOTAL-adoc.CIMPUESTO1)*0) -SUM(adoc.CTOTAL-adoc.CIMPUESTO1)
+         WHEN 'NOTA DE CR'
+         THEN (SUM(adoc.CTOTAL-adoc.CIMPUESTO1)*0) -SUM(adoc.CTOTAL-adoc.CIMPUESTO1)
+         WHEN 'DOCUMENTO '
+         THEN SUM(adoc.CTOTAL)
+         ELSE
+         SUM(adoc.CTOTAL-adoc.CIMPUESTO1) END AS Total,
+         $parametrosCanal,
+         '1' As indicador
+  FROM [adFLEX2020SADEC].[dbo].[admDocumentos] as adoc INNER JOIN [adFLEX2020SADEC].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adFLEX2020SADEC].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adFLEX2020SADEC].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere2   and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
+5,
+3001,
+3048,
+14,
+3056,
+6,
+3004,
+3012,
+3052,
+3061,3053)
+  GROUP BY aclien.CIDAGENTEVENTA,adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO
+  UNION
+  SELECT 
+        adoc.CSERIEDOCUMENTO,
+        adoc.CFOLIO,
+        adoc.CRAZONSOCIAL As NombreCliente,
+        CONCAT(YEAR(adoc.CFECHA),'-',MONTH(adoc.CFECHA)) As Mes,
+        $agenteList as Agente,
+         adoc.CNETO As Importe,
+         adoc.CDESCUENTOMOV As Descuento,
+         adoc.CIMPUESTO1 As IVA,
+         adoc.CTOTAL As Totals,
+         CASE SUBSTRING(acon.CNOMBRECONCEPTO,1,10)
+         WHEN 'DEVOLUCIÓN'
+         THEN (SUM(adoc.CTOTAL-adoc.CIMPUESTO1)*0) -SUM(adoc.CTOTAL-adoc.CIMPUESTO1)
+         WHEN 'NOTA DE CR'
+         THEN (SUM(adoc.CTOTAL-adoc.CIMPUESTO1)*0) -SUM(adoc.CTOTAL-adoc.CIMPUESTO1)
+         WHEN 'DOCUMENTO '
+         THEN SUM(adoc.CTOTAL)
+         ELSE
+         SUM(adoc.CTOTAL-adoc.CIMPUESTO1) END AS Total,
+         $parametrosCanal,
+         '1' As indicador
+  FROM [adPinturas_y_Complemen].[dbo].[admDocumentos] as adoc INNER JOIN [adPinturas_y_Complemen].[dbo].[admClientes] as aclien ON adoc.CIDCLIENTEPROVEEDOR = aclien.CIDCLIENTEPROVEEDOR INNER JOIN [adPinturas_y_Complemen].[dbo].[admAgentes] as agen ON adoc.CIDAGENTE = agen.CIDAGENTE INNER JOIN [adPinturas_y_Complemen].[dbo].[admConceptos] as acon ON adoc.CIDDOCUMENTODE = acon.CIDDOCUMENTODE AND adoc.CIDCONCEPTODOCUMENTO = acon.CIDCONCEPTODOCUMENTO WHERE $sWhere2 and adoc.CIDDOCUMENTODE IN(4,5,7,13) and adoc.CIDCONCEPTODOCUMENTO IN(4,
+5,
+3047,
+3049,
+3050,
+3051,
+3106,
+8,
+3056,
+3057,
+3058,
+3111,
+3105)
+  GROUP BY aclien.CIDAGENTEVENTA,adoc.CSERIEDOCUMENTO,adoc.CFOLIO,adoc.CRAZONSOCIAL,adoc.CFECHA,agen.CNOMBREAGENTE,adoc.CNETO,adoc.CDESCUENTOMOV,adoc.CIMPUESTO1,adoc.CTOTAL,acon.CNOMBRECONCEPTO),
+
+ventasOrdenadas As(
+    SELECT
+        canalComercial,
+        Total,
+        CAST(Mes as NVARCHAR(100)) as Mont
+    FROM ventasData WHERE  canalComercial NOT IN('PROPIAS') 
+    
+    )
+    SELECT *,((NULLIF(ISNULL((IsNull([2021-1],0)+IsNull([2021-2],0)+IsNull([2021-3],0)+IsNull([2021-4],0)+IsNull([2021-5],0)+IsNull([2021-6],0)+IsNull([2021-7],0)+IsNull([2021-8],0)+IsNull([2021-9],0)+IsNull([2021-10],0)+IsNull([2021-11],0)+IsNull([2021-12],0)),0),0)/NULLIF(ISNULL((IsNull([2020-1],0)+IsNull([2020-2],0)+IsNull([2020-3],0)+IsNull([2020-4],0)+IsNull([2020-5],0)+IsNull([2020-6],0)+IsNull([2020-7],0)+IsNull([2020-8],0)+IsNull([2020-9],0)+IsNull([2020-10],0)+IsNull([2020-11],0)+IsNull([2020-12],0)),0),0))-100/100)*100 AS Crecimiento FROM ventasOrdenadas PIVOT(SUM(Total) FOR Mont in([2020-1],[2021-1],[2020-2],[2021-2],[2020-3],[2021-3],[2020-4],[2021-4],[2020-5],[2021-5],[2020-6],[2021-6],[2020-7],[2021-7],[2020-8],[2021-8],[2020-9],[2021-9],[2020-10],[2021-10],[2020-11],[2021-11],[2020-12],[2021-12])) as pivotTable order by canalComercial asc";
+
+    $nums_row = $this->countAll($sql1);
+
+    //Set counter
+    $this->setCounter($nums_row);
+
+    $query = $query->fetchAll();
+    return $query;
+  }
+  function setCounter($counter)
+  {
+    $this->counter = $counter;
+  }
+  function getCounter()
+  {
+    return $this->counter;
+  }
 }

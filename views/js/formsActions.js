@@ -118,7 +118,7 @@ $(function () {
       })
       .fail(function (res) {
         $(".msg").html(
-          "<div class='alert alert-danger'>Tuvimos problemas al registrar el concepto, comunicate con el administrador</div>"
+          "<div class='alert alert-danger'>Tuvimos problemas al actualizar el concepto, comunicate con el administrador</div>"
         );
       });
   });
@@ -176,7 +176,7 @@ function eliminarConcepto(id, empresa) {
         });
       } else {
         Swal.fire({
-          icon: "success",
+          icon: "danger",
           title: "El concepto no pudo ser eliminado",
           showConfirmButton: false,
           timer: 1500,

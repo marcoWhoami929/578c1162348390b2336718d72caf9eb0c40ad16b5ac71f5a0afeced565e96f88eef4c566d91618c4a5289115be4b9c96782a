@@ -1,6 +1,6 @@
 <?php
 
-class conexionTorres
+class ConexionTorres
 {
     public $counter;
 

@@ -56,7 +56,7 @@ if ($action == 'busquedaClientes') {
                             <td style="font-weight:bold"><?= $row['CRFC'] ?></td>
                             <td style="font-weight:bold"><?= $row['CRAZONSOCIAL'] ?></td>
                             <td style="font-weight:bold"><?= $row['CFECHAALTA'] ?></td>
-                            <td><button type="button" class="btn btn-secondary" onclick="agregarClienteBusqueda('<?php echo $row['CRAZONSOCIAL'] ?>')"><i class="fa fa-plus" style="color:white"></i></button></td>
+                            <td><button type="button" class="btn btn-secondary" onclick="agregarDatosBusqueda('<?php echo $row['CRAZONSOCIAL'] ?>','arrayClientes')"><i class="fa fa-plus" style="color:white"></i></button></td>
                         </tr>
                     <?php
                         $finales++;
@@ -108,7 +108,7 @@ if ($action == 'busquedaProductosVenta') {
     $row = $countAll;
 
     if ($row > 0) {
-        $numrows = $countAll;;
+        $numrows = $countAll;
     } else {
         $numrows = 0;
     }
@@ -136,7 +136,7 @@ if ($action == 'busquedaProductosVenta') {
                         <tr>
                             <th><?= $row['CCODIGOPRODUCTO'] ?></th>
                             <td style="font-weight:bold"><?= $row['CNOMBREPRODUCTO'] ?></td>
-                            <td><button type="button" class="btn btn-secondary" onclick="agregarProductoBusqueda('<?php echo $row['CCODIGOPRODUCTO'] ?>')"><i class="fa fa-plus" style="color:white"></i></button></td>
+                            <td><button type="button" class="btn btn-secondary" onclick="agregarDatosBusqueda('<?php echo $row['CCODIGOPRODUCTO'] ?>','arrayProductos')"><i class="fa fa-plus" style="color:white"></i></button></td>
                         </tr>
                     <?php
                         $finales++;

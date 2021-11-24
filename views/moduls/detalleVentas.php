@@ -18,12 +18,48 @@
                                                 <div class="col-sm-12">
                                                     <div class="card">
                                                         <div class="card-header">
-                                                            <div class="card-header-left">
+                                                            <div class="card-header-right">
+                                                                <ul class="list-unstyled card-option">
+                                                                    <li>
+                                                                        <i class="fa fa fa-wrench open-card-option"></i>
+                                                                    </li>
+                                                                    <li>
+                                                                        <i class="fa fa-window-maximize full-card"></i>
+                                                                    </li>
+                                                                    <li>
+                                                                        <i class="fa fa-minus minimize-card"></i>
+                                                                    </li>
+                                                                    <li>
+                                                                        <i class="fa fa-refresh reload-card"></i>
+                                                                    </li>
+                                                                    <li>
+                                                                        <i class="fa fa-trash close-card"></i>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                        <div class="card-block table-border-style">
+                                                            <div class="table-wrapper">
+                                                                <div class="table-title">
+
+                                                                </div>
+
+                                                                <div class="row text-center" id="loader" style="position: absolute;top: 80px;left: 40%;color:white;font-size:22px">
+
+                                                                </div>
+
+
                                                                 <div class="table-filter">
                                                                     <div class="row">
 
                                                                         <div class="col-lg-12 col-md-12 col-sm-12">
-
+                                                                            <div class="filter-group">
+                                                                                <a href="dashboard">
+                                                                                    <div class="homeCircle">
+                                                                                        <center><i class="fa fa-home fa-2x"></i></center>
+                                                                                    </div>
+                                                                                </a>
+                                                                            </div>
                                                                             <div class="filter-group">
                                                                                 <span class="filter-icon"><i class="fa fa-filter"></i></span>
                                                                                 <label>Año</label>
@@ -51,30 +87,25 @@
                                                                                 <label>Centro de Trabajo</label>
                                                                                 <span class="filter-icon"><i class="fa fa-filter"></i></span>
                                                                                 <select class="form-control" id="centroTrabajo" onchange="cargarDetalleVentasCliente(1,'');">
-                                                                                    <option value="">TODOS</option>
-                                                                                    <option value="1 SAN MANUEL">1 SAN MANUEL</option>
-                                                                                    <option value="2 MAYORAZGO">2 MAYORAZGO</option>
-                                                                                    <option value="3 REFORMA">3 REFORMA</option>
-                                                                                    <option value="4 XONACA">4 XONACA</option>
-                                                                                    <option value="5 VERGEL">5 VERGEL</option>
-                                                                                    <option value="6 SANTIAGO">6 SANTIAGO</option>
-                                                                                    <option value="6 TIENDA SANTIAGO">6 TIENDA SANTIAGO</option>
-                                                                                    <option value="7 CAPU">7 CAPU</option>
-                                                                                    <option value="8 DIAGONAL">8 DIAGONAL</option>
-                                                                                    <option value="9 TORRES">9 TORRES</option>
-                                                                                    <option value="CEDIS">CEDIS</option>
-                                                                                    <option value="CTAS CORPORATIVAS">CTAS CORPORATIVAS</option>
-                                                                                    <option value="CUENTAS CORPORATIVAS">CUENTAS CORPORATIVAS</option>
-                                                                                    <option value="RUTA 1">RUTA 1</option>
-                                                                                    <option value="RUTA 2">RUTA 2</option>
-                                                                                    <option value="RUTA 3">RUTA 3</option>
-                                                                                    <option value="RUTA 4">RUTA 4</option>
-                                                                                    <option value="RUTA 5">RUTA 5</option>
-                                                                                    <option value="SIN ASIGNAR">SIN ASIGNAR</option>
+                                                                                    <option value="">Todos</option>
+                                                                                    <?php
 
+                                                                                    $centroTrabajo = new ModelAdmon();
+                                                                                    $listaCentros = $centroTrabajo->mdlListarCentrosTrabajo();
+                                                                                    foreach ($listaCentros as $key => $value) {
+                                                                                        if ($value["CCENTROTRABAJO"] == "") {
+                                                                                            $centro = "VACIO";
+                                                                                        } else {
+                                                                                            $centro = $value["CCENTROTRABAJO"];
+                                                                                        }
+
+                                                                                        echo "<option value='" . $centro . "'>" . $value["CCENTROTRABAJO"] . "</option>";
+                                                                                    }
+
+                                                                                    ?>
                                                                                 </select>
-                                                                            </div>
 
+                                                                            </div>
                                                                             <div class="filter-group">
                                                                                 <label>Mostrar</label>
                                                                                 <select class="form-control" id="per_page" onchange="cargarDetalleVentasCliente(1,'');">
@@ -90,33 +121,19 @@
                                                                                 </select>
                                                                             </div>
                                                                         </div>
+
+                                                                        <div class="col-sm-3 text-right">
+                                                                            <div class="show-entries">
+
+
+                                                                            </div>
+                                                                        </div>
+
+
                                                                     </div>
                                                                 </div>
-                                                                <div class="row text-center" id="loader" style="position: absolute;top: 80px;left: 40%;color:#00BCD4;font-size:22px">
 
-                                                                </div>
                                                             </div>
-                                                            <div class="card-header-right">
-                                                                <ul class="list-unstyled card-option">
-                                                                    <li>
-                                                                        <i class="fa fa fa-wrench open-card-option"></i>
-                                                                    </li>
-                                                                    <li>
-                                                                        <i class="fa fa-window-maximize full-card"></i>
-                                                                    </li>
-                                                                    <li>
-                                                                        <i class="fa fa-minus minimize-card"></i>
-                                                                    </li>
-                                                                    <li>
-                                                                        <i class="fa fa-refresh reload-card"></i>
-                                                                    </li>
-                                                                    <li>
-                                                                        <i class="fa fa-trash close-card"></i>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                        <div class="card-block table-border-style">
                                                             <div class="container">
                                                                 <div class="row justify-content-center">
                                                                     <div class="col-12 col-sm-12 col-md-12">
@@ -124,9 +141,6 @@
                                                                             <form id="form">
                                                                                 <ul id="progressbar">
 
-                                                                                    <li id="step0" onclick="returnDashboard()">
-                                                                                        <i class="fa fa-home"></i>
-                                                                                    </li>
 
                                                                                     <li class="active" id="step1">
                                                                                         <strong>Ventas Clientes</strong>
@@ -141,7 +155,7 @@
                                                                                     <div class="ventasDetalleClientes">
 
                                                                                     </div>
-                                                                                    <input type="button" name="next-step" class="next-step btn btn-primary" value="" />
+                                                                                    <input type="button" id="next-step" name="next-step" class="next-step btn btn-primary" value="" />
                                                                                 </fieldset>
 
 
@@ -159,6 +173,7 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
+
                                                         </div>
 
                                                     </div>

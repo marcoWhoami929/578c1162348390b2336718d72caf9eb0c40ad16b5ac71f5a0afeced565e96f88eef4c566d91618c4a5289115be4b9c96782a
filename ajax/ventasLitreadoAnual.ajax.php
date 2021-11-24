@@ -9,9 +9,12 @@ if ($action == 'ventasLitreadoMonto') {
     $vista = strip_tags($_REQUEST['vista']);
     $estatus = strip_tags($_REQUEST['estatus']);
     $canal = strip_tags($_REQUEST['canal']);
+    $centro = strip_tags($_REQUEST['centro']);
     $agente = strip_tags($_REQUEST['agente']);
     $producto = strip_tags($_REQUEST['producto']);
     $per_page = intval($_REQUEST['per_page']);
+    $campo = strip_tags($_REQUEST['campo']);
+    $orden = strip_tags($_REQUEST['orden']);
 
     $tables = "dbo.admDocumentos";
     $campos = "*";
@@ -19,7 +22,7 @@ if ($action == 'ventasLitreadoMonto') {
     $page = (isset($_REQUEST['page']) && !empty($_REQUEST['page'])) ? $_REQUEST['page'] : 1;
     $adjacents  = 4; //espacio entre páginas después del número de adyacentes
     $offset = ($page - 1) * $per_page;
-    $search = array("query" => $query, "producto" => $producto, "estatus" => $estatus, "canal" => $canal, "agente" => $agente, "per_page" => $per_page, "offset" => $offset);
+    $search = array("query" => $query, "producto" => $producto, "estatus" => $estatus, "canal" => $canal, "centro" => $centro, "agente" => $agente, "per_page" => $per_page, "offset" => $offset, "campo" => $campo, "orden" => $orden);
     //consulta principal para recuperar los datos
     $datos = $database->getVentasLitreadoMonto($tables, $campos, $search);
 
@@ -106,16 +109,16 @@ if ($action == 'ventasLitreadoMonto') {
                     <tr>
                         <th>Total General</th>
                         <th></th>
-                        <th style="font-weight:bold;text-align:right">$<?= $año1 ?></th>
-                        <th style="font-weight:bold;text-align:right">$<?= $año2 ?></th>
-                        <th style="font-weight:bold;text-align:right">$<?= $año3 ?></th>
-                        <th style="font-weight:bold;text-align:right">$<?= $año4 ?></th>
-                        <th style="font-weight:bold;text-align:right">$<?= $año5 ?></th>
-                        <th style="font-weight:bold;text-align:right">$<?= $año6 ?></th>
-                        <th style="font-weight:bold;text-align:right">$<?= $año7 ?></th>
-                        <th style="font-weight:bold;text-align:right">$<?= $año8 ?></th>
-                        <th style="font-weight:bold;text-align:right">$<?= $año9 ?></th>
-                        <th style="font-weight:bold;text-align:right">$<?= $añoTotales ?></th>
+                        <th style="font-weight:bold;text-align:right">$<?= number_format($año1, 2) ?></th>
+                        <th style="font-weight:bold;text-align:right">$<?= number_format($año2, 2) ?></th>
+                        <th style="font-weight:bold;text-align:right">$<?= number_format($año3, 2) ?></th>
+                        <th style="font-weight:bold;text-align:right">$<?= number_format($año4, 2) ?></th>
+                        <th style="font-weight:bold;text-align:right">$<?= number_format($año5, 2) ?></th>
+                        <th style="font-weight:bold;text-align:right">$<?= number_format($año6, 2) ?></th>
+                        <th style="font-weight:bold;text-align:right">$<?= number_format($año7, 2) ?></th>
+                        <th style="font-weight:bold;text-align:right">$<?= number_format($año8, 2) ?></th>
+                        <th style="font-weight:bold;text-align:right">$<?= number_format($año9, 2) ?></th>
+                        <th style="font-weight:bold;text-align:right">$<?= number_format($añoTotales, 2) ?></th>
                     </tr>
                 </tfoot>
 
@@ -148,9 +151,12 @@ if ($action == 'ventasLitreadoUnidades') {
     $vista = strip_tags($_REQUEST['vista']);
     $estatus = strip_tags($_REQUEST['estatus']);
     $canal = strip_tags($_REQUEST['canal']);
+    $centro = strip_tags($_REQUEST['centro']);
     $agente = strip_tags($_REQUEST['agente']);
     $producto = strip_tags($_REQUEST['producto']);
     $per_page = intval($_REQUEST['per_page']);
+    $campo = strip_tags($_REQUEST['campo']);
+    $orden = strip_tags($_REQUEST['orden']);
 
     $tables = "dbo.admDocumentos";
     $campos = "*";
@@ -158,7 +164,7 @@ if ($action == 'ventasLitreadoUnidades') {
     $page = (isset($_REQUEST['page']) && !empty($_REQUEST['page'])) ? $_REQUEST['page'] : 1;
     $adjacents  = 4; //espacio entre páginas después del número de adyacentes
     $offset = ($page - 1) * $per_page;
-    $search = array("query" => $query, "producto" => $producto, "estatus" => $estatus, "canal" => $canal, "agente" => $agente, "per_page" => $per_page, "offset" => $offset);
+    $search = array("query" => $query, "producto" => $producto, "estatus" => $estatus, "canal" => $canal, "centro" => $centro, "agente" => $agente, "per_page" => $per_page, "offset" => $offset, "campo" => $campo, "orden" => $orden);
     //consulta principal para recuperar los datos
     $datos = $database->getVentasLitreadoUnidades($tables, $campos, $search);
 
@@ -223,16 +229,16 @@ if ($action == 'ventasLitreadoUnidades') {
                         <tr>
                             <th><?= $row['CCODIGOPRODUCTO']; ?></th>
                             <th><?= $row['CNOMBREPRODUCTO']; ?></th>
-                            <td style="font-weight:bold;text-align:right"><?= number_format($row['2013'], 2) ?></td>
-                            <td style="font-weight:bold;text-align:right"><?= number_format($row['2014'], 2) ?></td>
-                            <td style="font-weight:bold;text-align:right"><?= number_format($row['2015'], 2) ?></td>
-                            <td style="font-weight:bold;text-align:right"><?= number_format($row['2016'], 2) ?></td>
-                            <td style="font-weight:bold;text-align:right"><?= number_format($row['2017'], 2) ?></td>
-                            <td style="font-weight:bold;text-align:right"><?= number_format($row['2018'], 2) ?></td>
-                            <td style="font-weight:bold;text-align:right"><?= number_format($row['2019'], 2) ?></td>
-                            <td style="font-weight:bold;text-align:right"><?= number_format($row['2020'], 2) ?></td>
-                            <td style="font-weight:bold;text-align:right"><?= number_format($row['2021'], 2) ?></td>
-                            <th style="font-weight:bold;text-align:right">#<?= $row['Totales'] ?></th>
+                            <td style="font-weight:bold;text-align:right"><?= number_format($row['2013'], 2) ?> lt</td>
+                            <td style="font-weight:bold;text-align:right"><?= number_format($row['2014'], 2) ?> lt</td>
+                            <td style="font-weight:bold;text-align:right"><?= number_format($row['2015'], 2) ?> lt</td>
+                            <td style="font-weight:bold;text-align:right"><?= number_format($row['2016'], 2) ?> lt</td>
+                            <td style="font-weight:bold;text-align:right"><?= number_format($row['2017'], 2) ?> lt</td>
+                            <td style="font-weight:bold;text-align:right"><?= number_format($row['2018'], 2) ?> lt</td>
+                            <td style="font-weight:bold;text-align:right"><?= number_format($row['2019'], 2) ?> lt</td>
+                            <td style="font-weight:bold;text-align:right"><?= number_format($row['2020'], 2) ?> lt</td>
+                            <td style="font-weight:bold;text-align:right"><?= number_format($row['2021'], 2) ?> lt</td>
+                            <th style="font-weight:bold;text-align:right"><?= number_format($row['Totales'], 2) ?> lt</th>
                         </tr>
                     <?php
                         $finales++;
@@ -245,16 +251,16 @@ if ($action == 'ventasLitreadoUnidades') {
                     <tr>
                         <th>Total General</th>
                         <th></th>
-                        <th style="font-weight:bold;text-align:right">#<?= $año1 ?></th>
-                        <th style="font-weight:bold;text-align:right">#<?= $año2 ?></th>
-                        <th style="font-weight:bold;text-align:right">#<?= $año3 ?></th>
-                        <th style="font-weight:bold;text-align:right">#<?= $año4 ?></th>
-                        <th style="font-weight:bold;text-align:right">#<?= $año5 ?></th>
-                        <th style="font-weight:bold;text-align:right">#<?= $año6 ?></th>
-                        <th style="font-weight:bold;text-align:right">#<?= $año7 ?></th>
-                        <th style="font-weight:bold;text-align:right">#<?= $año8 ?></th>
-                        <th style="font-weight:bold;text-align:right">#<?= $año9 ?></th>
-                        <th style="font-weight:bold;text-align:right">#<?= $añoTotales ?></th>
+                        <th style="font-weight:bold;text-align:right"><?= number_format($año1, 2) ?> lt</th>
+                        <th style="font-weight:bold;text-align:right"><?= number_format($año2, 2) ?> lt</th>
+                        <th style="font-weight:bold;text-align:right"><?= number_format($año3, 2) ?> lt</th>
+                        <th style="font-weight:bold;text-align:right"><?= number_format($año4, 2) ?> lt</th>
+                        <th style="font-weight:bold;text-align:right"><?= number_format($año5, 2) ?> lt</th>
+                        <th style="font-weight:bold;text-align:right"><?= number_format($año6, 2) ?> lt</th>
+                        <th style="font-weight:bold;text-align:right"><?= number_format($año7, 2) ?> lt</th>
+                        <th style="font-weight:bold;text-align:right"><?= number_format($año8, 2) ?> lt</th>
+                        <th style="font-weight:bold;text-align:right"><?= number_format($año9, 2) ?> lt</th>
+                        <th style="font-weight:bold;text-align:right"><?= number_format($añoTotales, 2) ?> lt</th>
                     </tr>
                 </tfoot>
 

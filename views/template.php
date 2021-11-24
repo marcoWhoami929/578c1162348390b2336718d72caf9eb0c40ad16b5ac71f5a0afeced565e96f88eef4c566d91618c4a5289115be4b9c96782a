@@ -12,25 +12,27 @@ session_start();
     <link rel="icon" href="views/images/favicon.ico" type="image/x-icon">
     <!-- Google font-->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
-    <!-- waves.css -->
-    <link rel="stylesheet" href="views/pages/waves/css/waves.min.css" type="text/css" media="all">
+
     <!-- Required Fremwork -->
     <link rel="stylesheet" type="text/css" href="views/css/bootstrap/css/bootstrap.min.css">
     <!-- waves.css -->
     <link rel="stylesheet" href="views/pages/waves/css/waves.min.css" type="text/css" media="all">
     <!-- themify icon -->
     <link rel="stylesheet" type="text/css" href="views/icon/themify-icons/themify-icons.css">
+    <!-- ico font -->
+    <link rel="stylesheet" type="text/css" href="views/icon/icofont/css/icofont.css">
     <!-- font-awesome-n -->
     <link rel="stylesheet" type="text/css" href="views/css/font-awesome-n.min.css">
     <link rel="stylesheet" type="text/css" href="views/css/font-awesome.min.css">
+
     <!-- scrollbar.css -->
     <link rel="stylesheet" type="text/css" href="views/css/jquery.mCustomScrollbar.css">
     <!-- Style.css -->
     <link rel="stylesheet" type="text/css" href="views/css/style.css">
     <!-- Select.css -->
     <link rel="stylesheet" type="text/css" href="views/css/select.css">
-    <!-- tagsinput.css -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css" rel="stylesheet" type="text/css" crossorigin="anonymous" />
+    <!--tags editor-->
+    <link rel="stylesheet" href="views/css/jquery.tag-editor.css">
     <!-- go diagram -->
     <?php
     if ($_GET["ruta"] == "dashboard2") {
@@ -40,7 +42,7 @@ session_start();
 
     ?>
     <!--- Datatable css-->
-    <!---<link rel="stylesheet" type="text/css" href="views/css/datatable/datatable.css">-->
+    <link rel="stylesheet" type="text/css" href="views/css/datatable/datatable.css">
 
     <!-- Required Jquery -->
     <script type="text/javascript" src="views/js/jquery/jquery.min.js "></script>
@@ -75,9 +77,10 @@ session_start();
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-    <!-- tags input -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.js"></script>
-
+    <script src="https://code.highcharts.com/highcharts-3d.js"></script>
+    <!-- tags editor-->
+    <script src="views/js/jquery.caret.min.js"></script>
+    <script src="views/js/jquery.tag-editor.js"></script>
 
 
     <!-- go diagram-->
@@ -89,9 +92,9 @@ session_start();
     }
 
     ?>
-
+    <script src="views/js/moment.js"></script>
     <!-- Datatable js-->
-    <!--<script src="views/js/datatable/datatable.js"></script>-->
+    <script src="views/js/datatable/datatable.js"></script>
 
 
 </head>
@@ -182,6 +185,7 @@ session_start();
     ?>
     <!-- JS PERSONALIZADO -->
     <script src="views/js/template.js"></script>
+    <script src="views/js/admonTables.js"></script>
     <?php
     if ($_GET["ruta"] == "dashboard") {
         echo "<script src='views/js/chart.js'></script>";

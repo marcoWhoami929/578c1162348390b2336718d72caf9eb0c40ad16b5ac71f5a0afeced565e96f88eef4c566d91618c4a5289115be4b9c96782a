@@ -1,7 +1,7 @@
 <?php
 
 include("../models/db_connect_flex.php");
-class ultimosCostosFlex extends conexionFlex
+class ultimosCostosFlex extends ConexionFlex
 {
     public $mysqli;
     public $counter;

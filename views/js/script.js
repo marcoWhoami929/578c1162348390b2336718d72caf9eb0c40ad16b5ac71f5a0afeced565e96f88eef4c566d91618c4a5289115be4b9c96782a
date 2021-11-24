@@ -264,6 +264,7 @@ $(document).ready(function () {
 
   $(".next-step").click(function () {
     currentGfgStep = $(this).parent();
+
     nextGfgStep = $(this).parent().next();
 
     $("#progressbar li")

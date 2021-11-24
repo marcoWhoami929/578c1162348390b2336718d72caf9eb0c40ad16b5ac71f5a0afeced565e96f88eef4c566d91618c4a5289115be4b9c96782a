@@ -9,8 +9,11 @@ if ($action == 'ventasCliente') {
     $vista = strip_tags($_REQUEST['vista']);
     $estatus = strip_tags($_REQUEST['estatus']);
     $canal = strip_tags($_REQUEST['canal']);
+    $centro = strip_tags($_REQUEST['centro']);
     $agente = strip_tags($_REQUEST['agente']);
     $per_page = intval($_REQUEST['per_page']);
+    $campo = strip_tags($_REQUEST['campo']);
+    $orden = strip_tags($_REQUEST['orden']);
 
     $tables = "dbo.admDocumentos";
     $campos = "*";
@@ -18,7 +21,7 @@ if ($action == 'ventasCliente') {
     $page = (isset($_REQUEST['page']) && !empty($_REQUEST['page'])) ? $_REQUEST['page'] : 1;
     $adjacents  = 4; //espacio entre páginas después del número de adyacentes
     $offset = ($page - 1) * $per_page;
-    $search = array("query" => $query, "estatus" => $estatus, "canal" => $canal, "agente" => $agente, "per_page" => $per_page, "offset" => $offset);
+    $search = array("query" => $query, "estatus" => $estatus, "canal" => $canal, "centro" => $centro, "agente" => $agente, "per_page" => $per_page, "offset" => $offset, "campo" => $campo, "orden" => $orden);
     //consulta principal para recuperar los datos
     $datos = $database->getVentasCliente($tables, $campos, $search);
 
@@ -90,7 +93,7 @@ if ($action == 'ventasCliente') {
                             <td style="font-weight:bold;text-align:right">$<?= number_format($row['2019'], 2) ?></td>
                             <td style="font-weight:bold;text-align:right">$<?= number_format($row['2020'], 2) ?></td>
                             <td style="font-weight:bold;text-align:right">$<?= number_format($row['2021'], 2) ?></td>
-                            <th>$<?= number_format($row['Totales'], 2) ?></th>
+                            <th style="font-weight:bold;text-align:right">$<?= number_format($row['Totales'], 2) ?></th>
                         </tr>
                     <?php
                         $finales++;

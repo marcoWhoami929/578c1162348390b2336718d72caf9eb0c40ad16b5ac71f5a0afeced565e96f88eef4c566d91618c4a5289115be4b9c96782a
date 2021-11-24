@@ -1,4 +1,5 @@
 <?php
+error_reporting(E_ALL);
 $action = (isset($_REQUEST['action']) && $_REQUEST['action'] != NULL) ? $_REQUEST['action'] : '';
 if ($action == 'conceptoPinturas') {
 
@@ -160,6 +161,87 @@ if ($action == 'conceptoFlex') {
             include '../clases/pagination.php'; //include pagination class
             $pagination = new Pagination($page, $total_pages, $adjacents);
             echo $pagination->paginateFlex();
+
+            ?>
+        </div>
+    <?php
+    }
+}
+if ($action == 'bitacora') {
+
+    include('../clases/conceptos.php');
+    $database = new conceptos();
+
+    //Recibir variables enviadas
+    $query = strip_tags($_REQUEST['query']);
+    $accion = strip_tags($_REQUEST['accion']);
+    $per_page = intval($_REQUEST['per_page']);
+    $tables = "bitacora";
+    $campos = "bi.*,acc.accion as Evento";
+    $vista = "cargarBitacora";
+    //Variables de paginación
+    $page = (isset($_REQUEST['page']) && !empty($_REQUEST['page'])) ? $_REQUEST['page'] : 1;
+    $adjacents  = 4; //espacio entre páginas después del número de adyacentes
+    $offset = ($page - 1) * $per_page;
+
+    $search = array("query" => $query, "accion" => $accion, "per_page" => $per_page, "offset" => $offset);
+    //consulta principal para recuperar los datos
+    $datos = $database->getBitacora($tables, $campos, $search);
+    $countAll = $database->getCounter();
+    $row = $countAll;
+
+    if ($row > 0) {
+        $numrows = $countAll;;
+    } else {
+        $numrows = 0;
+    }
+    $total_pages = ceil($numrows / $per_page);
+
+
+    //Recorrer los datos recuperados
+
+    if ($numrows > 0) {
+    ?>
+        <table class="table table-striped table-hover ">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Usuario</th>
+                    <th>Evento</th>
+                    <th>Accion</th>
+                    <th>Fecha</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                $finales = 0;
+                foreach ($datos as $key => $row) {
+
+                ?>
+                    <tr>
+                        <td><?= $row['id']; ?></td>
+                        <td><?= $row['usuario']; ?></td>
+                        <td><?= $row['Evento'] ?></td>
+                        <td> <?= $row['accion'] ?></td>
+                        <td> <?= $row['fecha'] ?></td>
+
+                    </tr>
+                <?php
+                    $finales++;
+                }
+                ?>
+            </tbody>
+        </table>
+        <div class="clearfix">
+            <?php
+            $inicios = $offset + 1;
+            $finales += $inicios - 1;
+            echo '<div class="hint-text">Mostrando ' . $inicios . ' al ' . $finales . ' de ' . $numrows . ' registros</div>';
+
+
+            include '../clases/pagination.php'; //include pagination class
+            $pagination = new Pagination($page, $total_pages, $adjacents);
+            echo $pagination->paginateBitacora($vista);
 
             ?>
         </div>

@@ -1,6 +1,6 @@
 <?php
 
-class conexionFlex
+class ConexionFlex
 {
     public $counter;
 

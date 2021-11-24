@@ -1,12 +1,13 @@
 <?php
-$tabla = "bitacora";
 
-$datos = array("usuario" => $_SESSION['nombre'],
+$datos = array(
+	"usuario" => $_SESSION['nombre'],
 	"perfil" => $_SESSION['perfil'],
-	"accion" => 'Salió del Sistema');
-
-$logout = new ModelAmdon();
-$logout -> mdlRegistroBitacora($tabla, $datos);
+	"accion" => $_SESSION['nombre'] . " ha finalizado sesión",
+	"idAccion" => 2
+);
+$logout = new ModelAdmon();
+$logout->mdlRegistroBitacora("bitacora", $datos);
 
 session_unset();
 session_destroy();

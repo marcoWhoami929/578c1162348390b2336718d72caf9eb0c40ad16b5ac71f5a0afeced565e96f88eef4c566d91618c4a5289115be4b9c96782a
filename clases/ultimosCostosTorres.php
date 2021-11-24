@@ -1,7 +1,7 @@
 <?php
 
 include("../models/db_connect_torres.php");
-class ultimosCostosTorres extends conexionTorres
+class ultimosCostosTorres extends ConexionTorres
 {
     public $mysqli;
     public $counter;

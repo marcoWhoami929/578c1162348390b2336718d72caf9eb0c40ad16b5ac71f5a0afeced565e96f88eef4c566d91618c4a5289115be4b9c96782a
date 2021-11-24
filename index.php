@@ -1,7 +1,7 @@
 <?php
-require_once "controllers/template_controller.php";
-require_once "controllers/admon_controller.php";
-require_once "controllers/reporteador_controller.php";
+require_once "controllers/template.controller.php";
+require_once "controllers/admon.controller.php";
+require_once "controllers/reporteador.controller.php";
 
 
 require_once "models/admon.model.php";

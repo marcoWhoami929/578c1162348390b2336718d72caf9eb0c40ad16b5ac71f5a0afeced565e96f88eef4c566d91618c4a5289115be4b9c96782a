@@ -1,6 +1,7 @@
 <?php
 
 include("../models/db_connect_param.php");
+include("../models/db_connect.php");
 class conceptos extends ConexionParametrosVenta
 {
     public $mysqli;
@@ -17,7 +18,13 @@ class conceptos extends ConexionParametrosVenta
         $query = $query->fetchAll();
         return count($query);
     }
-
+    public function countAllBitacora($sql)
+    {
+        $query = Conexion::conectar()->prepare($sql);
+        $query->execute();
+        $query = $query->fetchAll();
+        return count($query);
+    }
     public function getData($tables, $campos, $search, $parametros)
     {
         $offset = $search['offset'];
@@ -37,13 +44,42 @@ class conceptos extends ConexionParametrosVenta
         }
         $sWhere .= "ORDER BY CIDPARAM ASC";
 
-        $sql = "SELECT $campos FROM  $tables where $sWhere OFFSET $offset ROWS FETCH NEXT $per_page ROWS ONLY";
+        $sql = "SELECT $campos FROM  $tables WHERE $sWhere OFFSET $offset ROWS FETCH NEXT $per_page ROWS ONLY";
 
         $query = $this->mysqli->query($sql);
 
-        $sql1 = "SELECT $campos FROM  $tables where $sWhere";
+        $sql1 = "SELECT $campos FROM  $tables WHERE $sWhere";
 
         $nums_row = $this->countAll($sql1);
+
+        //Set counter
+        $this->setCounter($nums_row);
+        return $query;
+    }
+    public function getBitacora($tables, $campos, $search)
+    {
+        $offset = $search['offset'];
+        $per_page = $search['per_page'];
+
+        $sWhere = " bi.usuario LIKE '%" . $search['query'] . "%'";
+
+        if ($search['accion'] != "") {
+            $sWhere .= " and bi.idAccion = '" . $search["accion"] . "'";
+        }
+
+        $sWhere .= "ORDER BY bi.id ASC";
+
+        $sql = "SELECT $campos FROM  $tables as bi INNER JOIN accionesbitacora as acc ON bi.idAccion = acc.id WHERE $sWhere LIMIT $per_page OFFSET $offset";
+
+        $query = Conexion::conectar()->prepare($sql);
+
+        $query->execute();
+
+        $query = $query->fetchAll();
+
+        $sql1 = "SELECT $campos FROM  $tables as bi INNER JOIN accionesbitacora as acc ON bi.idAccion = acc.id WHERE $sWhere";
+
+        $nums_row = $this->countAllBitacora($sql1);
 
         //Set counter
         $this->setCounter($nums_row);
